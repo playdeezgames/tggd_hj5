@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Import Include="HJ5.Business" />
     <Import Include="Microsoft.Win32.SafeHandles" />
     <Import Include="Spectre.Console" />
   </ItemGroup>
