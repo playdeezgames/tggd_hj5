@@ -4,6 +4,6 @@
             ExplorersProcessor.Run(world)
             TurnSummaryProcessor.Run(world)
             ExecuteOrdersProcessor.Run(world)
-        Loop
+        Loop While world.HasExplorers
     End Sub
 End Module

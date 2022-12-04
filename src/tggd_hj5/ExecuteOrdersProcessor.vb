@@ -4,7 +4,9 @@
         For Each explorer In world.Explorers
             ExecuteOrderProcessor.Run(explorer)
         Next
-        world.NextTurn()
+        For Each message In world.NextTurn()
+            AnsiConsole.MarkupLine(message)
+        Next
         Pause(OkText)
     End Sub
 End Module

@@ -18,14 +18,28 @@ Public Class World
                                  .Statistics = New Dictionary(Of String, Integer) From
                                     {
                                         {FatigueStatistic, 0},
-                                        {MaximumEnergyStatistic, 100}
+                                        {MaximumEnergyStatistic, 100},
+                                        {EnnuiStatistic, 0},
+                                        {MaximumEnnuiStatistic, 100}
                                     }
                                  })
     End Sub
 
-    Public Sub NextTurn()
+    Public Function NextTurn() As IEnumerable(Of String)
+        Dim result As New List(Of String)
+        Dim dead As New List(Of Explorer)
+        For Each explorer In Explorers
+            If explorer.IsDead Then
+                result.Add($"{explorer.Name} dies of ennui.")
+                dead.Add(explorer)
+            End If
+        Next
+        For Each explorer In dead
+            explorer.Destroy()
+        Next
         _worldData.Turn += 1
-    End Sub
+        Return result
+    End Function
 
     ReadOnly Property Explorers As IEnumerable(Of Explorer)
         Get
@@ -35,6 +49,12 @@ Public Class World
     ReadOnly Property Turn As Integer
         Get
             Return _worldData.Turn
+        End Get
+    End Property
+
+    Public ReadOnly Property HasExplorers As Boolean
+        Get
+            Return _worldData.Explorers.Any
         End Get
     End Property
 End Class

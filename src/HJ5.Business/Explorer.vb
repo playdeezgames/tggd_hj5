@@ -24,6 +24,7 @@
         Dim result As New List(Of String)
         result.AddRange(ValidateOrder())
         Fatigue += OrderEnergyCost(_worldData.Explorers(Id).Order)
+        Ennui += OrderEnnuiCost(_worldData.Explorers(Id).Order)
         Select Case _worldData.Explorers(Id).Order
             Case ExploreOrder
                 result.AddRange(ExecuteExploreOrder())
@@ -52,6 +53,20 @@
     Public ReadOnly Property MaximumEnergy As Integer
         Get
             Return GetStatistic(MaximumEnergyStatistic)
+        End Get
+    End Property
+    Public Property Ennui As Integer
+        Get
+            Return GetStatistic(EnnuiStatistic)
+        End Get
+        Set(value As Integer)
+            SetStatistic(EnnuiStatistic, Clamp(value, 0, MaximumEnnui))
+        End Set
+    End Property
+
+    Public ReadOnly Property MaximumEnnui As Integer
+        Get
+            Return GetStatistic(MaximumEnnuiStatistic)
         End Get
     End Property
 
@@ -89,10 +104,19 @@
         _worldData.Explorers(Id).Order = order
     End Sub
 
+    Friend Sub Destroy()
+        _worldData.Explorers.Remove(Id)
+    End Sub
+
     Public ReadOnly Property AvailableOrders As IEnumerable(Of String)
         Get
             Return OrderConstants.AvailableOrders
         End Get
     End Property
 
+    Public ReadOnly Property IsDead As Boolean
+        Get
+            Return Ennui >= MaximumEnnui
+        End Get
+    End Property
 End Class
