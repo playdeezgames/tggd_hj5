@@ -4,7 +4,8 @@
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine($"Turn: {explorer.World.Turn}")
             AnsiConsole.MarkupLine($"Explorer Name: {explorer.Name}")
-            AnsiConsole.MarkupLine($"Current Order: {explorer.Order}")
+            AnsiConsole.MarkupLine($"Current Order: {explorer.OrderName}")
+            AnsiConsole.MarkupLine($"Energy: {explorer.Energy}/{explorer.MaximumEnergy}")
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Orders?[/]"}
             prompt.AddChoices(NoChangesText, ReassignText)
             Select Case AnsiConsole.Prompt(prompt)

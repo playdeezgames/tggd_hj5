@@ -17,4 +17,14 @@
                 Throw New NotImplementedException
         End Select
     End Function
+    Public Function OrderEnergyCost(order As String) As Integer
+        Select Case order
+            Case ExploreOrder
+                Return 1
+            Case IdleOrder
+                Return 0
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
 End Module

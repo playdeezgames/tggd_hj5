@@ -3,7 +3,7 @@
         AnsiConsole.Clear()
         AnsiConsole.MarkupLine("Order Summary:")
         For Each explorer In world.Explorers
-            AnsiConsole.MarkupLine($" - {explorer.Name} will {explorer.Order}.")
+            AnsiConsole.MarkupLine($" - {explorer.Name} will {explorer.OrderName}.")
         Next
         Pause(OkText)
     End Sub
