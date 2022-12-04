@@ -6,10 +6,12 @@
             AnsiConsole.MarkupLine($"Explorer Name: {explorer.Name}")
             AnsiConsole.MarkupLine($"Current Order: {explorer.Order}")
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Orders?[/]"}
-            prompt.AddChoice(NoChangesText)
+            prompt.AddChoices(NoChangesText, ReassignText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case NoChangesText
                     Exit Do
+                Case ReassignText
+                    ReassignProcessor.Run(explorer)
             End Select
         Loop
     End Sub

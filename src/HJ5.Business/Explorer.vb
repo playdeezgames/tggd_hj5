@@ -14,7 +14,9 @@
         Get
             Select Case _worldData.Explorers(Id).Order(0)
                 Case ExploreOrder
-                    Return "Explore!"
+                    Return "explore"
+                Case IdleOrder
+                    Return "idle"
                 Case Else
                     Throw New NotImplementedException
             End Select
@@ -30,10 +32,18 @@
         Select Case _worldData.Explorers(Id).Order(0)
             Case ExploreOrder
                 result.AddRange(ExecuteExploreOrder())
+            Case IdleOrder
+                result.AddRange(ExecuteIdleOrder())
             Case Else
                 Throw New NotImplementedException
         End Select
         Return result
+    End Function
+
+    Private Function ExecuteIdleOrder() As IEnumerable(Of String)
+        Return New List(Of String) From {
+            $"{Name} does nothing."
+            }
     End Function
 
     Private Function ExecuteExploreOrder() As IEnumerable(Of String)
@@ -42,4 +52,15 @@
         result.Add($"{Name} finds nothing!")
         Return result
     End Function
+
+    Public Sub Assign(order As String)
+        _worldData.Explorers(Id).Order = New String() {order}
+    End Sub
+
+    Public ReadOnly Property AvailableOrders As IEnumerable(Of String)
+        Get
+            Return Constants.AvailableOrders
+        End Get
+    End Property
+
 End Class
