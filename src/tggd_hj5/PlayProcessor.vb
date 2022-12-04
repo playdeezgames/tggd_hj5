@@ -1,9 +1,9 @@
 ﻿Module PlayProcessor
     Friend Sub Run(world As World)
         Do
-            For Each explorer In world.Explorers
-                ExplorerProcessor.Run(explorer)
-            Next
+            ExplorersProcessor.Run(world)
+            TurnSummaryProcessor.Run(world)
+            ExecuteOrdersProcessor.Run(world)
         Loop
     End Sub
 End Module

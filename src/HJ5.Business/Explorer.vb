@@ -25,4 +25,21 @@
             Return New World(_worldData)
         End Get
     End Property
+    Function ExecuteOrder() As IEnumerable(Of String)
+        Dim result As New List(Of String)
+        Select Case _worldData.Explorers(Id).Order(0)
+            Case ExploreOrder
+                result.AddRange(ExecuteExploreOrder())
+            Case Else
+                Throw New NotImplementedException
+        End Select
+        Return result
+    End Function
+
+    Private Function ExecuteExploreOrder() As IEnumerable(Of String)
+        Dim result As New List(Of String)
+        result.Add($"{Name} explores!")
+        result.Add($"{Name} finds nothing!")
+        Return result
+    End Function
 End Class

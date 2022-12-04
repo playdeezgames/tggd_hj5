@@ -17,6 +17,11 @@ Public Class World
                                  .Order = New String() {ExploreOrder}
                                  })
     End Sub
+
+    Public Sub NextTurn()
+        _worldData.Turn += 1
+    End Sub
+
     ReadOnly Property Explorers As IEnumerable(Of Explorer)
         Get
             Return _worldData.Explorers.Select(Function(x) New Explorer(_worldData, x.Key))
