@@ -59,7 +59,7 @@
 
     Public ReadOnly Property AvailableOrders As IEnumerable(Of String)
         Get
-            Return Constants.AvailableOrders
+            Return OrderConstants.AvailableOrders
         End Get
     End Property
 

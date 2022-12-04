@@ -1,4 +1,4 @@
-﻿Public Module Constants
+﻿Public Module OrderConstants
     Public Const ExploreOrder = "explore"
     Public Const IdleOrder = "idle"
     Public ReadOnly AvailableOrders As IReadOnlyList(Of String) =
