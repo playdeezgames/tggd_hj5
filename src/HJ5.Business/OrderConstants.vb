@@ -30,7 +30,7 @@
     Public Function OrderEnnuiCost(order As String) As Integer
         Select Case order
             Case ExploreOrder
-                Return 1
+                Return 0
             Case IdleOrder
                 Return 1
             Case Else

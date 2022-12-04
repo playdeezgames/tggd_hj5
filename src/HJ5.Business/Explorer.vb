@@ -96,7 +96,9 @@
     Private Function ExecuteExploreOrder() As IEnumerable(Of String)
         Dim result As New List(Of String)
         result.Add($"{Name} explores!")
-        result.Add($"{Name} finds nothing!")
+        Dim item = RNG.Generate(ItemConstants.ItemGenerator)
+        result.Add($"{Name} finds {ItemConstants.ItemName(item)}!")
+        Ennui += ItemConstants.GenerateEnnui(item)
         Return result
     End Function
 
