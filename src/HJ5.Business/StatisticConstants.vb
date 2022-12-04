@@ -1,0 +1,3 @@
+﻿Module StatisticConstants
+
+End Module

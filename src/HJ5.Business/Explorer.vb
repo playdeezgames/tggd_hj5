@@ -12,14 +12,7 @@
     End Property
     ReadOnly Property Order As String
         Get
-            Select Case _worldData.Explorers(Id).Order(0)
-                Case ExploreOrder
-                    Return "explore"
-                Case IdleOrder
-                    Return "idle"
-                Case Else
-                    Throw New NotImplementedException
-            End Select
+            Return OrderConstants.OrderName(_worldData.Explorers(Id).Order(0))
         End Get
     End Property
     ReadOnly Property World As World

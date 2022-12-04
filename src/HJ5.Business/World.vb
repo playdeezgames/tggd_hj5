@@ -14,7 +14,12 @@ Public Class World
     Private Sub CreateExplorer()
         _worldData.Explorers.Add(Guid.NewGuid, New ExplorerData With {
                                  .Name = RNG.GenerateExplorerName(),
-                                 .Order = New String() {ExploreOrder}
+                                 .Order = New String() {ExploreOrder},
+                                 .Statistics = New Dictionary(Of String, Integer) From
+                                    {
+                                        {"fatigue", 0},
+                                        {"maximum-energy", 100}
+                                    }
                                  })
     End Sub
 
