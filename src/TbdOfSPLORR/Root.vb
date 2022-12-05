@@ -18,8 +18,8 @@
     Private destinationRectangles As Rectangle()
     Private oldKeyboardState As New KeyboardState
     Private keyboardState As New KeyboardState
-    Private world As World
-    Sub New(world As World)
+    Private world As UIController
+    Sub New(world As UIController)
         Me.world = world
         graphics = New GraphicsDeviceManager(Me)
         graphics.PreferredBackBufferWidth = 640

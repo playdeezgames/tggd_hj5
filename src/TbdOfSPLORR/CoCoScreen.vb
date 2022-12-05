@@ -32,23 +32,9 @@ Public Class CoCoScreen
         Next
         _cursor -= _columns
     End Sub
-
     Private ReadOnly table As IReadOnlyDictionary(Of Char, Byte) =
         New Dictionary(Of Char, Byte) From
         {
-            {" "c, 96},
-            {"!"c, 97},
-            {","c, 108},
-            {"0"c, 112},
-            {"1"c, 113},
-            {"2"c, 114},
-            {"3"c, 115},
-            {"4"c, 116},
-            {"5"c, 117},
-            {"6"c, 118},
-            {"7"c, 119},
-            {"8"c, 120},
-            {"9"c, 121},
             {"@"c, 64},
             {"A"c, 65},
             {"B"c, 66},
@@ -76,6 +62,42 @@ Public Class CoCoScreen
             {"X"c, 88},
             {"Y"c, 89},
             {"Z"c, 90},
+            {"["c, 91},
+            {"\"c, 92},
+            {"]"c, 93},
+            {"^"c, 94},
+            {" "c, 96},
+            {"!"c, 97},
+            {""""c, 98},
+            {"#"c, 99},
+            {"$"c, 100},
+            {"%"c, 101},
+            {"&"c, 102},
+            {"'"c, 103},
+            {"("c, 104},
+            {")"c, 105},
+            {"*"c, 106},
+            {"+"c, 107},
+            {","c, 108},
+            {"-"c, 109},
+            {"."c, 110},
+            {"/"c, 111},
+            {"0"c, 112},
+            {"1"c, 113},
+            {"2"c, 114},
+            {"3"c, 115},
+            {"4"c, 116},
+            {"5"c, 117},
+            {"6"c, 118},
+            {"7"c, 119},
+            {"8"c, 120},
+            {"9"c, 121},
+            {":"c, 122},
+            {";"c, 123},
+            {"<"c, 124},
+            {"="c, 125},
+            {">"c, 126},
+            {"?"c, 127},
             {"a"c, 65},
             {"b"c, 66},
             {"c"c, 67},
@@ -113,13 +135,16 @@ Public Class CoCoScreen
         ElseIf value = vbLf Then
             'do nothing
         Else
-            WriteByte(0)
+            'also do nothing!
         End If
     End Sub
-    Sub WriteString(value As String)
+    Sub Write(value As String)
         For Each character In value
             WriteCharacter(character)
         Next
+    End Sub
+    Sub WriteLine(value As String)
+        Write(value & vbCr)
     End Sub
     Sub Invert(column As Integer, row As Integer, columns As Integer, rows As Integer)
         For y = 0 To row + rows - 1
@@ -127,5 +152,9 @@ Public Class CoCoScreen
                 _screenBuffer(y * _columns + x) = _screenBuffer(y * _columns + x) Xor CByte(64)
             Next
         Next
+    End Sub
+
+    Friend Sub GoToXY(x As Integer, y As Integer)
+        _cursor = x + y * _columns
     End Sub
 End Class
