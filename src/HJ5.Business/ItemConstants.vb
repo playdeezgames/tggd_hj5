@@ -1,6 +1,4 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-
-Module ItemConstants
+﻿Module ItemConstants
     Friend Const NoItem = "no-item"
     Friend Const HopeItem = "hope"
     Friend Const DespairItem = "despair"

@@ -30,10 +30,18 @@
                 result.AddRange(ExecuteExploreOrder())
             Case IdleOrder
                 result.AddRange(ExecuteIdleOrder())
+            Case RestOrder
+                result.AddRange(ExecuteRestOrder())
             Case Else
                 Throw New NotImplementedException
         End Select
         Return result
+    End Function
+
+    Private Function ExecuteRestOrder() As IEnumerable(Of String)
+        Return New List(Of String) From {
+                $"{Name} rests."
+            }
     End Function
 
     Private Function ValidateOrder() As IEnumerable(Of String)
