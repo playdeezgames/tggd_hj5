@@ -16,9 +16,11 @@
     Private texture As Texture2D
     Private sourceRectangles As Rectangle()
     Private destinationRectangles As Rectangle()
-    Private screenBuffer As List(Of Byte)
-    Sub New(screenBuffer As List(Of Byte))
-        Me.screenBuffer = screenBuffer
+    Private oldKeyboardState As New KeyboardState
+    Private keyboardState As New KeyboardState
+    Private world As World
+    Sub New(world As World)
+        Me.world = world
         graphics = New GraphicsDeviceManager(Me)
         graphics.PreferredBackBufferWidth = 640
         graphics.PreferredBackBufferHeight = 480
@@ -48,16 +50,26 @@
         Next
     End Sub
     Protected Overrides Sub Update(gameTime As GameTime)
-        If Keyboard.GetState().IsKeyDown(Keys.Escape) Then
-            [Exit]()
-        End If
+        oldKeyboardState = keyboardState
+        keyboardState = Keyboard.GetState()
+        For Each key In keyboardState.GetPressedKeys()
+            If Not oldKeyboardState.IsKeyDown(key) Then
+                world.HandleKeyDown(key)
+            End If
+        Next
+        For Each key In oldKeyboardState.GetPressedKeys()
+            If Not keyboardState.IsKeyDown(key) Then
+                world.HandleKeyUp(key)
+            End If
+        Next
+        world.Update(gameTime.ElapsedGameTime.Ticks)
         MyBase.Update(gameTime)
     End Sub
     Protected Overrides Sub Draw(gameTime As GameTime)
         GraphicsDevice.Clear(Color.Black)
         spriteBatch.Begin()
         Dim index = 0
-        For Each cell In screenBuffer
+        For Each cell In world.ScreenBuffer
             spriteBatch.Draw(texture, destinationRectangles(index), sourceRectangles(cell), Color.White)
             index += 1
         Next

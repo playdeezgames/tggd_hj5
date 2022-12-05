@@ -1,10 +1,7 @@
 Module Program
     Sub Main(args As String())
-        Dim screenBuffer As New List(Of Byte)
-        While screenBuffer.Count < 512
-            screenBuffer.Add(64)
-        End While
-        Using root As New Root(screenBuffer)
+        Dim world As New World
+        Using root As New Root(world)
             root.Run()
         End Using
     End Sub
