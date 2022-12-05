@@ -1,12 +1,7 @@
 ﻿Public Class Root
     Inherits Game
-    Private graphics As GraphicsDeviceManager
-    Private spriteBatch As SpriteBatch
-    Private texture As Texture2D
-    Private sourceRectangles As Rectangle()
     Private Const CellWidth = 16
     Private Const CellHeight = 24
-    Private destinationRectangles As Rectangle()
     Private Const CellColumns = 32
     Private Const CellRows = 16
     Private Const ViewWidth = CellColumns * CellWidth
@@ -15,7 +10,15 @@
     Private Const ScreenHeight = 480
     Private Const OffsetX = (ScreenWidth - ViewWidth) \ 2
     Private Const OffsetY = (ScreenHeight - ViewHeight) \ 2
-    Sub New()
+
+    Private graphics As GraphicsDeviceManager
+    Private spriteBatch As SpriteBatch
+    Private texture As Texture2D
+    Private sourceRectangles As Rectangle()
+    Private destinationRectangles As Rectangle()
+    Private screenBuffer As List(Of Byte)
+    Sub New(screenBuffer As List(Of Byte))
+        Me.screenBuffer = screenBuffer
         graphics = New GraphicsDeviceManager(Me)
         graphics.PreferredBackBufferWidth = 640
         graphics.PreferredBackBufferHeight = 480
@@ -53,8 +56,10 @@
     Protected Overrides Sub Draw(gameTime As GameTime)
         GraphicsDevice.Clear(Color.Black)
         spriteBatch.Begin()
-        For index = 0 To destinationRectangles.Length - 1
-            spriteBatch.Draw(texture, destinationRectangles(index), sourceRectangles(255), Color.White)
+        Dim index = 0
+        For Each cell In screenBuffer
+            spriteBatch.Draw(texture, destinationRectangles(index), sourceRectangles(cell), Color.White)
+            index += 1
         Next
         spriteBatch.End()
         MyBase.Draw(gameTime)
