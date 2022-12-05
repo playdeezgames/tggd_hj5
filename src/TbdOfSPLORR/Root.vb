@@ -29,6 +29,7 @@
     End Sub
     Protected Overrides Sub Initialize()
         MyBase.Initialize()
+        Window.Title = "TBD of SPLORR!!"
     End Sub
     Protected Overrides Sub LoadContent()
         MyBase.LoadContent()
