@@ -19,9 +19,9 @@
     Private destinationRectangles As Rectangle()
     Private oldKeyboardState As New KeyboardState
     Private keyboardState As New KeyboardState
-    Private world As UIController
+    Private _uiController As UIController
     Sub New()
-        world = New UIController(AddressOf SetUIScale)
+        _uiController = New UIController(AddressOf SetUIScale)
         graphics = New GraphicsDeviceManager(Me)
     End Sub
     Private Sub ResizeScreen()
@@ -67,11 +67,11 @@
         keyboardState = Keyboard.GetState()
         For Each key In keyboardState.GetPressedKeys()
             If Not oldKeyboardState.IsKeyDown(key) Then
-                world.HandleKeyDown(key)
+                _uiController.HandleKeyDown(key)
             End If
         Next
-        world.Update(gameTime.ElapsedGameTime.Ticks)
-        If world.UIState = UIStates.Quit Then
+        _uiController.Update(gameTime.ElapsedGameTime.Ticks)
+        If _uiController.UIState = UIStates.Quit Then
             [Exit]()
         End If
         MyBase.Update(gameTime)
@@ -80,7 +80,7 @@
         GraphicsDevice.Clear(Color.Black)
         spriteBatch.Begin(samplerState:=SamplerState.PointClamp)
         Dim index = 0
-        For Each cell In world.ScreenBuffer
+        For Each cell In _uiController.ScreenBuffer
             spriteBatch.Draw(texture, destinationRectangles(index), sourceRectangles(cell), Color.White)
             index += 1
         Next

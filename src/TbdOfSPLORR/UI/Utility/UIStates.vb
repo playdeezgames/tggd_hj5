@@ -5,4 +5,6 @@
     Quit
     Options
     ScreenSize
+    InPlay
+    ConfirmAbandon
 End Enum
