@@ -6,7 +6,7 @@
     End Sub
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        Return UIStates.Title
+        Return UIStates.MainMenu
     End Function
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)

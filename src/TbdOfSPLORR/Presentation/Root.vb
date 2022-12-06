@@ -1,15 +1,16 @@
 ﻿Public Class Root
     Inherits Game
-    Private Const CellWidth = 16
-    Private Const CellHeight = 24
+    Private Const CellWidth = 8
+    Private Const CellHeight = 12
     Private Const CellColumns = 32
     Private Const CellRows = 16
     Private Const ViewWidth = CellColumns * CellWidth
     Private Const ViewHeight = CellRows * CellHeight
-    Private Const ScreenWidth = 640
-    Private Const ScreenHeight = 480
+    Private Const ScreenWidth = 320
+    Private Const ScreenHeight = 240
     Private Const OffsetX = (ScreenWidth - ViewWidth) \ 2
     Private Const OffsetY = (ScreenHeight - ViewHeight) \ 2
+    Private uiScale As Integer = 3
 
     Private graphics As GraphicsDeviceManager
     Private spriteBatch As SpriteBatch
@@ -19,17 +20,32 @@
     Private oldKeyboardState As New KeyboardState
     Private keyboardState As New KeyboardState
     Private world As UIController
-    Sub New(world As UIController)
-        Me.world = world
+    Sub New()
+        world = New UIController(AddressOf SetUIScale)
         graphics = New GraphicsDeviceManager(Me)
-        graphics.PreferredBackBufferWidth = 640
-        graphics.PreferredBackBufferHeight = 480
+    End Sub
+    Private Sub ResizeScreen()
+        graphics.PreferredBackBufferWidth = ScreenWidth * uiScale
+        graphics.PreferredBackBufferHeight = ScreenHeight * uiScale
         graphics.ApplyChanges()
-        Content.RootDirectory = "Content"
+    End Sub
+    Private Sub SetUIScale(newScale As Integer)
+        uiScale = newScale
+        ResizeScreen()
+        ResizeDestinationRectangles()
     End Sub
     Protected Overrides Sub Initialize()
         MyBase.Initialize()
         Window.Title = "TBD of SPLORR!!"
+        Content.RootDirectory = "Content"
+        ResizeScreen()
+    End Sub
+    Private Sub ResizeDestinationRectangles()
+        For row = 0 To CellRows - 1
+            For column = 0 To CellColumns - 1
+                destinationRectangles(column + row * CellColumns) = New Rectangle((column * CellWidth + OffsetX) * uiScale, (row * CellHeight + OffsetY) * uiScale, CellWidth * uiScale, CellHeight * uiScale)
+            Next
+        Next
     End Sub
     Protected Overrides Sub LoadContent()
         MyBase.LoadContent()
@@ -44,11 +60,7 @@
             Next
         Next
         ReDim destinationRectangles(CellColumns * CellRows)
-        For row = 0 To CellRows - 1
-            For column = 0 To CellColumns - 1
-                destinationRectangles(column + row * CellColumns) = New Rectangle(column * CellWidth + OffsetX, row * CellHeight + OffsetY, CellWidth, CellHeight)
-            Next
-        Next
+        ResizeDestinationRectangles()
     End Sub
     Protected Overrides Sub Update(gameTime As GameTime)
         oldKeyboardState = keyboardState
@@ -66,7 +78,7 @@
     End Sub
     Protected Overrides Sub Draw(gameTime As GameTime)
         GraphicsDevice.Clear(Color.Black)
-        spriteBatch.Begin()
+        spriteBatch.Begin(samplerState:=SamplerState.PointClamp)
         Dim index = 0
         For Each cell In world.ScreenBuffer
             spriteBatch.Draw(texture, destinationRectangles(index), sourceRectangles(cell), Color.White)

@@ -13,7 +13,7 @@
             Return _screenBuffer.ToArray
         End Get
     End Property
-    Sub New()
+    Sub New(uiScaler As Action(Of Integer))
         While _screenBuffer.Count < 512
             _screenBuffer.Add(96)
         End While
@@ -23,7 +23,7 @@
         _states.Add(UIStates.Quit, New QuitStateController())
         _states.Add(UIStates.ConfirmQuit, New ConfirmQuitStateController(_screen))
         _states.Add(UIStates.Options, New OptionsStateController(_screen))
-        _states.Add(UIStates.ScreenSize, New ScreenSizeStateController(_screen))
+        _states.Add(UIStates.ScreenSize, New ScreenSizeStateController(_screen, uiScaler))
     End Sub
     Friend Sub HandleKeyDown(key As Keys)
         _uiState = _states(_uiState).HandleKeyDown(key)

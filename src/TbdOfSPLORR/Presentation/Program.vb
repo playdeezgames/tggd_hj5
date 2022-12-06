@@ -1,7 +1,6 @@
 Module Program
     Sub Main(args As String())
-        Dim world As New UIController
-        Using root As New Root(world)
+        Using root As New Root()
             root.Run()
         End Using
     End Sub
