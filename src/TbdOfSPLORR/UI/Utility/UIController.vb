@@ -22,6 +22,7 @@
         _states.Add(UIStates.MainMenu, New MainMenuStateController(_screen))
         _states.Add(UIStates.Quit, New QuitStateController())
         _states.Add(UIStates.ConfirmQuit, New ConfirmQuitStateController(_screen))
+        _states.Add(UIStates.Options, New OptionsStateController(_screen))
     End Sub
     Friend Sub HandleKeyDown(key As Keys)
         _uiState = _states(_uiState).HandleKeyDown(key)
