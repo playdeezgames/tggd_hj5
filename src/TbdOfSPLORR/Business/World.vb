@@ -10,7 +10,12 @@
     End Property
 
     Friend Sub Start()
-        _worldData = New WorldData
+        _worldData = New WorldData With
+            {
+                .Characters = New List(Of CharacterData),
+                .Locations = New List(Of LocationData),
+                .PlayerCharacterId = 0
+            }
     End Sub
 
     Friend Sub AbandonGame()

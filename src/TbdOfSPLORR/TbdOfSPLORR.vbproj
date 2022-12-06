@@ -36,6 +36,12 @@
     <Import Include="Microsoft.Xna.Framework.Graphics" />
     <Import Include="Microsoft.Xna.Framework.Graphics.PackedVector" />
     <Import Include="Microsoft.Xna.Framework.Input" />
+    <Import Include="NVorbis.Ogg" />
+    <Import Include="SPLORR.Game" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
   </ItemGroup>
 
 </Project>
