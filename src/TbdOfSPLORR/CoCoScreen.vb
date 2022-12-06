@@ -143,7 +143,7 @@ Public Class CoCoScreen
             WriteCharacter(character)
         Next
     End Sub
-    Sub WriteLine(value As String)
+    Sub WriteLine(Optional value As String = "")
         Write(value & vbCr)
     End Sub
     Sub Invert(column As Integer, row As Integer, columns As Integer, rows As Integer)
@@ -153,7 +153,13 @@ Public Class CoCoScreen
             Next
         Next
     End Sub
-
+    Sub Fill(column As Integer, row As Integer, columns As Integer, rows As Integer, value As Byte)
+        For y = 0 To row + rows - 1
+            For x = 0 To column + columns - 1
+                _screenBuffer(y * _columns + x) = value
+            Next
+        Next
+    End Sub
     Friend Sub GoToXY(x As Integer, y As Integer)
         _cursor = x + y * _columns
     End Sub

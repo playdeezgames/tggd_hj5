@@ -64,6 +64,9 @@
             End If
         Next
         world.Update(gameTime.ElapsedGameTime.Ticks)
+        If world.UIState = UIStates.Quit Then
+            [Exit]()
+        End If
         MyBase.Update(gameTime)
     End Sub
     Protected Overrides Sub Draw(gameTime As GameTime)

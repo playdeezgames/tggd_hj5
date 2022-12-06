@@ -1,4 +1,4 @@
-﻿Public Class TitleStateController
+﻿Public Class ConfirmQuitStateController
     Implements IUIStateController
     Private _screen As CoCoScreen
     Sub New(screen As CoCoScreen)
@@ -6,20 +6,26 @@
     End Sub
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        Return UIStates.Title
+        Select Case key
+            Case Keys.Y
+                Return UIStates.Quit
+            Case Keys.N
+                Return UIStates.MainMenu
+            Case Else
+                Return UIStates.ConfirmQuit
+        End Select
     End Function
 
     Public Function HandleKeyUp(key As Keys) As UIStates Implements IUIStateController.HandleKeyUp
-        Return UIStates.MainMenu
+        Return UIStates.ConfirmQuit
     End Function
 
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
-        _screen.WriteLine("TBD of SPLORR!!")
-        _screen.WriteLine("A production of TheGrumpyGameDev")
-        _screen.GoToXY(0, 15)
-        _screen.WriteLine("Press Any Key.")
-        Return UIStates.Title
+        _screen.WriteLine("Are you sure you want to quit?")
+        _screen.WriteLine("[Y]es")
+        _screen.WriteLine("[N]o")
+        Return UIStates.ConfirmQuit
     End Function
 End Class

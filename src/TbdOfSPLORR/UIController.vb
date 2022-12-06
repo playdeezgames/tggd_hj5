@@ -19,6 +19,9 @@
         End While
         _screen = New CoCoScreen(_screenBuffer, 32, 96)
         _states.Add(UIStates.Title, New TitleStateController(_screen))
+        _states.Add(UIStates.MainMenu, New MainMenuStateController(_screen))
+        _states.Add(UIStates.Quit, New QuitStateController())
+        _states.Add(UIStates.ConfirmQuit, New ConfirmQuitStateController(_screen))
     End Sub
     Friend Sub HandleKeyDown(key As Keys)
         _uiState = _states(_uiState).HandleKeyDown(key)
