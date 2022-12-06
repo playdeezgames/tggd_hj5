@@ -58,11 +58,6 @@
                 world.HandleKeyDown(key)
             End If
         Next
-        For Each key In oldKeyboardState.GetPressedKeys()
-            If Not keyboardState.IsKeyDown(key) Then
-                world.HandleKeyUp(key)
-            End If
-        Next
         world.Update(gameTime.ElapsedGameTime.Ticks)
         If world.UIState = UIStates.Quit Then
             [Exit]()

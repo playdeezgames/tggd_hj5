@@ -23,12 +23,10 @@
         _states.Add(UIStates.Quit, New QuitStateController())
         _states.Add(UIStates.ConfirmQuit, New ConfirmQuitStateController(_screen))
         _states.Add(UIStates.Options, New OptionsStateController(_screen))
+        _states.Add(UIStates.ScreenSize, New ScreenSizeStateController(_screen))
     End Sub
     Friend Sub HandleKeyDown(key As Keys)
         _uiState = _states(_uiState).HandleKeyDown(key)
-    End Sub
-    Friend Sub HandleKeyUp(key As Keys)
-        _uiState = _states(_uiState).HandleKeyUp(key)
     End Sub
     Friend Sub Update(ticks As Long)
         _uiState = _states(_uiState).Update(ticks)

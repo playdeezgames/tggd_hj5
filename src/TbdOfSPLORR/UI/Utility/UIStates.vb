@@ -4,4 +4,5 @@
     ConfirmQuit
     Quit
     Options
+    ScreenSize
 End Enum

@@ -15,11 +15,6 @@
                 Return UIStates.ConfirmQuit
         End Select
     End Function
-
-    Public Function HandleKeyUp(key As Keys) As UIStates Implements IUIStateController.HandleKeyUp
-        Return UIStates.ConfirmQuit
-    End Function
-
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)

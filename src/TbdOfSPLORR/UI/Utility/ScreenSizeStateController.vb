@@ -1,25 +1,25 @@
-﻿Public Class MainMenuStateController
+﻿Imports System.ComponentModel.Design
+
+Friend Class ScreenSizeStateController
     Implements IUIStateController
-    Private _screen As CoCoScreen
-    Sub New(screen As CoCoScreen)
+    Private ReadOnly _screen As CoCoScreen
+    Public Sub New(screen As CoCoScreen)
         _screen = screen
     End Sub
+
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
         Select Case key
-            Case Keys.O
+            Case Keys.Escape
                 Return UIStates.Options
-            Case Keys.Q
-                Return UIStates.ConfirmQuit
             Case Else
-                Return UIStates.MainMenu
+                Return UIStates.ScreenSize
         End Select
     End Function
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
-        _screen.WriteLine("Main Menu:")
-        _screen.WriteLine("[O]ptions...")
-        _screen.WriteLine("[Q]uit")
-        Return UIStates.MainMenu
+        _screen.WriteLine("Screen Size:")
+        _screen.WriteLine("[Esc] Go Back")
+        Return UIStates.ScreenSize
     End Function
 End Class
