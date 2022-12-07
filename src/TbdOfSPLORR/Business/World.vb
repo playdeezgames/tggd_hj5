@@ -41,7 +41,7 @@
             Next
         Next
         _worldData.PlayerCharacterId = _worldData.Characters.Count
-        _worldData.Characters.Add(New CharacterData With {.LocationId = 0})
+        _worldData.Characters.Add(New CharacterData With {.LocationId = 0, .Direction = 0})
     End Sub
 
     Friend Sub AbandonGame()

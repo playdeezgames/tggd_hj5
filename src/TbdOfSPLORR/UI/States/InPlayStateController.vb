@@ -9,6 +9,8 @@
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
         Select Case key
+            Case Keys.T
+                Return UIStates.Turn
             Case Keys.Escape
                 Return UIStates.MainMenu
             Case Else
@@ -21,11 +23,27 @@
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Yer Alive!")
         ShowExits()
+        _screen.WriteLine("[T]urn")
         _screen.WriteLine("[esc] Main Menu")
         Return UIStates.InPlay
     End Function
 
     Private Sub ShowExits()
-        Dim routes = _world.PlayerCharacter.Location.Routes
+        Dim character = _world.PlayerCharacter
+        Dim routes = character.Location.Routes
+        Dim directionNames As New List(Of String)
+        If routes.Any(Function(x) x.Direction = character.Direction.AheadDirection) Then
+            directionNames.Add("ahead")
+        End If
+        If routes.Any(Function(x) x.Direction = character.Direction.RightDirection) Then
+            directionNames.Add("right")
+        End If
+        If routes.Any(Function(x) x.Direction = character.Direction.LeftDirection) Then
+            directionNames.Add("left")
+        End If
+        If routes.Any(Function(x) x.Direction = character.Direction.BehindDirection) Then
+            directionNames.Add("behind")
+        End If
+        _screen.WriteLine($"Exits: {String.Join(", ", directionNames)}")
     End Sub
 End Class

@@ -7,4 +7,5 @@
     ScreenSize
     InPlay
     ConfirmAbandon
+    Turn
 End Enum
