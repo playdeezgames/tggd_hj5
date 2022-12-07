@@ -40,9 +40,16 @@
                 _worldData.Locations.Add(locationData)
             Next
         Next
+        _worldData.PlayerCharacterId = _worldData.Characters.Count
+        _worldData.Characters.Add(New CharacterData With {.LocationId = 0})
     End Sub
 
     Friend Sub AbandonGame()
         _worldData = Nothing
     End Sub
+    ReadOnly Property PlayerCharacter As Character
+        Get
+            Return New Character(_worldData, _worldData.PlayerCharacterId)
+        End Get
+    End Property
 End Class

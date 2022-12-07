@@ -20,7 +20,12 @@
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Yer Alive!")
+        ShowExits()
         _screen.WriteLine("[esc] Main Menu")
         Return UIStates.InPlay
     End Function
+
+    Private Sub ShowExits()
+        Dim routes = _world.PlayerCharacter.Location.Routes
+    End Sub
 End Class
