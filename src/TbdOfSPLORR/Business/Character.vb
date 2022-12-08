@@ -18,6 +18,38 @@
         _worldData.Characters(Id).Direction = CInt(Direction.RightDirection)
     End Sub
 
+    Friend Sub MoveAhead()
+        Move(Direction.AheadDirection)
+    End Sub
+
+    Private Sub Move(direction As Directions)
+        If Not Location.HasRoute(direction) Then
+            AddMessage("You cannot go that way!")
+            Return
+        End If
+        AddMessage("You move.")
+        _worldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
+    End Sub
+
+    Private Sub AddMessage(ParamArray lines As String())
+        If Id <> _worldData.PlayerCharacterId Then
+            Return
+        End If
+        _worldData.Characters(Id).Messages.Add(lines)
+    End Sub
+
+    Friend Sub MoveBack()
+        Move(Direction.OppositeDirection)
+    End Sub
+
+    Friend Sub MoveLeft()
+        Move(Direction.LeftDirection)
+    End Sub
+
+    Friend Sub MoveRight()
+        Move(Direction.RightDirection)
+    End Sub
+
     ReadOnly Property Location As Location
         Get
             Return New Location(_worldData, _worldData.Characters(Id).LocationId)

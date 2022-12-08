@@ -11,6 +11,18 @@
         Select Case key
             Case Keys.Escape
                 Return UIStates.InPlay
+            Case Keys.A
+                _world.PlayerCharacter.MoveAhead()
+                Return UIStates.InPlay
+            Case Keys.B
+                _world.PlayerCharacter.MoveBack()
+                Return UIStates.InPlay
+            Case Keys.L
+                _world.PlayerCharacter.MoveLeft()
+                Return UIStates.InPlay
+            Case Keys.R
+                _world.PlayerCharacter.MoveRight()
+                Return UIStates.InPlay
         End Select
         Return UIStates.Move
     End Function
