@@ -7,7 +7,7 @@
     End Sub
 
     Friend Sub TurnAround()
-        _worldData.Characters(Id).Direction = CInt(Direction.BehindDirection)
+        _worldData.Characters(Id).Direction = CInt(Direction.OppositeDirection)
     End Sub
 
     Friend Sub TurnLeft()

@@ -41,7 +41,7 @@
         If routes.Any(Function(x) x.Direction = character.Direction.LeftDirection) Then
             directionNames.Add("left")
         End If
-        If routes.Any(Function(x) x.Direction = character.Direction.BehindDirection) Then
+        If routes.Any(Function(x) x.Direction = character.Direction.OppositeDirection) Then
             directionNames.Add("behind")
         End If
         _screen.WriteLine($"Exits: {String.Join(", ", directionNames)}")

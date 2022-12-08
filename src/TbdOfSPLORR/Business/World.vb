@@ -16,13 +16,7 @@
                 .Locations = New List(Of LocationData),
                 .PlayerCharacterId = 0
             }
-        Dim table = New Dictionary(Of Directions, MazeDirection(Of Directions)) From
-                                           {
-                                            {Directions.North, New MazeDirection(Of Directions)(Directions.South, 0, -1)},
-                                            {Directions.East, New MazeDirection(Of Directions)(Directions.West, 1, 0)},
-                                            {Directions.South, New MazeDirection(Of Directions)(Directions.North, 0, 1)},
-                                            {Directions.West, New MazeDirection(Of Directions)(Directions.East, -1, 0)}
-                                           }
+        Dim table = AllDirections.ToDictionary(Function(x) x, Function(x) x.AsMazeDirection)
         Const MazeColumns = 8
         Const MazeRows = 8
         Dim maze = New Maze(Of Directions)(MazeColumns, MazeRows, table)

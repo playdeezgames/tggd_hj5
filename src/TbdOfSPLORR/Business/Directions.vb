@@ -38,7 +38,7 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function BehindDirection(direction As Directions) As Directions
+    Public Function OppositeDirection(direction As Directions) As Directions
         Select Case direction
             Case Directions.North
                 Return Directions.South
@@ -82,4 +82,43 @@ Public Module DirectionsExtensions
                 Throw New NotImplementedException
         End Select
     End Function
+    <Extension>
+    Public Function AsMazeDirection(direction As Directions) As MazeDirection(Of Directions)
+        Return New MazeDirection(Of Directions)(direction.OppositeDirection, direction.DeltaX, direction.DeltaY)
+    End Function
+    <Extension>
+    Public Function DeltaX(direction As Directions) As Integer
+        Select Case direction
+            Case Directions.North
+                Return 0
+            Case Directions.East
+                Return 1
+            Case Directions.South
+                Return 0
+            Case Directions.West
+                Return -1
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+    <Extension>
+    Public Function DeltaY(direction As Directions) As Integer
+        Select Case direction
+            Case Directions.North
+                Return -1
+            Case Directions.East
+                Return 0
+            Case Directions.South
+                Return 1
+            Case Directions.West
+                Return 0
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+    ReadOnly Property AllDirections As IEnumerable(Of Directions)
+        Get
+            Return New Directions() {Directions.North, Directions.East, Directions.South, Directions.West}
+        End Get
+    End Property
 End Module
