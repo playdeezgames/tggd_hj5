@@ -8,26 +8,37 @@
     End Sub
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        Select Case key
-            Case Keys.M
-                Return UIStates.Move
-            Case Keys.T
-                Return UIStates.Turn
-            Case Keys.Escape
-                Return UIStates.MainMenu
-            Case Else
-                Return UIStates.InPlay
-        End Select
+        If _world.PlayerCharacter.HasMessages Then
+            _world.PlayerCharacter.DismissMessage()
+        Else
+            Select Case key
+                Case Keys.M
+                    Return UIStates.Move
+                Case Keys.T
+                    Return UIStates.Turn
+                Case Keys.Escape
+                    Return UIStates.MainMenu
+            End Select
+        End If
+        Return UIStates.InPlay
     End Function
 
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
-        _screen.WriteLine("Yer Alive!")
-        ShowExits()
-        _screen.WriteLine("[T]urn")
-        _screen.WriteLine("[M]ove")
-        _screen.WriteLine("[esc] Main Menu")
+        If _world.PlayerCharacter.HasMessages Then
+            Dim message = _world.PlayerCharacter.NextMessage
+            For Each line In message
+                _screen.WriteLine(line)
+            Next
+            _screen.WriteLine("Press any key.")
+        Else
+            _screen.WriteLine("Yer Alive!")
+            ShowExits()
+            _screen.WriteLine("[T]urn")
+            _screen.WriteLine("[M]ove")
+            _screen.WriteLine("[esc] Main Menu")
+        End If
         Return UIStates.InPlay
     End Function
 

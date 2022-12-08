@@ -50,6 +50,27 @@
         Move(Direction.RightDirection)
     End Sub
 
+    Friend Sub DismissMessage()
+        If HasMessages Then
+            _worldData.Characters(Id).Messages.RemoveAt(0)
+        End If
+    End Sub
+
+    Friend ReadOnly Property NextMessage As IEnumerable(Of String)
+        Get
+            If Not HasMessages Then
+                Return Array.Empty(Of String)
+            End If
+            Return _worldData.Characters(Id).Messages.First
+        End Get
+    End Property
+
+    Friend ReadOnly Property HasMessages As Boolean
+        Get
+            Return _worldData.Characters(Id).Messages.Any
+        End Get
+    End Property
+
     ReadOnly Property Location As Location
         Get
             Return New Location(_worldData, _worldData.Characters(Id).LocationId)
