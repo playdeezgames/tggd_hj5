@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_STUFF", "_STUFF", "{723F6F13-6CA2-4385-B372-CD39A1050EFF}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\shippit-tbd.sh = ..\shippit-tbd.sh
 		..\shippit.sh = ..\shippit.sh
 	EndProjectSection
 EndProject
