@@ -37,7 +37,11 @@
     End Sub
 
     Private Sub AddHunger(amount As Integer)
-        Hunger += amount
+        If Not IsStarving Then
+            Hunger += amount
+        Else
+            Wounds += amount
+        End If
     End Sub
 
     Private Sub AddMessage(ParamArray lines As String())
@@ -70,14 +74,29 @@
             Return Satiety = 0
         End Get
     End Property
+    Friend ReadOnly Property IsDead As Boolean
+        Get
+            Return Health = 0
+        End Get
+    End Property
     Friend ReadOnly Property Satiety As Integer
         Get
             Return MaximumSatiety - Hunger
         End Get
     End Property
+    Friend ReadOnly Property Health As Integer
+        Get
+            Return MaximumHealth - Wounds
+        End Get
+    End Property
     Friend ReadOnly Property MaximumSatiety As Integer
         Get
             Return GetStatistic(StatisticTypes.MaximumSatiety)
+        End Get
+    End Property
+    Friend ReadOnly Property MaximumHealth As Integer
+        Get
+            Return GetStatistic(StatisticTypes.MaximumHealth)
         End Get
     End Property
 
@@ -91,6 +110,15 @@
         End Get
         Set(value As Integer)
             SetStatistic(StatisticTypes.Hunger, Clamp(value, 0, MaximumSatiety))
+        End Set
+    End Property
+
+    Private Property Wounds As Integer
+        Get
+            Return GetStatistic(StatisticTypes.Wounds)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.Wounds, Clamp(value, 0, MaximumHealth))
         End Set
     End Property
 

@@ -11,9 +11,15 @@
         If _world.PlayerCharacter.HasMessages Then
             HandleKeyDownMessage()
             Return UIStates.InPlay
+        ElseIf _world.PlayerCharacter.IsDead Then
+            Return HandleKeyDownIsDead(key)
         Else
             Return HandleKeyDownInPlay(key)
         End If
+    End Function
+
+    Private Function HandleKeyDownIsDead(key As Keys) As UIStates
+        Return If(key = Keys.Escape, UIStates.MainMenu, UIStates.InPlay)
     End Function
 
     Private Shared Function HandleKeyDownInPlay(key As Keys) As UIStates
@@ -38,11 +44,17 @@
         _screen.GoToXY(0, 0)
         If _world.PlayerCharacter.HasMessages Then
             UpdateMessage()
+        ElseIf _world.PlayerCharacter.IsDead Then
+            UpdateIsDead()
         Else
             UpdateInPlay()
         End If
         Return UIStates.InPlay
     End Function
+    Private Sub UpdateIsDead()
+        _screen.WriteLine("Yer dead!")
+        _screen.WriteLine("[esc] Main Menu")
+    End Sub
 
     Private Sub UpdateInPlay()
         _screen.WriteLine("Yer Alive!")
