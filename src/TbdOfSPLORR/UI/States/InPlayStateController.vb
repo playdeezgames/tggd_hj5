@@ -9,38 +9,56 @@
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
         If _world.PlayerCharacter.HasMessages Then
-            _world.PlayerCharacter.DismissMessage()
+            HandleKeyDownMessage()
+            Return UIStates.InPlay
         Else
-            Select Case key
-                Case Keys.M
-                    Return UIStates.Move
-                Case Keys.T
-                    Return UIStates.Turn
-                Case Keys.Escape
-                    Return UIStates.MainMenu
-            End Select
+            Return HandleKeyDownInPlay(key)
         End If
-        Return UIStates.InPlay
     End Function
+
+    Private Shared Function HandleKeyDownInPlay(key As Keys) As UIStates
+        Select Case key
+            Case Keys.M
+                Return UIStates.Move
+            Case Keys.T
+                Return UIStates.Turn
+            Case Keys.Escape
+                Return UIStates.MainMenu
+            Case Else
+                Return UIStates.InPlay
+        End Select
+    End Function
+
+    Private Sub HandleKeyDownMessage()
+        _world.PlayerCharacter.DismissMessage()
+    End Sub
 
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         If _world.PlayerCharacter.HasMessages Then
-            Dim message = _world.PlayerCharacter.NextMessage
-            For Each line In message
-                _screen.WriteLine(line)
-            Next
-            _screen.WriteLine("Press any key.")
+            UpdateMessage()
         Else
-            _screen.WriteLine("Yer Alive!")
-            ShowExits()
-            _screen.WriteLine("[T]urn")
-            _screen.WriteLine("[M]ove")
-            _screen.WriteLine("[esc] Main Menu")
+            UpdateInPlay()
         End If
         Return UIStates.InPlay
     End Function
+
+    Private Sub UpdateInPlay()
+        _screen.WriteLine("Yer Alive!")
+        ShowExits()
+        _screen.WriteLine("[T]urn")
+        _screen.WriteLine("[M]ove")
+        _screen.WriteLine("[esc] Main Menu")
+    End Sub
+
+    Private Sub UpdateMessage()
+        Dim message = _world.PlayerCharacter.NextMessage
+        For Each line In message
+            _screen.WriteLine(line)
+        Next
+        _screen.WriteLine("Press any key.")
+    End Sub
 
     Private Sub ShowExits()
         Dim character = _world.PlayerCharacter

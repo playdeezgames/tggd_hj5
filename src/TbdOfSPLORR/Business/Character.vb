@@ -19,15 +19,15 @@
     End Sub
 
     Friend Sub MoveAhead()
-        Move(Direction.AheadDirection)
+        Move(Direction.AheadDirection, "ahead")
     End Sub
 
-    Private Sub Move(direction As Directions)
+    Private Sub Move(direction As Directions, text As String)
         If Not Location.HasRoute(direction) Then
             AddMessage("You cannot go that way!")
             Return
         End If
-        AddMessage("You move.")
+        AddMessage($"You move {text}.")
         _worldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
     End Sub
 
@@ -39,15 +39,15 @@
     End Sub
 
     Friend Sub MoveBack()
-        Move(Direction.OppositeDirection)
+        Move(Direction.OppositeDirection, "back")
     End Sub
 
     Friend Sub MoveLeft()
-        Move(Direction.LeftDirection)
+        Move(Direction.LeftDirection, "to the left")
     End Sub
 
     Friend Sub MoveRight()
-        Move(Direction.RightDirection)
+        Move(Direction.RightDirection, "to the right")
     End Sub
 
     Friend Sub DismissMessage()
