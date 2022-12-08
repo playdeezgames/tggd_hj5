@@ -35,7 +35,17 @@
             Next
         Next
         _worldData.PlayerCharacterId = _worldData.Characters.Count
-        _worldData.Characters.Add(New CharacterData With {.LocationId = 0, .Direction = 0, .Messages = New List(Of String())})
+        _worldData.Characters.Add(New CharacterData With {
+                                  .LocationId = 0,
+                                  .Direction = 0,
+                                  .Messages = New List(Of String()),
+                                  .Statistics = New Dictionary(Of Integer, Integer) From
+                                  {
+                                    {0, 0},
+                                    {1, 100},
+                                    {2, 0},
+                                    {3, 100}
+                                  }})
     End Sub
 
     Friend Sub AbandonGame()

@@ -29,6 +29,15 @@
         End If
         AddMessage($"You move {text}.")
         _worldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
+        ApplyEffects()
+    End Sub
+
+    Private Sub ApplyEffects()
+        AddHunger(1)
+    End Sub
+
+    Private Sub AddHunger(amount As Integer)
+        Hunger += amount
     End Sub
 
     Private Sub AddMessage(ParamArray lines As String())
@@ -54,6 +63,39 @@
         If HasMessages Then
             _worldData.Characters(Id).Messages.RemoveAt(0)
         End If
+    End Sub
+
+    Friend ReadOnly Property IsStarving As Boolean
+        Get
+            Return Satiety = 0
+        End Get
+    End Property
+    Friend ReadOnly Property Satiety As Integer
+        Get
+            Return MaximumSatiety - Hunger
+        End Get
+    End Property
+    Friend ReadOnly Property MaximumSatiety As Integer
+        Get
+            Return GetStatistic(StatisticTypes.MaximumSatiety)
+        End Get
+    End Property
+
+    Private Function GetStatistic(statisticType As StatisticTypes) As Integer
+        Return _worldData.Characters(Id).statistics(statisticType)
+    End Function
+
+    Private Property Hunger As Integer
+        Get
+            Return GetStatistic(StatisticTypes.Hunger)
+        End Get
+        Set(value As Integer)
+            SetStatistic(StatisticTypes.Hunger, Clamp(value, 0, MaximumSatiety))
+        End Set
+    End Property
+
+    Private Sub SetStatistic(statisticType As StatisticTypes, value As Integer)
+        _worldData.Characters(Id).Statistics(statisticType) = value
     End Sub
 
     Friend ReadOnly Property NextMessage As IEnumerable(Of String)

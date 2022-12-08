@@ -46,6 +46,9 @@
 
     Private Sub UpdateInPlay()
         _screen.WriteLine("Yer Alive!")
+        If _world.PlayerCharacter.IsStarving Then
+            _screen.WriteLine("Yer starving!")
+        End If
         ShowExits()
         _screen.WriteLine("[T]urn")
         _screen.WriteLine("[M]ove")
