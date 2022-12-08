@@ -26,6 +26,8 @@
         Select Case key
             Case Keys.M
                 Return UIStates.Move
+            Case Keys.S
+                Return UIStates.Status
             Case Keys.T
                 Return UIStates.Turn
             Case Keys.Escape
@@ -64,6 +66,7 @@
         ShowExits()
         _screen.WriteLine("[T]urn")
         _screen.WriteLine("[M]ove")
+        _screen.WriteLine("[S]tatus")
         _screen.WriteLine("[esc] Main Menu")
     End Sub
 

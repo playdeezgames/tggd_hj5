@@ -9,4 +9,5 @@
     ConfirmAbandon
     Turn
     Move
+    Status
 End Enum
