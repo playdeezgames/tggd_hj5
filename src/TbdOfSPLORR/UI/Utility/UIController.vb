@@ -28,6 +28,7 @@
         _states.Add(UIStates.InPlay, New InPlayStateController(_screen, _world))
         _states.Add(UIStates.ScreenSize, New ScreenSizeStateController(_screen, uiScaler))
         _states.Add(UIStates.Turn, New TurnStateController(_screen, _world))
+        _states.Add(UIStates.Move, New MoveStateController(_screen, _world))
     End Sub
     Friend Sub HandleKeyDown(key As Keys)
         _uiState = _states(_uiState).HandleKeyDown(key)

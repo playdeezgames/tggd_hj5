@@ -9,6 +9,8 @@
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
         Select Case key
+            Case Keys.M
+                Return UIStates.Move
             Case Keys.T
                 Return UIStates.Turn
             Case Keys.Escape
@@ -24,6 +26,7 @@
         _screen.WriteLine("Yer Alive!")
         ShowExits()
         _screen.WriteLine("[T]urn")
+        _screen.WriteLine("[M]ove")
         _screen.WriteLine("[esc] Main Menu")
         Return UIStates.InPlay
     End Function

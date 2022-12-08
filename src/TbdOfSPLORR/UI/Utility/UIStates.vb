@@ -8,4 +8,5 @@
     InPlay
     ConfirmAbandon
     Turn
+    Move
 End Enum
