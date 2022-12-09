@@ -10,4 +10,5 @@
     Turn
     Move
     Status
+    Ground
 End Enum

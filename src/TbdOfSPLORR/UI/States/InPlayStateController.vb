@@ -24,6 +24,8 @@
 
     Private Shared Function HandleKeyDownInPlay(key As Keys) As UIStates
         Select Case key
+            Case Keys.G
+                Return UIStates.Ground
             Case Keys.M
                 Return UIStates.Move
             Case Keys.S
@@ -32,9 +34,8 @@
                 Return UIStates.Turn
             Case Keys.Escape
                 Return UIStates.MainMenu
-            Case Else
-                Return UIStates.InPlay
         End Select
+        Return UIStates.InPlay
     End Function
 
     Private Sub HandleKeyDownMessage()
@@ -67,6 +68,9 @@
         _screen.WriteLine("[T]urn")
         _screen.WriteLine("[M]ove")
         _screen.WriteLine("[S]tatus")
+        If _world.PlayerCharacter.Location.HasItems Then
+            _screen.WriteLine("[G]round")
+        End If
         _screen.WriteLine("[esc] Main Menu")
     End Sub
 

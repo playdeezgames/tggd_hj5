@@ -25,7 +25,7 @@
         maze.Generate()
         For row = 0 To maze.Rows - 1
             For column = 0 To maze.Columns - 1
-                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of Integer, Integer)}
+                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of Integer, Integer), .Items = New Dictionary(Of Integer, Integer)}
                 For Each direction In maze.GetCell(column, row).Directions
                     If maze.GetCell(column, row).GetDoor(direction).Open Then
                         Dim nextColumn = CInt(column + table(direction).DeltaX)
@@ -53,16 +53,30 @@
     End Sub
 
     Private Sub PopulateItems()
+        For Each itemType In AllItemTypes
+            Dim spawnCount = itemType.SpawnCount
+            While spawnCount > 0
+                Dim location = New Location(_worldData, RandomLocationId())
+                location.AddItem(itemType)
+                spawnCount -= 1
+            End While
+        Next
     End Sub
 
     Private Sub CreatePlayerCharacter()
         _worldData.PlayerCharacterId = CreateCharacter(CharacterTypes.N00b).Id
     End Sub
+    Private Function RandomLocationId() As Integer
+        Return RNG.FromRange(0, _worldData.Locations.Count - 1)
+    End Function
+    Private Function RandomDirection() As Integer
+        Return RNG.FromRange(0, 4)
+    End Function
     Private Function CreateCharacter(characterType As CharacterTypes) As Character
         Dim id As Integer = _worldData.Characters.Count
         _worldData.Characters.Add(New CharacterData With {
-                                  .LocationId = RNG.FromRange(0, _worldData.Locations.Count),
-                                  .Direction = RNG.FromRange(0, 4),
+                                  .LocationId = RandomLocationId(),
+                                  .Direction = RandomDirection,
                                   .Messages = New List(Of String()),
                                   .Statistics = characterType.InitialStatistics.ToDictionary(Function(x) CInt(x.Key), Function(x) x.Value)})
         Return New Character(_worldData, id)
