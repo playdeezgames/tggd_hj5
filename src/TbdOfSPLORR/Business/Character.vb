@@ -44,7 +44,7 @@
         End If
     End Sub
 
-    Private Sub AddMessage(ParamArray lines As String())
+    Friend Sub AddMessage(ParamArray lines As String())
         If Id <> _worldData.PlayerCharacterId Then
             Return
         End If
@@ -124,6 +124,14 @@
 
     Private Sub SetStatistic(statisticType As StatisticTypes, value As Integer)
         _worldData.Characters(Id).Statistics(statisticType) = value
+    End Sub
+
+    Friend Sub AddItems(value As ItemTypes, amount As Integer)
+        If _worldData.Characters(Id).Items.ContainsKey(value) Then
+            _worldData.Characters(Id).Items(value) += amount
+        Else
+            _worldData.Characters(Id).Items(value) = amount
+        End If
     End Sub
 
     Friend ReadOnly Property NextMessage As IEnumerable(Of String)

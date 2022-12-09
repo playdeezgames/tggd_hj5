@@ -27,6 +27,28 @@ Module ItemTypesExtensions
                 Throw New NotImplementedException
         End Select
     End Function
+    <Extension>
+    Function Name(itemType As ItemTypes) As String
+        Select Case itemType
+            Case ItemTypes.Food
+                Return "Food"
+            Case ItemTypes.Medicine
+                Return "Medicine"
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+    <Extension>
+    Function ShortcutKey(itemType As ItemTypes) As Keys
+        Select Case itemType
+            Case ItemTypes.Food
+                Return Keys.F
+            Case ItemTypes.Medicine
+                Return Keys.M
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
     ReadOnly Property AllItemTypes As ItemTypes()
         Get
             Return New ItemTypes() {ItemTypes.Food, ItemTypes.Medicine}

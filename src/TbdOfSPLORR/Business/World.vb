@@ -70,14 +70,15 @@
         Return RNG.FromRange(0, _worldData.Locations.Count - 1)
     End Function
     Private Function RandomDirection() As Integer
-        Return RNG.FromRange(0, 4)
+        Return RNG.FromRange(0, 3)
     End Function
     Private Function CreateCharacter(characterType As CharacterTypes) As Character
         Dim id As Integer = _worldData.Characters.Count
         _worldData.Characters.Add(New CharacterData With {
                                   .LocationId = RandomLocationId(),
-                                  .Direction = RandomDirection,
+                                  .Direction = RandomDirection(),
                                   .Messages = New List(Of String()),
+                                  .Items = New Dictionary(Of Integer, Integer),
                                   .Statistics = characterType.InitialStatistics.ToDictionary(Function(x) CInt(x.Key), Function(x) x.Value)})
         Return New Character(_worldData, id)
     End Function
