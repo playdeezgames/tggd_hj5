@@ -38,6 +38,9 @@
         If _world.PlayerCharacter.Location.HasItems Then
             _screen.WriteLine("[G]round")
         End If
+        If _world.PlayerCharacter.HasItems Then
+            _screen.WriteLine("[I]nventory")
+        End If
         _screen.WriteLine("[esc] Main Menu")
     End Sub
 

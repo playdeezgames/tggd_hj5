@@ -134,6 +134,10 @@
         End If
     End Sub
 
+    Friend Function HasItems() As Boolean
+        Return _worldData.Characters(Id).Items.Any
+    End Function
+
     Friend ReadOnly Property NextMessage As IEnumerable(Of String)
         Get
             If Not HasMessages Then
