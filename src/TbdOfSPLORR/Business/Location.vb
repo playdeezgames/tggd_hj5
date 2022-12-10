@@ -49,6 +49,10 @@
         End If
     End Sub
 
+    Friend Sub AddVisit(character As Character)
+        _worldData.Locations(Id).VisitedBy.Add(character.Id)
+    End Sub
+
     ReadOnly Property HasItems As Boolean
         Get
             Return _worldData.Locations(Id).Items.Any

@@ -39,7 +39,13 @@
 
     Private Sub ApplyEffects()
         AddHunger(1)
+        Location.AddVisit(Me)
     End Sub
+    Friend ReadOnly Property ExplorationPercentage As Double
+        Get
+            Return 100.0 * _worldData.Locations.Where(Function(x) x.VisitedBy.Contains(Id)).Count / _worldData.Locations.Count
+        End Get
+    End Property
 
     Private Sub AddHunger(amount As Integer)
         If Not IsStarving Then

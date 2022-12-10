@@ -8,8 +8,8 @@
             Return _worldData Is Nothing
         End Get
     End Property
-    Const MazeColumns = 8
-    Const MazeRows = 8
+    Const MazeColumns = 10
+    Const MazeRows = 10
     Private Sub InitializeWorldData()
         _worldData = New WorldData With
             {
@@ -25,7 +25,7 @@
         maze.Generate()
         For row = 0 To maze.Rows - 1
             For column = 0 To maze.Columns - 1
-                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of Integer, Integer), .Items = New Dictionary(Of Integer, Integer)}
+                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of Integer, Integer), .Items = New Dictionary(Of Integer, Integer), .VisitedBy = New HashSet(Of Integer)}
                 For Each direction In maze.GetCell(column, row).Directions
                     If maze.GetCell(column, row).GetDoor(direction).Open Then
                         Dim nextColumn = CInt(column + table(direction).DeltaX)
@@ -80,7 +80,9 @@
                                   .Messages = New List(Of String()),
                                   .Items = New Dictionary(Of Integer, Integer),
                                   .Statistics = characterType.InitialStatistics.ToDictionary(Function(x) CInt(x.Key), Function(x) x.Value)})
-        Return New Character(_worldData, id)
+        Dim character = New Character(_worldData, id)
+        character.Location.AddVisit(character)
+        Return character
     End Function
 
     Friend Sub AbandonGame()

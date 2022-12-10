@@ -17,6 +17,7 @@
         _screen.WriteLine("Status:")
         _screen.WriteLine($"Health: {_world.PlayerCharacter.Health}/{_world.PlayerCharacter.MaximumHealth}")
         _screen.WriteLine($"Satiety: {_world.PlayerCharacter.Satiety}/{_world.PlayerCharacter.MaximumSatiety}")
+        _screen.WriteLine($"Exploration: {_world.PlayerCharacter.ExplorationPercentage:F}%")
         _screen.WriteLine("[esc] Go Back")
         Return UIStates.Status
     End Function
