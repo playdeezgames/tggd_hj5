@@ -1,28 +1,10 @@
 ﻿Friend Class GroundStateController
-    Implements IUIStateController
-    Private _screen As CoCoScreen
-    Private _world As World
+    Inherits MessageStateController
     Private _itemType As ItemTypes?
     Public Sub New(screen As CoCoScreen, world As World)
-        _screen = screen
-        _world = world
+        MyBase.New(screen, world, UIStates.Ground)
         _itemType = Nothing
     End Sub
-    Private Sub HandleKeyDownMessage()
-        _world.PlayerCharacter.DismissMessage()
-    End Sub
-
-    Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        If _world.PlayerCharacter.HasMessages Then
-            HandleKeyDownMessage()
-            Return UIStates.Ground
-        ElseIf _itemType IsNot Nothing Then
-            Return HandleKeyDownSpecific(key)
-        Else
-            Return HandleKeyDownNeutral(key)
-        End If
-    End Function
-
     Private Function HandleKeyDownSpecific(key As Keys) As UIStates
         Select Case key
             Case Keys.Escape
@@ -60,28 +42,6 @@
         End Select
         Return UIStates.Ground
     End Function
-
-    Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
-        _screen.Clear(96)
-        _screen.GoToXY(0, 0)
-        If _world.PlayerCharacter.HasMessages Then
-            UpdateMessage()
-        ElseIf _itemType IsNot Nothing Then
-            UpdateSpecific()
-        Else
-            Return UpdateNeutral()
-        End If
-        Return UIStates.Ground
-    End Function
-    Private Sub UpdateMessage()
-        Dim message = _world.PlayerCharacter.NextMessage
-        For Each line In message
-            _screen.WriteLine(line)
-        Next
-        _screen.WriteLine("Press any key.")
-    End Sub
-
-
     Private ReadOnly Property ItemCount As Integer
         Get
             If _itemType.HasValue Then
@@ -91,15 +51,16 @@
         End Get
     End Property
 
-    Private Sub UpdateSpecific()
+    Private Function UpdateSpecific() As UIStates
         _screen.WriteLine($"{_itemType.Value.Name}(x{ItemCount})")
         _screen.WriteLine("[Esc] Go Back")
         _screen.WriteLine("Take [O]ne")
-        If itemCount > 1 Then
+        If ItemCount > 1 Then
             _screen.WriteLine("Take [H]alf")
             _screen.WriteLine("Take [A]ll")
         End If
-    End Sub
+        Return UIStates.Ground
+    End Function
 
     Private Function UpdateNeutral() As UIStates
         If _world.PlayerCharacter.Location.Items.Any Then
@@ -109,6 +70,23 @@
             Return UIStates.Ground
         Else
             Return UIStates.InPlay
+        End If
+    End Function
+
+    Protected Overrides Function HandleKeyDownNonMessage(key As Keys) As UIStates
+        If _itemType IsNot Nothing Then
+            Return HandleKeyDownSpecific(key)
+        Else
+            Return HandleKeyDownNeutral(key)
+        End If
+        Return _state
+    End Function
+
+    Protected Overrides Function UpdateNonMessage(ticks As Long) As UIStates
+        If _itemType IsNot Nothing Then
+            Return UpdateSpecific()
+        Else
+            Return UpdateNeutral()
         End If
     End Function
 End Class
