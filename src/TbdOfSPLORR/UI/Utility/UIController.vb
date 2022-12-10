@@ -31,6 +31,7 @@
         _states.Add(UIStates.Move, New MoveStateController(_screen, _world))
         _states.Add(UIStates.Status, New StatusStateController(_screen, _world))
         _states.Add(UIStates.Ground, New GroundStateController(_screen, _world))
+        _states.Add(UIStates.Inventory, New InventoryStateController(_screen, _world))
     End Sub
     Friend Sub HandleKeyDown(key As Keys)
         _uiState = _states(_uiState).HandleKeyDown(key)

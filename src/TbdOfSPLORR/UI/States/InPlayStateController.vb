@@ -10,6 +10,8 @@
         Select Case key
             Case Keys.G
                 Return UIStates.Ground
+            Case Keys.I
+                Return UIStates.Inventory
             Case Keys.M
                 Return UIStates.Move
             Case Keys.S

@@ -11,4 +11,5 @@
     Move
     Status
     Ground
+    Inventory
 End Enum
