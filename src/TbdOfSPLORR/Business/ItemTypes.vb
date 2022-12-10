@@ -28,6 +28,17 @@ Module ItemTypesExtensions
         End Select
     End Function
     <Extension>
+    Function CanUse(itemType As ItemTypes) As Boolean
+        Select Case itemType
+            Case ItemTypes.Food
+                Return True
+            Case ItemTypes.Medicine
+                Return True
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+    <Extension>
     Function Name(itemType As ItemTypes) As String
         Select Case itemType
             Case ItemTypes.Food

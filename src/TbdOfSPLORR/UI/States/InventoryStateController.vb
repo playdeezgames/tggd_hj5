@@ -32,17 +32,26 @@
 
     Private Function HandleKeyDownSpecific(key As Keys) As UIStates
         Select Case key
-            Case Keys.Escape
-                _itemType = Nothing
-            Case Keys.O
-                DropItems(1)
-            Case Keys.H
-                DropItems(ItemCount \ 2)
             Case Keys.A
                 DropItems(ItemCount)
+            Case Keys.Escape
+                _itemType = Nothing
+            Case Keys.H
+                DropItems(ItemCount \ 2)
+            Case Keys.O
+                DropItems(1)
+            Case Keys.U
+                UseItem()
         End Select
         Return _state
     End Function
+
+    Private Sub UseItem()
+        _world.PlayerCharacter.UseItem(_itemType.Value)
+        If ItemCount <= 0 Then
+            _itemType = Nothing
+        End If
+    End Sub
 
     Private Sub DropItems(amount As Integer)
         _world.PlayerCharacter.Location.AddItems(_itemType.Value, amount)
@@ -82,6 +91,9 @@
     Private Function UpdateSpecific() As UIStates
         _screen.WriteLine($"{_itemType.Value.Name}(x{ItemCount})")
         _screen.WriteLine("[Esc] Go Back")
+        If _itemType.Value.CanUse Then
+            _screen.WriteLine("[U]se")
+        End If
         _screen.WriteLine("Drop [O]ne")
         If ItemCount > 1 Then
             _screen.WriteLine("Drop [H]alf")

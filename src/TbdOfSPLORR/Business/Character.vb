@@ -84,15 +84,21 @@
             Return Health = 0
         End Get
     End Property
-    Friend ReadOnly Property Satiety As Integer
+    Friend Property Satiety As Integer
         Get
             Return MaximumSatiety - Hunger
         End Get
+        Set(value As Integer)
+            Hunger = MaximumSatiety - value
+        End Set
     End Property
-    Friend ReadOnly Property Health As Integer
+    Friend Property Health As Integer
         Get
             Return MaximumHealth - Wounds
         End Get
+        Set(value As Integer)
+            Wounds = MaximumHealth - value
+        End Set
     End Property
     Friend ReadOnly Property MaximumSatiety As Integer
         Get
@@ -159,6 +165,28 @@
         If _worldData.Characters(Id).Items(itemType) <= 0 Then
             _worldData.Characters(Id).Items.Remove(itemType)
         End If
+    End Sub
+
+    Friend Sub UseItem(itemType As ItemTypes)
+        If itemType.CanUse Then
+            RemoveItems(itemType, 1)
+            Select Case itemType
+                Case ItemTypes.Food
+                    UseFood()
+                Case ItemTypes.Medicine
+                    UseMedicine()
+            End Select
+        End If
+    End Sub
+
+    Private Sub UseMedicine()
+        Health += 10
+        AddMessage("You use the medicine.", $"Yer health is now {Health}/{MaximumHealth}")
+    End Sub
+
+    Private Sub UseFood()
+        Satiety += 10
+        AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
 
     Friend ReadOnly Property NextMessage As IEnumerable(Of String)
