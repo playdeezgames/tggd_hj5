@@ -1,27 +1,11 @@
 ﻿Friend Class InPlayStateController
-    Implements IUIStateController
-    Private ReadOnly _screen As CoCoScreen
-    Private ReadOnly _world As World
+    Inherits MessageStateController
     Public Sub New(screen As CoCoScreen, world As World)
-        _screen = screen
-        _world = world
+        MyBase.New(screen, world, UIStates.InPlay)
     End Sub
-
-    Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        If _world.PlayerCharacter.HasMessages Then
-            HandleKeyDownMessage()
-            Return UIStates.InPlay
-        ElseIf _world.PlayerCharacter.IsDead Then
-            Return HandleKeyDownIsDead(key)
-        Else
-            Return HandleKeyDownInPlay(key)
-        End If
-    End Function
-
     Private Function HandleKeyDownIsDead(key As Keys) As UIStates
         Return If(key = Keys.Escape, UIStates.MainMenu, UIStates.InPlay)
     End Function
-
     Private Shared Function HandleKeyDownInPlay(key As Keys) As UIStates
         Select Case key
             Case Keys.G
@@ -35,23 +19,6 @@
             Case Keys.Escape
                 Return UIStates.MainMenu
         End Select
-        Return UIStates.InPlay
-    End Function
-
-    Private Sub HandleKeyDownMessage()
-        _world.PlayerCharacter.DismissMessage()
-    End Sub
-
-    Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
-        _screen.Clear(96)
-        _screen.GoToXY(0, 0)
-        If _world.PlayerCharacter.HasMessages Then
-            UpdateMessage()
-        ElseIf _world.PlayerCharacter.IsDead Then
-            UpdateIsDead()
-        Else
-            UpdateInPlay()
-        End If
         Return UIStates.InPlay
     End Function
     Private Sub UpdateIsDead()
@@ -74,14 +41,6 @@
         _screen.WriteLine("[esc] Main Menu")
     End Sub
 
-    Private Sub UpdateMessage()
-        Dim message = _world.PlayerCharacter.NextMessage
-        For Each line In message
-            _screen.WriteLine(line)
-        Next
-        _screen.WriteLine("Press any key.")
-    End Sub
-
     Private Sub ShowExits()
         Dim character = _world.PlayerCharacter
         Dim routes = character.Location.Routes
@@ -100,4 +59,21 @@
         End If
         _screen.WriteLine($"Exits: {String.Join(", ", directionNames)}")
     End Sub
+
+    Protected Overrides Function HandleKeyDownNonMessage(key As Keys) As UIStates
+        If _world.PlayerCharacter.IsDead Then
+            Return HandleKeyDownIsDead(key)
+        Else
+            Return HandleKeyDownInPlay(key)
+        End If
+    End Function
+
+    Protected Overrides Function UpdateNonMessage(ticks As Long) As UIStates
+        If _world.PlayerCharacter.IsDead Then
+            UpdateIsDead()
+        Else
+            UpdateInPlay()
+        End If
+        Return _state
+    End Function
 End Class
