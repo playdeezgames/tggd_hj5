@@ -41,6 +41,14 @@
         Return 0
     End Function
 
+    Friend Sub AddItems(value As ItemTypes, amount As Integer)
+        If _worldData.Locations(Id).Items.ContainsKey(value) Then
+            _worldData.Locations(Id).Items(value) += amount
+        Else
+            _worldData.Locations(Id).Items(value) = amount
+        End If
+    End Sub
+
     ReadOnly Property HasItems As Boolean
         Get
             Return _worldData.Locations(Id).Items.Any

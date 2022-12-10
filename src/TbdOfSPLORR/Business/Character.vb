@@ -5,6 +5,11 @@
         Me.Id = id
         _worldData = worldData
     End Sub
+    ReadOnly Property Items As Dictionary(Of ItemTypes, Integer)
+        Get
+            Return _worldData.Characters(Id).Items.ToDictionary(Function(x) CType(x.Key, ItemTypes), Function(x) x.Value)
+        End Get
+    End Property
 
     Friend Sub TurnAround()
         _worldData.Characters(Id).Direction = CInt(Direction.OppositeDirection)
@@ -137,6 +142,24 @@
     Friend Function HasItems() As Boolean
         Return _worldData.Characters(Id).Items.Any
     End Function
+
+    Friend Function HasItem(itemType As ItemTypes) As Boolean
+        Return _worldData.Characters(Id).Items.ContainsKey(itemType)
+    End Function
+
+    Friend Function ItemCount(itemType As ItemTypes) As Integer
+        If _worldData.Characters(Id).Items.ContainsKey(itemType) Then
+            Return _worldData.Characters(Id).Items(itemType)
+        End If
+        Return 0
+    End Function
+
+    Friend Sub RemoveItems(itemType As ItemTypes, amount As Integer)
+        _worldData.Characters(Id).Items(itemType) -= amount
+        If _worldData.Characters(Id).Items(itemType) <= 0 Then
+            _worldData.Characters(Id).Items.Remove(itemType)
+        End If
+    End Sub
 
     Friend ReadOnly Property NextMessage As IEnumerable(Of String)
         Get

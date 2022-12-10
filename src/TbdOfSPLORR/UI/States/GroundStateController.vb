@@ -28,7 +28,7 @@
         End If
     End Sub
 
-    Private Function HandleKeyDownNeutral(key As Keys) As UIStates
+    Private Function HandleKeyDownGeneral(key As Keys) As UIStates
         Select Case key
             Case Keys.Escape
                 Return UIStates.InPlay
@@ -62,7 +62,7 @@
         Return UIStates.Ground
     End Function
 
-    Private Function UpdateNeutral() As UIStates
+    Private Function UpdateGeneral() As UIStates
         If _world.PlayerCharacter.Location.Items.Any Then
             _screen.WriteLine("On the ground:")
             _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Location.Items.Select(Function(x) $"{x.Key.InventoryName}(x{x.Value})")))
@@ -77,7 +77,7 @@
         If _itemType IsNot Nothing Then
             Return HandleKeyDownSpecific(key)
         Else
-            Return HandleKeyDownNeutral(key)
+            Return HandleKeyDownGeneral(key)
         End If
         Return _state
     End Function
@@ -86,7 +86,7 @@
         If _itemType IsNot Nothing Then
             Return UpdateSpecific()
         Else
-            Return UpdateNeutral()
+            Return UpdateGeneral()
         End If
     End Function
 End Class
