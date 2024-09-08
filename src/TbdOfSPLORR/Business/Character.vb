@@ -1,4 +1,6 @@
-﻿Public Class Character
+﻿Imports TBDOS.Data
+
+Public Class Character
     Private ReadOnly _worldData As WorldData
     Public ReadOnly Property Id As Integer
     Sub New(worldData As WorldData, id As Integer)
@@ -118,7 +120,7 @@
     End Property
 
     Private Function GetStatistic(statisticType As StatisticTypes) As Integer
-        Return _worldData.Characters(Id).statistics(statisticType)
+        Return _worldData.Characters(Id).Statistics(statisticType)
     End Function
 
     Private Property Hunger As Integer

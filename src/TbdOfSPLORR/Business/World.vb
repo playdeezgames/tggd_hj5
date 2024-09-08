@@ -1,4 +1,6 @@
-﻿Public Class World
+﻿Imports TBDOS.Data
+
+Public Class World
     Private _worldData As WorldData
     Sub New()
 

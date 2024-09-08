@@ -1,4 +1,6 @@
-﻿Public Class Location
+﻿Imports TBDOS.Data
+
+Public Class Location
     Private ReadOnly _worldData As WorldData
     Public ReadOnly Property Id As Integer
     Sub New(worldData As WorldData, id As Integer)

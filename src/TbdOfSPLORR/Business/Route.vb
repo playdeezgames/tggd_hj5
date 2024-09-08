@@ -1,4 +1,6 @@
-﻿Public Class Route
+﻿Imports TBDOS.Data
+
+Public Class Route
     Private ReadOnly _worldData As WorldData
     ReadOnly Property LocationId As Integer
     ReadOnly Property Direction As Directions
