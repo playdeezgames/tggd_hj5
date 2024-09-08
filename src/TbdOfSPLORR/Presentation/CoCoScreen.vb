@@ -1,6 +1,4 @@
-﻿Imports System.Reflection.PortableExecutable
-
-Public Class CoCoScreen
+﻿Public Class CoCoScreen
     Private ReadOnly _fill As Byte
     Private ReadOnly _columns As Integer
     Private ReadOnly _screenBuffer As List(Of Byte)
