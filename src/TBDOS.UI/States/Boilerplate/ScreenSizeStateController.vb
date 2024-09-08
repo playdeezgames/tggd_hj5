@@ -1,5 +1,4 @@
-﻿Imports System.ComponentModel.Design
-Imports Microsoft.Xna.Framework.Input
+﻿Imports Microsoft.Xna.Framework.Input
 
 Friend Class ScreenSizeStateController
     Implements IUIStateController

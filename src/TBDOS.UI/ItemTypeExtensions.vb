@@ -2,9 +2,9 @@
 Imports Microsoft.Xna.Framework.Input
 Imports TBDOS.Business
 
-Module ItemTypeExtensions
+Friend Module ItemTypeExtensions
     <Extension>
-    Function ShortcutKey(itemType As ItemTypes) As Keys
+    Friend Function ShortcutKey(itemType As ItemTypes) As Keys
         Select Case itemType
             Case ItemTypes.Food
                 Return Keys.F

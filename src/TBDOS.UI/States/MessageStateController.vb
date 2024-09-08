@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 Imports TBDOS.Business
 
-Public MustInherit Class MessageStateController
+Friend MustInherit Class MessageStateController
     Implements IUIStateController
     Protected _screen As CoCoScreen
     Protected _world As World

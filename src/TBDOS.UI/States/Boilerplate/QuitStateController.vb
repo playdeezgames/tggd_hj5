@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 
-Public Class QuitStateController
+Friend Class QuitStateController
     Implements IUIStateController
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown

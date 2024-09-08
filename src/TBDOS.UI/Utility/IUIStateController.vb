@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 
-Public Interface IUIStateController
+Friend Interface IUIStateController
     Function HandleKeyDown(key As Keys) As UIStates
     Function Update(ticks As Long) As UIStates
 End Interface

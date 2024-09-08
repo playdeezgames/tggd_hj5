@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 
-Public Class TitleStateController
+Friend Class TitleStateController
     Implements IUIStateController
     Private _screen As CoCoScreen
     Sub New(screen As CoCoScreen)

@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 Imports TBDOS.Business
 
-Public Class UIController
+Friend Class UIController
     Private _screenBuffer As New List(Of Byte)
     Private _screen As CoCoScreen
     Private _uiState As UIStates

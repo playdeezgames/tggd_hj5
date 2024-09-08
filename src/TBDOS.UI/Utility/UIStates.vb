@@ -1,4 +1,4 @@
-﻿Public Enum UIStates
+﻿Friend Enum UIStates
     Title
     MainMenu
     ConfirmQuit

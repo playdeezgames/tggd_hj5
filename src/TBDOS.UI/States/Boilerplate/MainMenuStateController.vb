@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 Imports TBDOS.Business
 
-Public Class MainMenuStateController
+Friend Class MainMenuStateController
     Implements IUIStateController
     Private _screen As CoCoScreen
     Private _world As World
