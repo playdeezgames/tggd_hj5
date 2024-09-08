@@ -1,7 +1,7 @@
 ﻿Module TitleProcessor
     Friend Sub Run()
         AnsiConsole.Clear()
-        Dim figlet = New FigletText(GameTitle) With {.Alignment = Justify.Center, .Color = Color.Aqua}
+        Dim figlet = New FigletText(GameTitle) With {.Justification = Justify.Center, .Color = Color.Aqua}
         AnsiConsole.Write(figlet)
         AnsiConsole.WriteLine("A game in VB.NET about exploration.")
         AnsiConsole.WriteLine("A production of TheGrumpyGameDev")
