@@ -12,14 +12,14 @@
     Private Const OffsetY = (ScreenHeight - ViewHeight) \ 2
     Private uiScale As Integer = 3
 
-    Private graphics As GraphicsDeviceManager
+    Private ReadOnly graphics As GraphicsDeviceManager
     Private spriteBatch As SpriteBatch
     Private texture As Texture2D
     Private sourceRectangles As Rectangle()
     Private destinationRectangles As Rectangle()
     Private oldKeyboardState As New KeyboardState
     Private keyboardState As New KeyboardState
-    Private _uiController As UIController
+    Private ReadOnly _uiController As UIController
     Sub New()
         _uiController = New UIController(AddressOf SetUIScale)
         graphics = New GraphicsDeviceManager(Me)
