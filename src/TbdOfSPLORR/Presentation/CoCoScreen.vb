@@ -1,9 +1,9 @@
 ﻿Imports System.Reflection.PortableExecutable
 
 Public Class CoCoScreen
-    Private _fill As Byte
-    Private _columns As Integer
-    Private _screenBuffer As List(Of Byte)
+    Private ReadOnly _fill As Byte
+    Private ReadOnly _columns As Integer
+    Private ReadOnly _screenBuffer As List(Of Byte)
     Private _cursor As Integer
     Sub New(screenBuffer As List(Of Byte), columns As Integer, fill As Byte)
         _fill = fill
