@@ -5,7 +5,7 @@ Friend Class UIController
     Private _screenBuffer As New List(Of Byte)
     Private _screen As CoCoScreen
     Private _uiState As UIStates
-    Private _world As IWorld
+    Private _world As IWorld = New World()
     Private ReadOnly _states As New Dictionary(Of UIStates, IUIStateController)
     Public ReadOnly Property UIState As UIStates
         Get

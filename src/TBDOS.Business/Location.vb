@@ -51,7 +51,7 @@ Public Class Location
         End If
     End Sub
 
-    Friend Sub AddVisit(character As Character)
+    Friend Sub AddVisit(character As ICharacter)
         _worldData.Locations(Id).VisitedBy.Add(character.Id)
     End Sub
 

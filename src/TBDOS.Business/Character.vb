@@ -1,31 +1,32 @@
 ﻿Imports TBDOS.Data
 
 Public Class Character
+    Implements ICharacter
     Private ReadOnly _worldData As WorldData
-    Public ReadOnly Property Id As Integer
+    Public ReadOnly Property Id As Integer Implements ICharacter.Id
     Sub New(worldData As WorldData, id As Integer)
         Me.Id = id
         _worldData = worldData
     End Sub
-    ReadOnly Property Items As Dictionary(Of ItemTypes, Integer)
+    ReadOnly Property Items As Dictionary(Of ItemTypes, Integer) Implements ICharacter.Items
         Get
             Return _worldData.Characters(Id).Items.ToDictionary(Function(x) CType(x.Key, ItemTypes), Function(x) x.Value)
         End Get
     End Property
 
-    Public Sub TurnAround()
+    Public Sub TurnAround() Implements ICharacter.TurnAround
         _worldData.Characters(Id).Direction = CInt(Direction.OppositeDirection)
     End Sub
 
-    Public Sub TurnLeft()
+    Public Sub TurnLeft() Implements ICharacter.TurnLeft
         _worldData.Characters(Id).Direction = CInt(Direction.LeftDirection)
     End Sub
 
-    Public Sub TurnRight()
+    Public Sub TurnRight() Implements ICharacter.TurnRight
         _worldData.Characters(Id).Direction = CInt(Direction.RightDirection)
     End Sub
 
-    Public Sub MoveAhead()
+    Public Sub MoveAhead() Implements ICharacter.MoveAhead
         Move(Direction.AheadDirection, "ahead")
     End Sub
 
@@ -43,7 +44,7 @@ Public Class Character
         AddHunger(1)
         Location.AddVisit(Me)
     End Sub
-    Public ReadOnly Property ExplorationPercentage As Double
+    Public ReadOnly Property ExplorationPercentage As Double Implements ICharacter.ExplorationPercentage
         Get
             Return 100.0 * _worldData.Locations.Where(Function(x) x.VisitedBy.Contains(Id)).Count / _worldData.Locations.Count
         End Get
@@ -57,42 +58,42 @@ Public Class Character
         End If
     End Sub
 
-    Public Sub AddMessage(ParamArray lines As String())
+    Public Sub AddMessage(ParamArray lines As String()) Implements ICharacter.AddMessage
         If Id <> _worldData.PlayerCharacterId Then
             Return
         End If
         _worldData.Characters(Id).Messages.Add(lines)
     End Sub
 
-    Public Sub MoveBack()
+    Public Sub MoveBack() Implements ICharacter.MoveBack
         Move(Direction.OppositeDirection, "back")
     End Sub
 
-    Public Sub MoveLeft()
+    Public Sub MoveLeft() Implements ICharacter.MoveLeft
         Move(Direction.LeftDirection, "to the left")
     End Sub
 
-    Public Sub MoveRight()
+    Public Sub MoveRight() Implements ICharacter.MoveRight
         Move(Direction.RightDirection, "to the right")
     End Sub
 
-    Public Sub DismissMessage()
+    Public Sub DismissMessage() Implements ICharacter.DismissMessage
         If HasMessages Then
             _worldData.Characters(Id).Messages.RemoveAt(0)
         End If
     End Sub
 
-    Public ReadOnly Property IsStarving As Boolean
+    Public ReadOnly Property IsStarving As Boolean Implements ICharacter.IsStarving
         Get
             Return Satiety = 0
         End Get
     End Property
-    Public ReadOnly Property IsDead As Boolean
+    Public ReadOnly Property IsDead As Boolean Implements ICharacter.IsDead
         Get
             Return Health = 0
         End Get
     End Property
-    Public Property Satiety As Integer
+    Public Property Satiety As Integer Implements ICharacter.Satiety
         Get
             Return MaximumSatiety - Hunger
         End Get
@@ -100,7 +101,7 @@ Public Class Character
             Hunger = MaximumSatiety - value
         End Set
     End Property
-    Public Property Health As Integer
+    Public Property Health As Integer Implements ICharacter.Health
         Get
             Return MaximumHealth - Wounds
         End Get
@@ -108,12 +109,12 @@ Public Class Character
             Wounds = MaximumHealth - value
         End Set
     End Property
-    Public ReadOnly Property MaximumSatiety As Integer
+    Public ReadOnly Property MaximumSatiety As Integer Implements ICharacter.MaximumSatiety
         Get
             Return GetStatistic(StatisticTypes.MaximumSatiety)
         End Get
     End Property
-    Public ReadOnly Property MaximumHealth As Integer
+    Public ReadOnly Property MaximumHealth As Integer Implements ICharacter.MaximumHealth
         Get
             Return GetStatistic(StatisticTypes.MaximumHealth)
         End Get
@@ -145,7 +146,7 @@ Public Class Character
         _worldData.Characters(Id).Statistics(statisticType) = value
     End Sub
 
-    Public Sub AddItems(value As ItemTypes, amount As Integer)
+    Public Sub AddItems(value As ItemTypes, amount As Integer) Implements ICharacter.AddItems
         If _worldData.Characters(Id).Items.ContainsKey(value) Then
             _worldData.Characters(Id).Items(value) += amount
         Else
@@ -153,29 +154,29 @@ Public Class Character
         End If
     End Sub
 
-    Public Function HasItems() As Boolean
+    Public Function HasItems() As Boolean Implements ICharacter.HasItems
         Return _worldData.Characters(Id).Items.Any
     End Function
 
-    Public Function HasItem(itemType As ItemTypes) As Boolean
+    Public Function HasItem(itemType As ItemTypes) As Boolean Implements ICharacter.HasItem
         Return _worldData.Characters(Id).Items.ContainsKey(itemType)
     End Function
 
-    Public Function ItemCount(itemType As ItemTypes) As Integer
+    Public Function ItemCount(itemType As ItemTypes) As Integer Implements ICharacter.ItemCount
         If _worldData.Characters(Id).Items.ContainsKey(itemType) Then
             Return _worldData.Characters(Id).Items(itemType)
         End If
         Return 0
     End Function
 
-    Public Sub RemoveItems(itemType As ItemTypes, amount As Integer)
+    Public Sub RemoveItems(itemType As ItemTypes, amount As Integer) Implements ICharacter.RemoveItems
         _worldData.Characters(Id).Items(itemType) -= amount
         If _worldData.Characters(Id).Items(itemType) <= 0 Then
             _worldData.Characters(Id).Items.Remove(itemType)
         End If
     End Sub
 
-    Public Sub UseItem(itemType As ItemTypes)
+    Public Sub UseItem(itemType As ItemTypes) Implements ICharacter.UseItem
         If itemType.CanUse Then
             RemoveItems(itemType, 1)
             Select Case itemType
@@ -197,7 +198,7 @@ Public Class Character
         AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
 
-    Public ReadOnly Property NextMessage As IEnumerable(Of String)
+    Public ReadOnly Property NextMessage As IEnumerable(Of String) Implements ICharacter.NextMessage
         Get
             If Not HasMessages Then
                 Return Array.Empty(Of String)
@@ -206,18 +207,18 @@ Public Class Character
         End Get
     End Property
 
-    Public ReadOnly Property HasMessages As Boolean
+    Public ReadOnly Property HasMessages As Boolean Implements ICharacter.HasMessages
         Get
             Return _worldData.Characters(Id).Messages.Any
         End Get
     End Property
 
-    ReadOnly Property Location As Location
+    ReadOnly Property Location As Location Implements ICharacter.Location
         Get
             Return New Location(_worldData, _worldData.Characters(Id).LocationId)
         End Get
     End Property
-    ReadOnly Property Direction As Directions
+    ReadOnly Property Direction As Directions Implements ICharacter.Direction
         Get
             Return CType(_worldData.Characters(Id).Direction, Directions)
         End Get

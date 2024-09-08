@@ -76,7 +76,7 @@ Public Class World
     Private Function RandomDirection() As Integer
         Return RNG.FromRange(0, 3)
     End Function
-    Private Function CreateCharacter(characterType As CharacterTypes) As Character
+    Private Function CreateCharacter(characterType As CharacterTypes) As ICharacter
         Dim id As Integer = _worldData.Characters.Count
         _worldData.Characters.Add(New CharacterData With {
                                   .LocationId = RandomLocationId(),
@@ -84,7 +84,7 @@ Public Class World
                                   .Messages = New List(Of String()),
                                   .Items = New Dictionary(Of Integer, Integer),
                                   .Statistics = characterType.InitialStatistics.ToDictionary(Function(x) CInt(x.Key), Function(x) x.Value)})
-        Dim character = New Character(_worldData, id)
+        Dim character As ICharacter = New Character(_worldData, id)
         character.Location.AddVisit(character)
         Return character
     End Function
@@ -92,7 +92,7 @@ Public Class World
     Public Sub AbandonGame() Implements IWorld.AbandonGame
         _worldData = Nothing
     End Sub
-    ReadOnly Property PlayerCharacter As Character Implements IWorld.PlayerCharacter
+    ReadOnly Property PlayerCharacter As ICharacter Implements IWorld.PlayerCharacter
         Get
             Return New Character(_worldData, _worldData.PlayerCharacterId)
         End Get
