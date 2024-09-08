@@ -1,4 +1,6 @@
-﻿Friend Class MoveStateController
+﻿Imports TBDOS.Business
+
+Friend Class MoveStateController
     Implements IUIStateController
     Private ReadOnly _screen As CoCoScreen
     Private ReadOnly _world As World

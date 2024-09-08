@@ -41,8 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
-    <ProjectReference Include="..\TBDOS.Data\TBDOS.Data.vbproj" />
+    <ProjectReference Include="..\TBDOS.Business\TBDOS.Business.vbproj" />
   </ItemGroup>
 
 </Project>

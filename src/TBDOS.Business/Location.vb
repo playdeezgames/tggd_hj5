@@ -25,25 +25,25 @@ Public Class Location
         End If
     End Sub
 
-    Friend Function HasItem(itemType As ItemTypes) As Boolean
+    Public Function HasItem(itemType As ItemTypes) As Boolean
         Return _worldData.Locations(Id).Items.ContainsKey(itemType)
     End Function
 
-    Friend Sub RemoveItems(itemType As ItemTypes, amount As Integer)
+    Public Sub RemoveItems(itemType As ItemTypes, amount As Integer)
         _worldData.Locations(Id).Items(itemType) -= amount
         If _worldData.Locations(Id).Items(itemType) <= 0 Then
             _worldData.Locations(Id).Items.Remove(itemType)
         End If
     End Sub
 
-    Friend Function ItemCount(value As ItemTypes) As Integer
+    Public Function ItemCount(value As ItemTypes) As Integer
         If _worldData.Locations(Id).Items.ContainsKey(value) Then
             Return _worldData.Locations(Id).Items(value)
         End If
         Return 0
     End Function
 
-    Friend Sub AddItems(value As ItemTypes, amount As Integer)
+    Public Sub AddItems(value As ItemTypes, amount As Integer)
         If _worldData.Locations(Id).Items.ContainsKey(value) Then
             _worldData.Locations(Id).Items(value) += amount
         Else

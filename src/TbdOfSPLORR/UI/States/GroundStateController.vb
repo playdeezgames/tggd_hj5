@@ -1,4 +1,6 @@
-﻿Friend Class GroundStateController
+﻿Imports TBDOS.Business
+
+Friend Class GroundStateController
     Inherits MessageStateController
     Private _itemType As ItemTypes?
     Public Sub New(screen As CoCoScreen, world As World)

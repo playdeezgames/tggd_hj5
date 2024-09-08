@@ -1,4 +1,6 @@
-﻿Friend Class InPlayStateController
+﻿Imports TBDOS.Business
+
+Friend Class InPlayStateController
     Inherits MessageStateController
     Public Sub New(screen As CoCoScreen, world As World)
         MyBase.New(screen, world, UIStates.InPlay)

@@ -4,7 +4,7 @@ Public Enum ItemTypes
     Food
     Medicine
 End Enum
-Module ItemTypesExtensions
+Public Module ItemTypesExtensions
     <Extension>
     Function SpawnCount(itemType As ItemTypes) As Integer
         Select Case itemType
@@ -49,7 +49,7 @@ Module ItemTypesExtensions
                 Throw New NotImplementedException
         End Select
     End Function
-    ReadOnly Property AllItemTypes As ItemTypes()
+    Public ReadOnly Property AllItemTypes As ItemTypes()
         Get
             Return New ItemTypes() {ItemTypes.Food, ItemTypes.Medicine}
         End Get

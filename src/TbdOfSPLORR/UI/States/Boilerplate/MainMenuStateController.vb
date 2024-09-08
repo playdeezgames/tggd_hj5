@@ -1,4 +1,6 @@
-﻿Public Class MainMenuStateController
+﻿Imports TBDOS.Business
+
+Public Class MainMenuStateController
     Implements IUIStateController
     Private _screen As CoCoScreen
     Private _world As World

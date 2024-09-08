@@ -1,4 +1,6 @@
-﻿Public MustInherit Class MessageStateController
+﻿Imports TBDOS.Business
+
+Public MustInherit Class MessageStateController
     Implements IUIStateController
     Protected _screen As CoCoScreen
     Protected _world As World

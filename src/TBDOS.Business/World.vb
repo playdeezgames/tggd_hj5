@@ -40,7 +40,7 @@ Public Class World
             Next
         Next
     End Sub
-    Friend Sub Start()
+    Public Sub Start()
         InitializeWorldData()
         CreateMaze(MazeColumns, MazeRows)
         PopulateMaze()
@@ -88,7 +88,7 @@ Public Class World
         Return character
     End Function
 
-    Friend Sub AbandonGame()
+    Public Sub AbandonGame()
         _worldData = Nothing
     End Sub
     ReadOnly Property PlayerCharacter As Character

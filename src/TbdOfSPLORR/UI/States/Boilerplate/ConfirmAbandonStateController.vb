@@ -1,4 +1,6 @@
-﻿Friend Class ConfirmAbandonStateController
+﻿Imports TBDOS.Business
+
+Friend Class ConfirmAbandonStateController
     Implements IUIStateController
 
     Private _screen As CoCoScreen

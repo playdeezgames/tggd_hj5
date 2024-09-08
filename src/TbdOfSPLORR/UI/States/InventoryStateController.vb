@@ -1,4 +1,6 @@
-﻿Friend Class InventoryStateController
+﻿Imports TBDOS.Business
+
+Friend Class InventoryStateController
     Inherits MessageStateController
     Private _itemType As ItemTypes?
 

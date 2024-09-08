@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports TBDOS.Business
 
 Module ItemTypeExtensions
     <Extension>

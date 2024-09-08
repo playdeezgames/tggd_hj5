@@ -1,4 +1,6 @@
-﻿Friend Class StatusStateController
+﻿Imports TBDOS.Business
+
+Friend Class StatusStateController
     Implements IUIStateController
     Private _screen As CoCoScreen
     Private _world As World

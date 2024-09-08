@@ -1,4 +1,6 @@
-﻿Public Class UIController
+﻿Imports TBDOS.Business
+
+Public Class UIController
     Private _screenBuffer As New List(Of Byte)
     Private _screen As CoCoScreen
     Private _uiState As UIStates
