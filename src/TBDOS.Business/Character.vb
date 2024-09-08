@@ -128,7 +128,7 @@ Public Class Character
             Return GetStatistic(StatisticTypes.Hunger)
         End Get
         Set(value As Integer)
-            SetStatistic(StatisticTypes.Hunger, Clamp(value, 0, MaximumSatiety))
+            SetStatistic(StatisticTypes.Hunger, Math.Clamp(value, 0, MaximumSatiety))
         End Set
     End Property
 
@@ -137,7 +137,7 @@ Public Class Character
             Return GetStatistic(StatisticTypes.Wounds)
         End Get
         Set(value As Integer)
-            SetStatistic(StatisticTypes.Wounds, Clamp(value, 0, MaximumHealth))
+            SetStatistic(StatisticTypes.Wounds, Math.Clamp(value, 0, MaximumHealth))
         End Set
     End Property
 
