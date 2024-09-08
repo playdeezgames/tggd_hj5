@@ -4,9 +4,9 @@ Imports TBDOS.Business
 Friend MustInherit Class MessageStateController
     Implements IUIStateController
     Protected _screen As CoCoScreen
-    Protected _world As World
+    Protected _world As IWorld
     Protected _state As UIStates
-    Sub New(screen As CoCoScreen, world As World, state As UIStates)
+    Sub New(screen As CoCoScreen, world As IWorld, state As UIStates)
         _screen = screen
         _world = world
         _state = state

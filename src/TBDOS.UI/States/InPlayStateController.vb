@@ -3,7 +3,7 @@ Imports TBDOS.Business
 
 Friend Class InPlayStateController
     Inherits MessageStateController
-    Public Sub New(screen As CoCoScreen, world As World)
+    Public Sub New(screen As CoCoScreen, world As IWorld)
         MyBase.New(screen, world, UIStates.InPlay)
     End Sub
     Private Function HandleKeyDownIsDead(key As Keys) As UIStates

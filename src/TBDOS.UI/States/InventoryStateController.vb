@@ -5,7 +5,7 @@ Friend Class InventoryStateController
     Inherits MessageStateController
     Private _itemType As ItemTypes?
 
-    Public Sub New(screen As CoCoScreen, world As World)
+    Public Sub New(screen As CoCoScreen, world As IWorld)
         MyBase.New(screen, world, UIStates.Inventory)
         _itemType = Nothing
     End Sub

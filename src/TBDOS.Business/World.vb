@@ -2,11 +2,12 @@
 Imports TBDOS.Data
 
 Public Class World
+    Implements IWorld
     Private _worldData As WorldData
     Sub New()
 
     End Sub
-    Public ReadOnly Property IsGameOver As Boolean
+    Public ReadOnly Property IsGameOver As Boolean Implements IWorld.IsGameOver
         Get
             Return _worldData Is Nothing
         End Get
@@ -40,7 +41,7 @@ Public Class World
             Next
         Next
     End Sub
-    Public Sub Start()
+    Public Sub Start() Implements IWorld.Start
         InitializeWorldData()
         CreateMaze(MazeColumns, MazeRows)
         PopulateMaze()
@@ -88,10 +89,10 @@ Public Class World
         Return character
     End Function
 
-    Public Sub AbandonGame()
+    Public Sub AbandonGame() Implements IWorld.AbandonGame
         _worldData = Nothing
     End Sub
-    ReadOnly Property PlayerCharacter As Character
+    ReadOnly Property PlayerCharacter As Character Implements IWorld.PlayerCharacter
         Get
             Return New Character(_worldData, _worldData.PlayerCharacterId)
         End Get

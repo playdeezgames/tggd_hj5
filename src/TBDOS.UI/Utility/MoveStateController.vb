@@ -4,8 +4,8 @@ Imports TBDOS.Business
 Friend Class MoveStateController
     Implements IUIStateController
     Private ReadOnly _screen As CoCoScreen
-    Private ReadOnly _world As World
-    Public Sub New(screen As CoCoScreen, world As World)
+    Private ReadOnly _world As IWorld
+    Public Sub New(screen As CoCoScreen, world As IWorld)
         _screen = screen
         _world = world
     End Sub

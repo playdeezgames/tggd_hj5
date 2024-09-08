@@ -4,9 +4,9 @@ Imports TBDOS.Business
 Friend Class TurnStateController
     Implements IUIStateController
     Private _screen As CoCoScreen
-    Private _world As World
+    Private _world As IWorld
 
-    Public Sub New(screen As CoCoScreen, world As World)
+    Public Sub New(screen As CoCoScreen, world As IWorld)
         _screen = screen
         _world = world
     End Sub
