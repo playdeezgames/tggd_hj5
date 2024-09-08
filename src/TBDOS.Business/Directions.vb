@@ -1,15 +1,15 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports SPLORR.Game
 
-Public Enum Directions
-    North
-    East
-    South
-    West
-End Enum
+Public Module Directions
+    Public ReadOnly North As String = NameOf(North)
+    Public ReadOnly East As String = NameOf(East)
+    Public ReadOnly South As String = NameOf(South)
+    Public ReadOnly West As String = NameOf(West)
+End Module
 Public Module DirectionsExtensions
     <Extension>
-    Public Function Name(direction As Directions) As String
+    Public Function Name(direction As String) As String
         Select Case direction
             Case Directions.North
                 Return "north"
@@ -24,7 +24,7 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function AheadDirection(direction As Directions) As Directions
+    Public Function AheadDirection(direction As String) As String
         Select Case direction
             Case Directions.North
                 Return Directions.North
@@ -39,7 +39,7 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function OppositeDirection(direction As Directions) As Directions
+    Public Function OppositeDirection(direction As String) As String
         Select Case direction
             Case Directions.North
                 Return Directions.South
@@ -54,7 +54,7 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function RightDirection(direction As Directions) As Directions
+    Public Function RightDirection(direction As String) As String
         Select Case direction
             Case Directions.North
                 Return Directions.East
@@ -69,7 +69,7 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function LeftDirection(direction As Directions) As Directions
+    Public Function LeftDirection(direction As String) As String
         Select Case direction
             Case Directions.North
                 Return Directions.West
@@ -84,11 +84,11 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function AsMazeDirection(direction As Directions) As MazeDirection(Of Directions)
-        Return New MazeDirection(Of Directions)(direction.OppositeDirection, direction.DeltaX, direction.DeltaY)
+    Public Function AsMazeDirection(direction As String) As MazeDirection(Of String)
+        Return New MazeDirection(Of String)(direction.OppositeDirection, direction.DeltaX, direction.DeltaY)
     End Function
     <Extension>
-    Public Function DeltaX(direction As Directions) As Integer
+    Public Function DeltaX(direction As String) As Integer
         Select Case direction
             Case Directions.North
                 Return 0
@@ -103,7 +103,7 @@ Public Module DirectionsExtensions
         End Select
     End Function
     <Extension>
-    Public Function DeltaY(direction As Directions) As Integer
+    Public Function DeltaY(direction As String) As Integer
         Select Case direction
             Case Directions.North
                 Return -1
@@ -117,9 +117,9 @@ Public Module DirectionsExtensions
                 Throw New NotImplementedException
         End Select
     End Function
-    ReadOnly Property AllDirections As IEnumerable(Of Directions)
+    ReadOnly Property AllDirections As IEnumerable(Of String)
         Get
-            Return New Directions() {Directions.North, Directions.East, Directions.South, Directions.West}
+            Return New String() {Directions.North, Directions.East, Directions.South, Directions.West}
         End Get
     End Property
 End Module

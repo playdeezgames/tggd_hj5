@@ -8,10 +8,10 @@ Friend Class Location
         Me.Id = id
         _worldData = worldData
     End Sub
-    Public Function HasRoute(direction As Directions) As Boolean Implements ILocation.HasRoute
-        Return _worldData.Locations(Id).Neighbors.ContainsKey(CInt(direction))
+    Public Function HasRoute(direction As String) As Boolean Implements ILocation.HasRoute
+        Return _worldData.Locations(Id).Neighbors.ContainsKey(direction)
     End Function
-    Public Function Neighbor(direction As Directions) As ILocation Implements ILocation.Neighbor
+    Public Function Neighbor(direction As String) As ILocation Implements ILocation.Neighbor
         If Not HasRoute(direction) Then
             Return Nothing
         End If
@@ -69,7 +69,7 @@ Friend Class Location
 
     Public ReadOnly Property Routes As IEnumerable(Of IRoute) Implements ILocation.Routes
         Get
-            Return _worldData.Locations(Id).Neighbors.Select(Function(x) New Route(_worldData, Id, CType(x.Key, Directions)))
+            Return _worldData.Locations(Id).Neighbors.Select(Function(x) New Route(_worldData, Id, x.Key))
         End Get
     End Property
 End Class

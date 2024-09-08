@@ -15,22 +15,22 @@ Public Class Character
     End Property
 
     Public Sub TurnAround() Implements ICharacter.TurnAround
-        _worldData.Characters(Id).Direction = CInt(Direction.OppositeDirection)
+        _worldData.Characters(Id).Direction = (Direction.OppositeDirection)
     End Sub
 
     Public Sub TurnLeft() Implements ICharacter.TurnLeft
-        _worldData.Characters(Id).Direction = CInt(Direction.LeftDirection)
+        _worldData.Characters(Id).Direction = (Direction.LeftDirection)
     End Sub
 
     Public Sub TurnRight() Implements ICharacter.TurnRight
-        _worldData.Characters(Id).Direction = CInt(Direction.RightDirection)
+        _worldData.Characters(Id).Direction = (Direction.RightDirection)
     End Sub
 
     Public Sub MoveAhead() Implements ICharacter.MoveAhead
         Move(Direction.AheadDirection, "ahead")
     End Sub
 
-    Private Sub Move(direction As Directions, text As String)
+    Private Sub Move(direction As String, text As String)
         If Not Location.HasRoute(direction) Then
             AddMessage("You cannot go that way!")
             Return
@@ -218,9 +218,9 @@ Public Class Character
             Return New Location(_worldData, _worldData.Characters(Id).LocationId)
         End Get
     End Property
-    ReadOnly Property Direction As Directions Implements ICharacter.Direction
+    ReadOnly Property Direction As String Implements ICharacter.Direction
         Get
-            Return CType(_worldData.Characters(Id).Direction, Directions)
+            Return _worldData.Characters(Id).Direction
         End Get
     End Property
 End Class

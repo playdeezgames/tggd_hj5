@@ -1,7 +1,7 @@
 ﻿Public Interface ILocation
-    Function Neighbor(direction As Directions) As ILocation
+    Function Neighbor(direction As String) As ILocation
     ReadOnly Property Id As Integer
-    Function HasRoute(direction As Directions) As Boolean
+    Function HasRoute(direction As String) As Boolean
     Sub AddVisit(character As ICharacter)
     ReadOnly Property Routes As IEnumerable(Of IRoute)
     Sub RemoveItems(itemType As ItemTypes, amount As Integer)

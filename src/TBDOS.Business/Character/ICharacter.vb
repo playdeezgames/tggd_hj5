@@ -25,6 +25,6 @@
     Function HasItem(itemType As ItemTypes) As Boolean
     ReadOnly Property ExplorationPercentage As Double
     Sub DismissMessage()
-    ReadOnly Property Direction As Directions
+    ReadOnly Property Direction As String
     Sub AddItems(value As ItemTypes, amount As Integer)
 End Interface

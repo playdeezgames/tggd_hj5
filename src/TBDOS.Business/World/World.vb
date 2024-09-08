@@ -24,17 +24,17 @@ Public Class World
     End Sub
     Private Sub CreateMaze(columns As Integer, rows As Integer)
         Dim table = AllDirections.ToDictionary(Function(x) x, Function(x) x.AsMazeDirection)
-        Dim maze = New Maze(Of Directions)(columns, rows, table)
+        Dim maze = New Maze(Of String)(columns, rows, table)
         Dim locationIndex = _worldData.Locations.Count
         maze.Generate()
         For row = 0 To maze.Rows - 1
             For column = 0 To maze.Columns - 1
-                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of Integer, Integer), .Items = New Dictionary(Of Integer, Integer), .VisitedBy = New HashSet(Of Integer)}
+                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of String, Integer), .Items = New Dictionary(Of Integer, Integer), .VisitedBy = New HashSet(Of Integer)}
                 For Each direction In maze.GetCell(column, row).Directions
                     If maze.GetCell(column, row).GetDoor(direction).Open Then
                         Dim nextColumn = CInt(column + table(direction).DeltaX)
                         Dim nextRow = CInt(row + table(direction).DeltaY)
-                        locationData.Neighbors.Add(CInt(direction), nextColumn + nextRow * MazeColumns + locationIndex)
+                        locationData.Neighbors.Add(direction, nextColumn + nextRow * MazeColumns + locationIndex)
                     End If
                 Next
                 _worldData.Locations.Add(locationData)
@@ -73,8 +73,8 @@ Public Class World
     Private Function RandomLocationId() As Integer
         Return RNG.FromRange(0, _worldData.Locations.Count - 1)
     End Function
-    Private Function RandomDirection() As Integer
-        Return RNG.FromRange(0, 3)
+    Private Function RandomDirection() As String
+        Return RNG.FromEnumerable(AllDirections)
     End Function
     Private Function CreateCharacter(characterType As CharacterTypes) As ICharacter
         Dim id As Integer = _worldData.Characters.Count
