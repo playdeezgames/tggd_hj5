@@ -5,10 +5,10 @@ Public Enum CharacterTypes
 End Enum
 Module CharacterTypesExtensions
     <Extension>
-    Function InitialStatistics(characterType As CharacterTypes) As IReadOnlyDictionary(Of StatisticTypes, Integer)
+    Function InitialStatistics(characterType As CharacterTypes) As IReadOnlyDictionary(Of String, Integer)
         Select Case characterType
             Case CharacterTypes.N00b
-                Return New Dictionary(Of StatisticTypes, Integer) From
+                Return New Dictionary(Of String, Integer) From
                     {
                         {StatisticTypes.Wounds, 0},
                         {StatisticTypes.MaximumHealth, 100},

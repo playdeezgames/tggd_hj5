@@ -120,7 +120,7 @@ Public Class Character
         End Get
     End Property
 
-    Private Function GetStatistic(statisticType As StatisticTypes) As Integer
+    Private Function GetStatistic(statisticType As String) As Integer
         Return _worldData.Characters(Id).Statistics(statisticType)
     End Function
 
@@ -142,7 +142,7 @@ Public Class Character
         End Set
     End Property
 
-    Private Sub SetStatistic(statisticType As StatisticTypes, value As Integer)
+    Private Sub SetStatistic(statisticType As String, value As Integer)
         _worldData.Characters(Id).Statistics(statisticType) = value
     End Sub
 
