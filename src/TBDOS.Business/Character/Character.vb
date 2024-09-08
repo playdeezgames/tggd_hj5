@@ -8,7 +8,7 @@ Public Class Character
         Me.Id = id
         _worldData = worldData
     End Sub
-    ReadOnly Property Items As Dictionary(Of ItemTypes, Integer) Implements ICharacter.Items
+    ReadOnly Property Items As IReadOnlyDictionary(Of ItemTypes, Integer) Implements ICharacter.Items
         Get
             Return _worldData.Characters(Id).Items.ToDictionary(Function(x) CType(x.Key, ItemTypes), Function(x) x.Value)
         End Get
@@ -213,7 +213,7 @@ Public Class Character
         End Get
     End Property
 
-    ReadOnly Property Location As Location Implements ICharacter.Location
+    ReadOnly Property Location As ILocation Implements ICharacter.Location
         Get
             Return New Location(_worldData, _worldData.Characters(Id).LocationId)
         End Get

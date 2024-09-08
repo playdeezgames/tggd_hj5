@@ -12,10 +12,10 @@
     ReadOnly Property MaximumHealth As Integer
     Property Satiety As Integer
     ReadOnly Property MaximumSatiety As Integer
-    ReadOnly Property Location As Location
+    ReadOnly Property Location As ILocation
     Sub RemoveItems(itemType As ItemTypes, amount As Integer)
     Sub AddMessage(ParamArray lines As String())
-    ReadOnly Property Items As Dictionary(Of ItemTypes, Integer)
+    ReadOnly Property Items As IReadOnlyDictionary(Of ItemTypes, Integer)
     Function ItemCount(itemType As ItemTypes) As Integer
     ReadOnly Property IsStarving As Boolean
     ReadOnly Property IsDead As Boolean
