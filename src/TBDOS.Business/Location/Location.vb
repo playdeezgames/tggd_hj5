@@ -67,7 +67,7 @@ Friend Class Location
         End Get
     End Property
 
-    Public ReadOnly Property Routes As IEnumerable(Of Route) Implements ILocation.Routes
+    Public ReadOnly Property Routes As IEnumerable(Of IRoute) Implements ILocation.Routes
         Get
             Return _worldData.Locations(Id).Neighbors.Select(Function(x) New Route(_worldData, Id, CType(x.Key, Directions)))
         End Get
