@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TBDOS.Business\TBDOS.Business.vbproj" />
+    <ProjectReference Include="..\TBDOS.UI\TBDOS.UI.vbproj" />
   </ItemGroup>
 
 </Project>
