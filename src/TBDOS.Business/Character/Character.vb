@@ -13,20 +13,20 @@ Friend Class Character
     End Sub
     ReadOnly Property LegacyItems As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.LegacyItems
         Get
-            Return WorldData.Characters(Id).Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
+            Return CharacterData.Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
         End Get
     End Property
 
     Public Sub TurnAround() Implements ICharacter.TurnAround
-        WorldData.Characters(Id).Direction = (OppositeDirection)
+        CharacterData.Direction = (OppositeDirection)
     End Sub
 
     Public Sub TurnLeft() Implements ICharacter.TurnLeft
-        WorldData.Characters(Id).Direction = (LeftDirection)
+        CharacterData.Direction = (LeftDirection)
     End Sub
 
     Public Sub TurnRight() Implements ICharacter.TurnRight
-        WorldData.Characters(Id).Direction = (RightDirection)
+        CharacterData.Direction = (RightDirection)
     End Sub
 
     Public Sub MoveAhead() Implements ICharacter.MoveAhead
@@ -39,7 +39,7 @@ Friend Class Character
             Return
         End If
         Messages.Add($"You move {text}.")
-        WorldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
+        CharacterData.LocationId = Location.Neighbor(direction).Id
         ApplyEffects()
     End Sub
 
@@ -111,7 +111,7 @@ Friend Class Character
     End Property
 
     Private Function GetStatistic(statisticType As String) As Integer
-        Return WorldData.Characters(Id).Statistics(statisticType)
+        Return CharacterData.Statistics(statisticType)
     End Function
 
     Private Property Hunger As Integer
@@ -133,36 +133,36 @@ Friend Class Character
     End Property
 
     Private Sub SetStatistic(statisticType As String, value As Integer)
-        WorldData.Characters(Id).Statistics(statisticType) = value
+        CharacterData.Statistics(statisticType) = value
     End Sub
 
     Public Sub AddItems(value As String, amount As Integer) Implements ICharacter.AddItems
-        If WorldData.Characters(Id).Items.ContainsKey(value) Then
-            WorldData.Characters(Id).Items(value) += amount
+        If CharacterData.Items.ContainsKey(value) Then
+            CharacterData.Items(value) += amount
         Else
-            WorldData.Characters(Id).Items(value) = amount
+            CharacterData.Items(value) = amount
         End If
     End Sub
 
     Public Function HasItems() As Boolean Implements ICharacter.HasItems
-        Return WorldData.Characters(Id).Items.Any
+        Return CharacterData.Items.Any
     End Function
 
     Public Function HasItem(itemType As String) As Boolean Implements ICharacter.HasItem
-        Return WorldData.Characters(Id).Items.ContainsKey(itemType)
+        Return CharacterData.Items.ContainsKey(itemType)
     End Function
 
     Public Function ItemCount(itemType As String) As Integer Implements ICharacter.ItemCount
-        If WorldData.Characters(Id).Items.ContainsKey(itemType) Then
-            Return WorldData.Characters(Id).Items(itemType)
+        If CharacterData.Items.ContainsKey(itemType) Then
+            Return CharacterData.Items(itemType)
         End If
         Return 0
     End Function
 
     Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacter.RemoveItems
-        WorldData.Characters(Id).Items(itemType) -= amount
-        If WorldData.Characters(Id).Items(itemType) <= 0 Then
-            WorldData.Characters(Id).Items.Remove(itemType)
+        CharacterData.Items(itemType) -= amount
+        If CharacterData.Items(itemType) <= 0 Then
+            CharacterData.Items.Remove(itemType)
         End If
     End Sub
 
@@ -190,12 +190,12 @@ Friend Class Character
 
     ReadOnly Property Location As ILocation Implements ICharacter.Location
         Get
-            Return New Location(WorldData, WorldData.Characters(Id).LocationId)
+            Return New Location(WorldData, CharacterData.LocationId)
         End Get
     End Property
     ReadOnly Property Direction As String Implements ICharacter.Direction
         Get
-            Return WorldData.Characters(Id).Direction
+            Return CharacterData.Direction
         End Get
     End Property
 
@@ -226,6 +226,12 @@ Friend Class Character
     Public ReadOnly Property Messages As ICharacterMessages Implements ICharacter.Messages
         Get
             Return New CharacterMessages(WorldData, Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property Items As ICharacterItems Implements ICharacter.Items
+        Get
+            Return New CharacterItems(WorldData, Id)
         End Get
     End Property
 End Class
