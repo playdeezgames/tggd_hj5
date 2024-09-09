@@ -11,11 +11,6 @@ Friend Class Character
     Sub New(worldData As WorldData, id As Integer)
         MyBase.New(worldData, id)
     End Sub
-    ReadOnly Property LegacyItems As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.LegacyItems
-        Get
-            Return CharacterData.Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
-        End Get
-    End Property
 
     Public Sub TurnAround() Implements ICharacter.TurnAround
         CharacterData.Direction = (OppositeDirection)
@@ -134,58 +129,6 @@ Friend Class Character
 
     Private Sub SetStatistic(statisticType As String, value As Integer)
         CharacterData.Statistics(statisticType) = value
-    End Sub
-
-    Public Sub AddItems(value As String, amount As Integer) Implements ICharacter.AddItems
-        If CharacterData.Items.ContainsKey(value) Then
-            CharacterData.Items(value) += amount
-        Else
-            CharacterData.Items(value) = amount
-        End If
-    End Sub
-
-    Public Function HasItems() As Boolean Implements ICharacter.HasItems
-        Return CharacterData.Items.Any
-    End Function
-
-    Public Function HasItem(itemType As String) As Boolean Implements ICharacter.HasItem
-        Return CharacterData.Items.ContainsKey(itemType)
-    End Function
-
-    Public Function ItemCount(itemType As String) As Integer Implements ICharacter.ItemCount
-        If CharacterData.Items.ContainsKey(itemType) Then
-            Return CharacterData.Items(itemType)
-        End If
-        Return 0
-    End Function
-
-    Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacter.RemoveItems
-        CharacterData.Items(itemType) -= amount
-        If CharacterData.Items(itemType) <= 0 Then
-            CharacterData.Items.Remove(itemType)
-        End If
-    End Sub
-
-    Public Sub UseItem(itemType As String) Implements ICharacter.UseItem
-        If ItemTypes.Descriptors(itemType).CanUse Then
-            RemoveItems(itemType, 1)
-            Select Case itemType
-                Case ItemTypes.Food
-                    UseFood()
-                Case ItemTypes.Medicine
-                    UseMedicine()
-            End Select
-        End If
-    End Sub
-
-    Private Sub UseMedicine()
-        Health += 10
-        Messages.Add("You use the medicine.", $"Yer health is now {Health}/{MaximumHealth}")
-    End Sub
-
-    Private Sub UseFood()
-        Satiety += 10
-        Messages.Add("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
 
     ReadOnly Property Location As ILocation Implements ICharacter.Location

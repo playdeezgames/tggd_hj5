@@ -43,7 +43,7 @@ Friend Class InPlayStateController
         If _world.PlayerCharacter.Location.HasItems Then
             _screen.WriteLine("[G]round")
         End If
-        If _world.PlayerCharacter.HasItems Then
+        If _world.PlayerCharacter.Items.HasItems Then
             _screen.WriteLine("[I]nventory")
         End If
         _screen.WriteLine("[esc] Main Menu")

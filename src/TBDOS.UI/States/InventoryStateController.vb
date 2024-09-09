@@ -25,7 +25,7 @@ Friend Class InventoryStateController
             Case Else
                 If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
                     Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
-                    If _world.PlayerCharacter.HasItem(itemType) Then
+                    If _world.PlayerCharacter.Items.HasItem(itemType) Then
                         _itemType = itemType
                     End If
                 End If
@@ -50,7 +50,7 @@ Friend Class InventoryStateController
     End Function
 
     Private Sub UseItem()
-        _world.PlayerCharacter.UseItem(_itemType)
+        _world.PlayerCharacter.Items.UseItem(_itemType)
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -58,7 +58,7 @@ Friend Class InventoryStateController
 
     Private Sub DropItems(amount As Integer)
         _world.PlayerCharacter.Location.AddItems(_itemType, amount)
-        _world.PlayerCharacter.RemoveItems(_itemType, amount)
+        _world.PlayerCharacter.Items.RemoveItems(_itemType, amount)
         _world.PlayerCharacter.Messages.Add($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
@@ -74,9 +74,9 @@ Friend Class InventoryStateController
     End Function
 
     Private Function UpdateGeneral() As UIStates
-        If _world.PlayerCharacter.HasItems Then
+        If _world.PlayerCharacter.Items.HasItems Then
             _screen.WriteLine("Inventory:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.LegacyItems.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
+            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.LegacyItems.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
             _screen.WriteLine("[esc] Go Back")
             Return _state
         Else
@@ -86,7 +86,7 @@ Friend Class InventoryStateController
     Private ReadOnly Property ItemCount As Integer
         Get
             If _itemType IsNot Nothing Then
-                Return _world.PlayerCharacter.ItemCount(_itemType)
+                Return _world.PlayerCharacter.Items.ItemCount(_itemType)
             End If
             Return 0
         End Get
