@@ -1,6 +1,6 @@
 ﻿Imports TBDOS.Data
 
-Public Class WorldDataClient
+Friend MustInherit Class WorldDataClient
     Protected ReadOnly Property WorldData As WorldData
     Sub New(worldData As WorldData)
         Me.WorldData = worldData

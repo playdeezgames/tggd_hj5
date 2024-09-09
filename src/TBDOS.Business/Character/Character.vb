@@ -1,14 +1,17 @@
 ﻿Imports TBDOS.Data
 
-Public Class Character
-    Inherits WorldDataClient
+Friend Class Character
+    Inherits CharacterDataClient
     Implements ICharacter
     Public ReadOnly Property Id As Integer Implements ICharacter.Id
+        Get
+            Return CharacterId
+        End Get
+    End Property
     Sub New(worldData As WorldData, id As Integer)
-        MyBase.New(worldData)
-        Me.Id = id
+        MyBase.New(worldData, id)
     End Sub
-    ReadOnly Property Items As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.Items
+    ReadOnly Property LegacyItems As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.LegacyItems
         Get
             Return WorldData.Characters(Id).Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
         End Get
@@ -245,6 +248,12 @@ Public Class Character
     Public ReadOnly Property OppositeDirection As String Implements ICharacter.OppositeDirection
         Get
             Return Directions.Descriptors(Direction).OppositeDirection
+        End Get
+    End Property
+
+    Public ReadOnly Property Messages As ICharacterMessages Implements ICharacter.Messages
+        Get
+            Return New CharacterMessages(WorldData, Id)
         End Get
     End Property
 End Class
