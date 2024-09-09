@@ -27,4 +27,8 @@
     Sub DismissMessage()
     ReadOnly Property Direction As String
     Sub AddItems(value As String, amount As Integer)
+    ReadOnly Property AheadDirection As String
+    ReadOnly Property LeftDirection As String
+    ReadOnly Property RightDirection As String
+    ReadOnly Property OppositeDirection As String
 End Interface

@@ -15,15 +15,15 @@ Public Class Character
     End Property
 
     Public Sub TurnAround() Implements ICharacter.TurnAround
-        _worldData.Characters(Id).Direction = (Directions.Descriptors(Direction).OppositeDirection)
+        _worldData.Characters(Id).Direction = (OppositeDirection)
     End Sub
 
     Public Sub TurnLeft() Implements ICharacter.TurnLeft
-        _worldData.Characters(Id).Direction = (Directions.Descriptors(Direction).LeftDirection)
+        _worldData.Characters(Id).Direction = (LeftDirection)
     End Sub
 
     Public Sub TurnRight() Implements ICharacter.TurnRight
-        _worldData.Characters(Id).Direction = (Directions.Descriptors(Direction).RightDirection)
+        _worldData.Characters(Id).Direction = (RightDirection)
     End Sub
 
     Public Sub MoveAhead() Implements ICharacter.MoveAhead
@@ -221,6 +221,30 @@ Public Class Character
     ReadOnly Property Direction As String Implements ICharacter.Direction
         Get
             Return _worldData.Characters(Id).Direction
+        End Get
+    End Property
+
+    Public ReadOnly Property AheadDirection As String Implements ICharacter.AheadDirection
+        Get
+            Return Directions.Descriptors(Direction).AheadDirection
+        End Get
+    End Property
+
+    Public ReadOnly Property LeftDirection As String Implements ICharacter.LeftDirection
+        Get
+            Return Directions.Descriptors(Direction).LeftDirection
+        End Get
+    End Property
+
+    Public ReadOnly Property RightDirection As String Implements ICharacter.RightDirection
+        Get
+            Return Directions.Descriptors(Direction).RightDirection
+        End Get
+    End Property
+
+    Public ReadOnly Property OppositeDirection As String Implements ICharacter.OppositeDirection
+        Get
+            Return Directions.Descriptors(Direction).OppositeDirection
         End Get
     End Property
 End Class
