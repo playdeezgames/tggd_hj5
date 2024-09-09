@@ -8,9 +8,9 @@ Public Class Character
         Me.Id = id
         _worldData = worldData
     End Sub
-    ReadOnly Property Items As IReadOnlyDictionary(Of ItemTypes, Integer) Implements ICharacter.Items
+    ReadOnly Property Items As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.Items
         Get
-            Return _worldData.Characters(Id).Items.ToDictionary(Function(x) CType(x.Key, ItemTypes), Function(x) x.Value)
+            Return _worldData.Characters(Id).Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
         End Get
     End Property
 
@@ -146,7 +146,7 @@ Public Class Character
         _worldData.Characters(Id).Statistics(statisticType) = value
     End Sub
 
-    Public Sub AddItems(value As ItemTypes, amount As Integer) Implements ICharacter.AddItems
+    Public Sub AddItems(value As String, amount As Integer) Implements ICharacter.AddItems
         If _worldData.Characters(Id).Items.ContainsKey(value) Then
             _worldData.Characters(Id).Items(value) += amount
         Else
@@ -158,25 +158,25 @@ Public Class Character
         Return _worldData.Characters(Id).Items.Any
     End Function
 
-    Public Function HasItem(itemType As ItemTypes) As Boolean Implements ICharacter.HasItem
+    Public Function HasItem(itemType As String) As Boolean Implements ICharacter.HasItem
         Return _worldData.Characters(Id).Items.ContainsKey(itemType)
     End Function
 
-    Public Function ItemCount(itemType As ItemTypes) As Integer Implements ICharacter.ItemCount
+    Public Function ItemCount(itemType As String) As Integer Implements ICharacter.ItemCount
         If _worldData.Characters(Id).Items.ContainsKey(itemType) Then
             Return _worldData.Characters(Id).Items(itemType)
         End If
         Return 0
     End Function
 
-    Public Sub RemoveItems(itemType As ItemTypes, amount As Integer) Implements ICharacter.RemoveItems
+    Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacter.RemoveItems
         _worldData.Characters(Id).Items(itemType) -= amount
         If _worldData.Characters(Id).Items(itemType) <= 0 Then
             _worldData.Characters(Id).Items.Remove(itemType)
         End If
     End Sub
 
-    Public Sub UseItem(itemType As ItemTypes) Implements ICharacter.UseItem
+    Public Sub UseItem(itemType As String) Implements ICharacter.UseItem
         If itemType.CanUse Then
             RemoveItems(itemType, 1)
             Select Case itemType

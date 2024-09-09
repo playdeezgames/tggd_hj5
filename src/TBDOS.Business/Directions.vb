@@ -9,7 +9,7 @@ Public Module Directions
 End Module
 Public Module DirectionsExtensions
     <Extension>
-    Public Function Name(direction As String) As String
+    Public Function DirectionName(direction As String) As String
         Select Case direction
             Case Directions.North
                 Return "north"

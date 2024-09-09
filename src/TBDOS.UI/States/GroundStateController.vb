@@ -3,7 +3,7 @@ Imports TBDOS.Business
 
 Friend Class GroundStateController
     Inherits MessageStateController
-    Private _itemType As ItemTypes?
+    Private _itemType As String
     Public Sub New(screen As CoCoScreen, world As IWorld)
         MyBase.New(screen, world, UIStates.Ground)
         _itemType = Nothing
@@ -23,9 +23,9 @@ Friend Class GroundStateController
     End Function
 
     Private Sub TakeItems(amount As Integer)
-        _world.PlayerCharacter.Location.RemoveItems(_itemType.Value, amount)
-        _world.PlayerCharacter.AddItems(_itemType.Value, amount)
-        _world.PlayerCharacter.AddMessage($"You take {amount} {_itemType.Value.Name}.")
+        _world.PlayerCharacter.Location.RemoveItems(_itemType, amount)
+        _world.PlayerCharacter.AddItems(_itemType, amount)
+        _world.PlayerCharacter.AddMessage($"You take {amount} {_itemType.ItemTypeName}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -47,15 +47,15 @@ Friend Class GroundStateController
     End Function
     Private ReadOnly Property ItemCount As Integer
         Get
-            If _itemType.HasValue Then
-                Return _world.PlayerCharacter.Location.ItemCount(_itemType.Value)
+            If _itemType IsNot Nothing Then
+                Return _world.PlayerCharacter.Location.ItemCount(_itemType)
             End If
             Return 0
         End Get
     End Property
 
     Private Function UpdateSpecific() As UIStates
-        _screen.WriteLine($"{_itemType.Value.Name}(x{ItemCount})")
+        _screen.WriteLine($"{_itemType.ItemTypeName}(x{ItemCount})")
         _screen.WriteLine("[Esc] Go Back")
         _screen.WriteLine("Take [O]ne")
         If ItemCount > 1 Then

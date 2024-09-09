@@ -3,7 +3,7 @@ Imports TBDOS.Business
 
 Friend Class InventoryStateController
     Inherits MessageStateController
-    Private _itemType As ItemTypes?
+    Private _itemType As String
 
     Public Sub New(screen As CoCoScreen, world As IWorld)
         MyBase.New(screen, world, UIStates.Inventory)
@@ -11,7 +11,7 @@ Friend Class InventoryStateController
     End Sub
 
     Protected Overrides Function HandleKeyDownNonMessage(key As Keys) As UIStates
-        If _itemType.HasValue Then
+        If _itemType IsNot Nothing Then
             Return HandleKeyDownSpecific(key)
         Else
             Return HandleKeyDownGeneral(key)
@@ -50,23 +50,23 @@ Friend Class InventoryStateController
     End Function
 
     Private Sub UseItem()
-        _world.PlayerCharacter.UseItem(_itemType.Value)
+        _world.PlayerCharacter.UseItem(_itemType)
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
     End Sub
 
     Private Sub DropItems(amount As Integer)
-        _world.PlayerCharacter.Location.AddItems(_itemType.Value, amount)
-        _world.PlayerCharacter.RemoveItems(_itemType.Value, amount)
-        _world.PlayerCharacter.AddMessage($"You drop {amount} {_itemType.Value.Name}.")
+        _world.PlayerCharacter.Location.AddItems(_itemType, amount)
+        _world.PlayerCharacter.RemoveItems(_itemType, amount)
+        _world.PlayerCharacter.AddMessage($"You drop {amount} {_itemType.ItemTypeName}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
     End Sub
 
     Protected Overrides Function UpdateNonMessage(ticks As Long) As UIStates
-        If _itemType.HasValue Then
+        If _itemType IsNot Nothing Then
             Return UpdateSpecific()
         Else
             Return UpdateGeneral()
@@ -85,16 +85,16 @@ Friend Class InventoryStateController
     End Function
     Private ReadOnly Property ItemCount As Integer
         Get
-            If _itemType.HasValue Then
-                Return _world.PlayerCharacter.ItemCount(_itemType.Value)
+            If _itemType IsNot Nothing Then
+                Return _world.PlayerCharacter.ItemCount(_itemType)
             End If
             Return 0
         End Get
     End Property
     Private Function UpdateSpecific() As UIStates
-        _screen.WriteLine($"{_itemType.Value.Name}(x{ItemCount})")
+        _screen.WriteLine($"{_itemType.ItemTypeName}(x{ItemCount})")
         _screen.WriteLine("[Esc] Go Back")
-        If _itemType.Value.CanUse Then
+        If _itemType.CanUse Then
             _screen.WriteLine("[U]se")
         End If
         _screen.WriteLine("Drop [O]ne")

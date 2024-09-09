@@ -18,7 +18,7 @@ Friend Class Location
         Return New Location(_worldData, _worldData.Locations(Id).Neighbors(direction))
     End Function
 
-    Friend Sub AddItem(itemType As ItemTypes)
+    Friend Sub AddItem(itemType As String)
         If _worldData.Locations(Id).Items.ContainsKey(itemType) Then
             _worldData.Locations(Id).Items(itemType) += 1
         Else
@@ -26,25 +26,25 @@ Friend Class Location
         End If
     End Sub
 
-    Public Function HasItem(itemType As ItemTypes) As Boolean Implements ILocation.HasItem
+    Public Function HasItem(itemType As String) As Boolean Implements ILocation.HasItem
         Return _worldData.Locations(Id).Items.ContainsKey(itemType)
     End Function
 
-    Public Sub RemoveItems(itemType As ItemTypes, amount As Integer) Implements ILocation.RemoveItems
+    Public Sub RemoveItems(itemType As String, amount As Integer) Implements ILocation.RemoveItems
         _worldData.Locations(Id).Items(itemType) -= amount
         If _worldData.Locations(Id).Items(itemType) <= 0 Then
             _worldData.Locations(Id).Items.Remove(itemType)
         End If
     End Sub
 
-    Public Function ItemCount(value As ItemTypes) As Integer Implements ILocation.ItemCount
+    Public Function ItemCount(value As String) As Integer Implements ILocation.ItemCount
         If _worldData.Locations(Id).Items.ContainsKey(value) Then
             Return _worldData.Locations(Id).Items(value)
         End If
         Return 0
     End Function
 
-    Public Sub AddItems(value As ItemTypes, amount As Integer) Implements ILocation.AddItems
+    Public Sub AddItems(value As String, amount As Integer) Implements ILocation.AddItems
         If _worldData.Locations(Id).Items.ContainsKey(value) Then
             _worldData.Locations(Id).Items(value) += amount
         Else
@@ -61,9 +61,9 @@ Friend Class Location
             Return _worldData.Locations(Id).Items.Any
         End Get
     End Property
-    ReadOnly Property Items As IReadOnlyDictionary(Of ItemTypes, Integer) Implements ILocation.Items
+    ReadOnly Property Items As IReadOnlyDictionary(Of String, Integer) Implements ILocation.Items
         Get
-            Return _worldData.Locations(Id).Items.ToDictionary(Function(x) CType(x.Key, ItemTypes), Function(x) x.Value)
+            Return _worldData.Locations(Id).Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
         End Get
     End Property
 

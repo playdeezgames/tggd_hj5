@@ -1,12 +1,12 @@
 ﻿Imports System.Runtime.CompilerServices
 
-Public Enum ItemTypes
-    Food
-    Medicine
-End Enum
+Public Module ItemTypes
+    Public ReadOnly Food As String = NameOf(Food)
+    Public ReadOnly Medicine As String = NameOf(Medicine)
+End Module
 Public Module ItemTypesExtensions
     <Extension>
-    Function SpawnCount(itemType As ItemTypes) As Integer
+    Function SpawnCount(itemType As String) As Integer
         Select Case itemType
             Case ItemTypes.Food
                 Return 100
@@ -17,7 +17,7 @@ Public Module ItemTypesExtensions
         End Select
     End Function
     <Extension>
-    Function InventoryName(itemType As ItemTypes) As String
+    Function InventoryName(itemType As String) As String
         Select Case itemType
             Case ItemTypes.Food
                 Return "[F]ood"
@@ -28,7 +28,7 @@ Public Module ItemTypesExtensions
         End Select
     End Function
     <Extension>
-    Function CanUse(itemType As ItemTypes) As Boolean
+    Function CanUse(itemType As String) As Boolean
         Select Case itemType
             Case ItemTypes.Food
                 Return True
@@ -39,7 +39,7 @@ Public Module ItemTypesExtensions
         End Select
     End Function
     <Extension>
-    Function Name(itemType As ItemTypes) As String
+    Function ItemTypeName(itemType As String) As String
         Select Case itemType
             Case ItemTypes.Food
                 Return "Food"
@@ -49,9 +49,9 @@ Public Module ItemTypesExtensions
                 Throw New NotImplementedException
         End Select
     End Function
-    Public ReadOnly Property AllItemTypes As ItemTypes()
+    Public ReadOnly Property AllItemTypes As String()
         Get
-            Return New ItemTypes() {ItemTypes.Food, ItemTypes.Medicine}
+            Return New String() {ItemTypes.Food, ItemTypes.Medicine}
         End Get
     End Property
 End Module

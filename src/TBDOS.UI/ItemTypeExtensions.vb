@@ -4,7 +4,7 @@ Imports TBDOS.Business
 
 Friend Module ItemTypeExtensions
     <Extension>
-    Friend Function ShortcutKey(itemType As ItemTypes) As Keys
+    Friend Function ShortcutKey(itemType As String) As Keys
         Select Case itemType
             Case ItemTypes.Food
                 Return Keys.F
