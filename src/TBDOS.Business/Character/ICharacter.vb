@@ -1,8 +1,5 @@
-﻿Imports TBDOS.Data
-
-Public Interface ICharacter
+﻿Public Interface ICharacter
     ReadOnly Property Messages As ICharacterMessages
-    Sub AddMessage(ParamArray lines As String())
     ReadOnly Property HasMessages As Boolean
     Sub DismissMessage()
 

@@ -59,7 +59,7 @@ Friend Class InventoryStateController
     Private Sub DropItems(amount As Integer)
         _world.PlayerCharacter.Location.AddItems(_itemType, amount)
         _world.PlayerCharacter.RemoveItems(_itemType, amount)
-        _world.PlayerCharacter.AddMessage($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
+        _world.PlayerCharacter.Messages.AddMessage($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If

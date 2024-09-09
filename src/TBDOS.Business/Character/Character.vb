@@ -35,10 +35,10 @@ Friend Class Character
 
     Private Sub Move(direction As String, text As String)
         If Not Location.HasRoute(direction) Then
-            AddMessage("You cannot go that way!")
+            Messages.AddMessage("You cannot go that way!")
             Return
         End If
-        AddMessage($"You move {text}.")
+        Messages.AddMessage($"You move {text}.")
         WorldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
         ApplyEffects()
     End Sub
@@ -59,13 +59,6 @@ Friend Class Character
         Else
             Wounds += amount
         End If
-    End Sub
-
-    Public Sub AddMessage(ParamArray lines As String()) Implements ICharacter.AddMessage
-        If Id <> WorldData.PlayerCharacterId Then
-            Return
-        End If
-        WorldData.Characters(Id).Messages.Add(lines)
     End Sub
 
     Public Sub MoveBack() Implements ICharacter.MoveBack
@@ -193,12 +186,12 @@ Friend Class Character
 
     Private Sub UseMedicine()
         Health += 10
-        AddMessage("You use the medicine.", $"Yer health is now {Health}/{MaximumHealth}")
+        Messages.AddMessage("You use the medicine.", $"Yer health is now {Health}/{MaximumHealth}")
     End Sub
 
     Private Sub UseFood()
         Satiety += 10
-        AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
+        Messages.AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
 
     Public ReadOnly Property HasMessages As Boolean Implements ICharacter.HasMessages
