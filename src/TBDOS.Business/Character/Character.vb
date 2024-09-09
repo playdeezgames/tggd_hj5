@@ -35,10 +35,10 @@ Friend Class Character
 
     Private Sub Move(direction As String, text As String)
         If Not Location.HasRoute(direction) Then
-            Messages.AddMessage("You cannot go that way!")
+            Messages.Add("You cannot go that way!")
             Return
         End If
-        Messages.AddMessage($"You move {text}.")
+        Messages.Add($"You move {text}.")
         WorldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
         ApplyEffects()
     End Sub
@@ -180,12 +180,12 @@ Friend Class Character
 
     Private Sub UseMedicine()
         Health += 10
-        Messages.AddMessage("You use the medicine.", $"Yer health is now {Health}/{MaximumHealth}")
+        Messages.Add("You use the medicine.", $"Yer health is now {Health}/{MaximumHealth}")
     End Sub
 
     Private Sub UseFood()
         Satiety += 10
-        Messages.AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
+        Messages.Add("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
 
     ReadOnly Property Location As ILocation Implements ICharacter.Location
