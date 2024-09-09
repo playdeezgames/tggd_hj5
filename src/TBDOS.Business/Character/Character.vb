@@ -15,19 +15,19 @@ Public Class Character
     End Property
 
     Public Sub TurnAround() Implements ICharacter.TurnAround
-        _worldData.Characters(Id).Direction = (Direction.OppositeDirection)
+        _worldData.Characters(Id).Direction = (Directions.Descriptors(Direction).OppositeDirection)
     End Sub
 
     Public Sub TurnLeft() Implements ICharacter.TurnLeft
-        _worldData.Characters(Id).Direction = (Direction.LeftDirection)
+        _worldData.Characters(Id).Direction = (Directions.Descriptors(Direction).LeftDirection)
     End Sub
 
     Public Sub TurnRight() Implements ICharacter.TurnRight
-        _worldData.Characters(Id).Direction = (Direction.RightDirection)
+        _worldData.Characters(Id).Direction = (Directions.Descriptors(Direction).RightDirection)
     End Sub
 
     Public Sub MoveAhead() Implements ICharacter.MoveAhead
-        Move(Direction.AheadDirection, "ahead")
+        Move(Directions.Descriptors(Direction).AheadDirection, "ahead")
     End Sub
 
     Private Sub Move(direction As String, text As String)
@@ -66,15 +66,15 @@ Public Class Character
     End Sub
 
     Public Sub MoveBack() Implements ICharacter.MoveBack
-        Move(Direction.OppositeDirection, "back")
+        Move(Directions.Descriptors(Direction).OppositeDirection, "back")
     End Sub
 
     Public Sub MoveLeft() Implements ICharacter.MoveLeft
-        Move(Direction.LeftDirection, "to the left")
+        Move(Directions.Descriptors(Direction).LeftDirection, "to the left")
     End Sub
 
     Public Sub MoveRight() Implements ICharacter.MoveRight
-        Move(Direction.RightDirection, "to the right")
+        Move(Directions.Descriptors(Direction).RightDirection, "to the right")
     End Sub
 
     Public Sub DismissMessage() Implements ICharacter.DismissMessage

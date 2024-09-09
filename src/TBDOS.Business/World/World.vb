@@ -23,7 +23,7 @@ Public Class World
             }
     End Sub
     Private Sub CreateMaze(columns As Integer, rows As Integer)
-        Dim table = AllDirections.ToDictionary(Function(x) x, Function(x) x.AsMazeDirection)
+        Dim table = AllDirections.ToDictionary(Function(x) x, Function(x) Directions.Descriptors(x).AsMazeDirection)
         Dim maze = New Maze(Of String)(columns, rows, table)
         Dim locationIndex = _worldData.Locations.Count
         maze.Generate()
