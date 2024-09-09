@@ -1,6 +1,7 @@
 ﻿Imports TBDOS.Data
 
 Friend Class Location
+    Inherits WorldDataClient
     Implements ILocation
     Private ReadOnly _worldData As WorldData
     Public ReadOnly Property Id As Integer Implements ILocation.Id

@@ -1,6 +1,7 @@
 ﻿Imports TBDOS.Data
 
 Friend Class Route
+    Inherits WorldDataClient
     Implements IRoute
     Private ReadOnly _worldData As WorldData
     ReadOnly Property LocationId As Integer

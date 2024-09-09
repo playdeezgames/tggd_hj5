@@ -1,6 +1,7 @@
 ﻿Imports TBDOS.Data
 
 Public Class Character
+    Inherits WorldDataClient
     Implements ICharacter
     Private ReadOnly _worldData As WorldData
     Public ReadOnly Property Id As Integer Implements ICharacter.Id

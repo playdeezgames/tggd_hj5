@@ -2,6 +2,7 @@
 Imports TBDOS.Data
 
 Public Class World
+    Inherits WorldDataClient
     Implements IWorld
     Private _worldData As WorldData
     Sub New()
