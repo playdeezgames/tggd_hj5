@@ -76,7 +76,7 @@ Public Class World
     Private Function RandomDirection() As String
         Return RNG.FromEnumerable(AllDirections)
     End Function
-    Private Function CreateCharacter(characterType As CharacterTypes) As ICharacter
+    Private Function CreateCharacter(characterType As String) As ICharacter
         Dim id As Integer = _worldData.Characters.Count
         _worldData.Characters.Add(New CharacterData With {
                                   .LocationId = RandomLocationId(),

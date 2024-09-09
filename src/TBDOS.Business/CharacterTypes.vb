@@ -1,11 +1,11 @@
 ﻿Imports System.Runtime.CompilerServices
 
-Public Enum CharacterTypes
-    N00b
-End Enum
+Public Module CharacterTypes
+    Public ReadOnly N00b As String = NameOf(N00b)
+End Module
 Module CharacterTypesExtensions
     <Extension>
-    Function InitialStatistics(characterType As CharacterTypes) As IReadOnlyDictionary(Of String, Integer)
+    Function InitialStatistics(characterType As String) As IReadOnlyDictionary(Of String, Integer)
         Select Case characterType
             Case CharacterTypes.N00b
                 Return New Dictionary(Of String, Integer) From
