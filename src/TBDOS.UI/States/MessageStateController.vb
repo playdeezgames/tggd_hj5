@@ -38,7 +38,7 @@ Friend MustInherit Class MessageStateController
     End Function
     Protected MustOverride Function UpdateNonMessage(ticks As Long) As UIStates
     Private Function UpdateMessage() As UIStates
-        Dim message = _world.PlayerCharacter.NextMessage
+        Dim message = _world.PlayerCharacter.Messages.NextMessage
         For Each line In message
             _screen.WriteLine(line)
         Next

@@ -201,15 +201,6 @@ Friend Class Character
         AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
 
-    Public ReadOnly Property NextMessage As IEnumerable(Of String) Implements ICharacter.NextMessage
-        Get
-            If Not HasMessages Then
-                Return Array.Empty(Of String)
-            End If
-            Return WorldData.Characters(Id).Messages.First
-        End Get
-    End Property
-
     Public ReadOnly Property HasMessages As Boolean Implements ICharacter.HasMessages
         Get
             Return WorldData.Characters(Id).Messages.Any

@@ -2,7 +2,6 @@
 
 Public Interface ICharacter
     ReadOnly Property Messages As ICharacterMessages
-    ReadOnly Property NextMessage As IEnumerable(Of String)
     Sub AddMessage(ParamArray lines As String())
     ReadOnly Property HasMessages As Boolean
     Sub DismissMessage()
