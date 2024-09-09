@@ -3,11 +3,10 @@
 Friend Class Location
     Inherits WorldDataClient
     Implements ILocation
-    Private ReadOnly _worldData As WorldData
     Public ReadOnly Property Id As Integer Implements ILocation.Id
     Sub New(worldData As WorldData, id As Integer)
+        MyBase.New(worldData)
         Me.Id = id
-        _worldData = worldData
     End Sub
     Public Function HasRoute(direction As String) As Boolean Implements ILocation.HasRoute
         Return _worldData.Locations(Id).Neighbors.ContainsKey(direction)

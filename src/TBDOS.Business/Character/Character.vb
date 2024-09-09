@@ -3,11 +3,10 @@
 Public Class Character
     Inherits WorldDataClient
     Implements ICharacter
-    Private ReadOnly _worldData As WorldData
     Public ReadOnly Property Id As Integer Implements ICharacter.Id
     Sub New(worldData As WorldData, id As Integer)
+        MyBase.New(worldData)
         Me.Id = id
-        _worldData = worldData
     End Sub
     ReadOnly Property Items As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.Items
         Get
