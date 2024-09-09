@@ -83,7 +83,7 @@ Public Class World
                                   .Direction = RandomDirection(),
                                   .Messages = New List(Of String()),
                                   .Items = New Dictionary(Of String, Integer),
-                                  .Statistics = characterType.InitialStatistics.ToDictionary(Function(x) x.Key, Function(x) x.Value)})
+                                  .Statistics = CharacterTypes.Descriptors(characterType).InitialStatistics.ToDictionary(Function(x) x.Key, Function(x) x.Value)})
         Dim character As ICharacter = New Character(_worldData, id)
         character.Location.AddVisit(character)
         Return character
