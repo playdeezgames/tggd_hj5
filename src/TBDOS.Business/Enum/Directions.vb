@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports SPLORR.Game
 
-Public Module Directions
+Friend Module Directions
     Public ReadOnly North As String = NameOf(North)
     Public ReadOnly East As String = NameOf(East)
     Public ReadOnly South As String = NameOf(South)

@@ -1,9 +1,10 @@
 ﻿Imports System.Runtime.CompilerServices
 
-Public Module CharacterTypes
+Friend Module CharacterTypes
     Public ReadOnly N00b As String = NameOf(N00b)
+
 End Module
-Module CharacterTypesExtensions
+Friend Module CharacterTypesExtensions
     <Extension>
     Function InitialStatistics(characterType As String) As IReadOnlyDictionary(Of String, Integer)
         Select Case characterType
