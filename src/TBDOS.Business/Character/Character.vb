@@ -10,20 +10,20 @@ Public Class Character
     End Sub
     ReadOnly Property Items As IReadOnlyDictionary(Of String, Integer) Implements ICharacter.Items
         Get
-            Return _worldData.Characters(Id).Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
+            Return WorldData.Characters(Id).Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
         End Get
     End Property
 
     Public Sub TurnAround() Implements ICharacter.TurnAround
-        _worldData.Characters(Id).Direction = (OppositeDirection)
+        WorldData.Characters(Id).Direction = (OppositeDirection)
     End Sub
 
     Public Sub TurnLeft() Implements ICharacter.TurnLeft
-        _worldData.Characters(Id).Direction = (LeftDirection)
+        WorldData.Characters(Id).Direction = (LeftDirection)
     End Sub
 
     Public Sub TurnRight() Implements ICharacter.TurnRight
-        _worldData.Characters(Id).Direction = (RightDirection)
+        WorldData.Characters(Id).Direction = (RightDirection)
     End Sub
 
     Public Sub MoveAhead() Implements ICharacter.MoveAhead
@@ -36,7 +36,7 @@ Public Class Character
             Return
         End If
         AddMessage($"You move {text}.")
-        _worldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
+        WorldData.Characters(Id).LocationId = Location.Neighbor(direction).Id
         ApplyEffects()
     End Sub
 
@@ -46,7 +46,7 @@ Public Class Character
     End Sub
     Public ReadOnly Property ExplorationPercentage As Double Implements ICharacter.ExplorationPercentage
         Get
-            Return 100.0 * _worldData.Locations.Where(Function(x) x.VisitedBy.Contains(Id)).Count / _worldData.Locations.Count
+            Return 100.0 * WorldData.Locations.Where(Function(x) x.VisitedBy.Contains(Id)).Count / WorldData.Locations.Count
         End Get
     End Property
 
@@ -59,10 +59,10 @@ Public Class Character
     End Sub
 
     Public Sub AddMessage(ParamArray lines As String()) Implements ICharacter.AddMessage
-        If Id <> _worldData.PlayerCharacterId Then
+        If Id <> WorldData.PlayerCharacterId Then
             Return
         End If
-        _worldData.Characters(Id).Messages.Add(lines)
+        WorldData.Characters(Id).Messages.Add(lines)
     End Sub
 
     Public Sub MoveBack() Implements ICharacter.MoveBack
@@ -79,7 +79,7 @@ Public Class Character
 
     Public Sub DismissMessage() Implements ICharacter.DismissMessage
         If HasMessages Then
-            _worldData.Characters(Id).Messages.RemoveAt(0)
+            WorldData.Characters(Id).Messages.RemoveAt(0)
         End If
     End Sub
 
@@ -121,7 +121,7 @@ Public Class Character
     End Property
 
     Private Function GetStatistic(statisticType As String) As Integer
-        Return _worldData.Characters(Id).Statistics(statisticType)
+        Return WorldData.Characters(Id).Statistics(statisticType)
     End Function
 
     Private Property Hunger As Integer
@@ -143,36 +143,36 @@ Public Class Character
     End Property
 
     Private Sub SetStatistic(statisticType As String, value As Integer)
-        _worldData.Characters(Id).Statistics(statisticType) = value
+        WorldData.Characters(Id).Statistics(statisticType) = value
     End Sub
 
     Public Sub AddItems(value As String, amount As Integer) Implements ICharacter.AddItems
-        If _worldData.Characters(Id).Items.ContainsKey(value) Then
-            _worldData.Characters(Id).Items(value) += amount
+        If WorldData.Characters(Id).Items.ContainsKey(value) Then
+            WorldData.Characters(Id).Items(value) += amount
         Else
-            _worldData.Characters(Id).Items(value) = amount
+            WorldData.Characters(Id).Items(value) = amount
         End If
     End Sub
 
     Public Function HasItems() As Boolean Implements ICharacter.HasItems
-        Return _worldData.Characters(Id).Items.Any
+        Return WorldData.Characters(Id).Items.Any
     End Function
 
     Public Function HasItem(itemType As String) As Boolean Implements ICharacter.HasItem
-        Return _worldData.Characters(Id).Items.ContainsKey(itemType)
+        Return WorldData.Characters(Id).Items.ContainsKey(itemType)
     End Function
 
     Public Function ItemCount(itemType As String) As Integer Implements ICharacter.ItemCount
-        If _worldData.Characters(Id).Items.ContainsKey(itemType) Then
-            Return _worldData.Characters(Id).Items(itemType)
+        If WorldData.Characters(Id).Items.ContainsKey(itemType) Then
+            Return WorldData.Characters(Id).Items(itemType)
         End If
         Return 0
     End Function
 
     Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacter.RemoveItems
-        _worldData.Characters(Id).Items(itemType) -= amount
-        If _worldData.Characters(Id).Items(itemType) <= 0 Then
-            _worldData.Characters(Id).Items.Remove(itemType)
+        WorldData.Characters(Id).Items(itemType) -= amount
+        If WorldData.Characters(Id).Items(itemType) <= 0 Then
+            WorldData.Characters(Id).Items.Remove(itemType)
         End If
     End Sub
 
@@ -203,24 +203,24 @@ Public Class Character
             If Not HasMessages Then
                 Return Array.Empty(Of String)
             End If
-            Return _worldData.Characters(Id).Messages.First
+            Return WorldData.Characters(Id).Messages.First
         End Get
     End Property
 
     Public ReadOnly Property HasMessages As Boolean Implements ICharacter.HasMessages
         Get
-            Return _worldData.Characters(Id).Messages.Any
+            Return WorldData.Characters(Id).Messages.Any
         End Get
     End Property
 
     ReadOnly Property Location As ILocation Implements ICharacter.Location
         Get
-            Return New Location(_worldData, _worldData.Characters(Id).LocationId)
+            Return New Location(WorldData, WorldData.Characters(Id).LocationId)
         End Get
     End Property
     ReadOnly Property Direction As String Implements ICharacter.Direction
         Get
-            Return _worldData.Characters(Id).Direction
+            Return WorldData.Characters(Id).Direction
         End Get
     End Property
 
