@@ -3,6 +3,12 @@
 Public Module ItemTypes
     Public ReadOnly Food As String = NameOf(Food)
     Public ReadOnly Medicine As String = NameOf(Medicine)
+    Public ReadOnly Descriptors As IReadOnlyDictionary(Of String, ItemTypeDescriptor) =
+        New List(Of ItemTypeDescriptor) From
+        {
+            New FoodItemTypeDescriptor(),
+            New MedicineItemTypeDescriptor()
+        }.ToDictionary(Function(x) x.ItemType, Function(x) x)
 End Module
 Public Module ItemTypesExtensions
     <Extension>
