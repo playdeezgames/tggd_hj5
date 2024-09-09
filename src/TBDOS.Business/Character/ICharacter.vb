@@ -1,6 +1,5 @@
 ﻿Public Interface ICharacter
     ReadOnly Property Messages As ICharacterMessages
-    ReadOnly Property HasMessages As Boolean
     Sub DismissMessage()
 
 

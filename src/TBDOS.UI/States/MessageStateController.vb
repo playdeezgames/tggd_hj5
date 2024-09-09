@@ -13,7 +13,7 @@ Friend MustInherit Class MessageStateController
     End Sub
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        If _world.PlayerCharacter.HasMessages Then
+        If _world.PlayerCharacter.Messages.HasMessages Then
             Return HandleKeyDownMessage(key)
         Else
             Return HandleKeyDownNonMessage(key)
@@ -30,7 +30,7 @@ Friend MustInherit Class MessageStateController
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
-        If _world.PlayerCharacter.HasMessages Then
+        If _world.PlayerCharacter.Messages.HasMessages Then
             Return UpdateMessage()
         Else
             Return UpdateNonMessage(ticks)

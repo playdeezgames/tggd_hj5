@@ -74,7 +74,7 @@ Friend Class Character
     End Sub
 
     Public Sub DismissMessage() Implements ICharacter.DismissMessage
-        If HasMessages Then
+        If Messages.HasMessages Then
             WorldData.Characters(Id).Messages.RemoveAt(0)
         End If
     End Sub
@@ -193,12 +193,6 @@ Friend Class Character
         Satiety += 10
         Messages.AddMessage("You eat the food.", $"Yer satiety is now {Satiety}/{MaximumSatiety}")
     End Sub
-
-    Public ReadOnly Property HasMessages As Boolean Implements ICharacter.HasMessages
-        Get
-            Return WorldData.Characters(Id).Messages.Any
-        End Get
-    End Property
 
     ReadOnly Property Location As ILocation Implements ICharacter.Location
         Get
