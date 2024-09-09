@@ -23,7 +23,7 @@ Friend MustInherit Class MessageStateController
     Protected MustOverride Function HandleKeyDownNonMessage(key As Keys) As UIStates
 
     Private Function HandleKeyDownMessage(key As Keys) As UIStates
-        _world.PlayerCharacter.DismissMessage()
+        _world.PlayerCharacter.Messages.DismissMessage()
         Return _state
     End Function
 

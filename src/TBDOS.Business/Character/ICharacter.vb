@@ -1,6 +1,5 @@
 ﻿Public Interface ICharacter
     ReadOnly Property Messages As ICharacterMessages
-    Sub DismissMessage()
 
 
     Sub UseItem(itemType As String)

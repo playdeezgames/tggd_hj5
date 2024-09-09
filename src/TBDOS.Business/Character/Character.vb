@@ -73,12 +73,6 @@ Friend Class Character
         Move(Directions.Descriptors(Direction).RightDirection, "to the right")
     End Sub
 
-    Public Sub DismissMessage() Implements ICharacter.DismissMessage
-        If Messages.HasMessages Then
-            WorldData.Characters(Id).Messages.RemoveAt(0)
-        End If
-    End Sub
-
     Public ReadOnly Property IsStarving As Boolean Implements ICharacter.IsStarving
         Get
             Return Satiety = 0
