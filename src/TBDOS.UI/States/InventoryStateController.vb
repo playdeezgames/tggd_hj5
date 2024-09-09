@@ -23,8 +23,8 @@ Friend Class InventoryStateController
             Case Keys.Escape
                 Return UIStates.InPlay
             Case Else
-                If AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
-                    Dim itemType = AllItemTypes.Single(Function(x) x.ShortcutKey = key)
+                If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
+                    Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
                     If _world.PlayerCharacter.HasItem(itemType) Then
                         _itemType = itemType
                     End If
@@ -59,7 +59,7 @@ Friend Class InventoryStateController
     Private Sub DropItems(amount As Integer)
         _world.PlayerCharacter.Location.AddItems(_itemType, amount)
         _world.PlayerCharacter.RemoveItems(_itemType, amount)
-        _world.PlayerCharacter.AddMessage($"You drop {amount} {_itemType.ItemTypeName}.")
+        _world.PlayerCharacter.AddMessage($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -76,7 +76,7 @@ Friend Class InventoryStateController
     Private Function UpdateGeneral() As UIStates
         If _world.PlayerCharacter.HasItems Then
             _screen.WriteLine("Inventory:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.Select(Function(x) $"{x.Key.InventoryName}(x{x.Value})")))
+            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
             _screen.WriteLine("[esc] Go Back")
             Return _state
         Else
@@ -92,9 +92,9 @@ Friend Class InventoryStateController
         End Get
     End Property
     Private Function UpdateSpecific() As UIStates
-        _screen.WriteLine($"{_itemType.ItemTypeName}(x{ItemCount})")
+        _screen.WriteLine($"{_world.ItemTypeName(_itemType)}(x{ItemCount})")
         _screen.WriteLine("[Esc] Go Back")
-        If _itemType.CanUse Then
+        If _world.CanUse(_itemType) Then
             _screen.WriteLine("[U]se")
         End If
         _screen.WriteLine("Drop [O]ne")

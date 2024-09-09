@@ -58,7 +58,7 @@ Public Class World
 
     Private Sub PopulateItems()
         For Each itemType In AllItemTypes
-            Dim spawnCount = itemType.SpawnCount
+            Dim spawnCount = ItemTypes.Descriptors(itemType).SpawnCount
             While spawnCount > 0
                 Dim location = New Location(_worldData, RandomLocationId())
                 location.AddItem(itemType)
@@ -92,9 +92,28 @@ Public Class World
     Public Sub AbandonGame() Implements IWorld.AbandonGame
         _worldData = Nothing
     End Sub
+
+    Public Function ItemTypeName(itemType As String) As String Implements IWorld.ItemTypeName
+        Return ItemTypes.Descriptors(itemType).ItemTypeName
+    End Function
+
+    Public Function InventoryName(itemType As String) As String Implements IWorld.InventoryName
+        Return ItemTypes.Descriptors(itemType).InventoryName
+    End Function
+
+    Public Function CanUse(itemType As String) As Boolean Implements IWorld.CanUse
+        Return ItemTypes.Descriptors(itemType).CanUse
+    End Function
+
     ReadOnly Property PlayerCharacter As ICharacter Implements IWorld.PlayerCharacter
         Get
             Return New Character(_worldData, _worldData.PlayerCharacterId)
+        End Get
+    End Property
+
+    Public ReadOnly Property AllItemTypes As IEnumerable(Of String) Implements IWorld.AllItemTypes
+        Get
+            Return ItemTypes.AllItemTypes
         End Get
     End Property
 End Class

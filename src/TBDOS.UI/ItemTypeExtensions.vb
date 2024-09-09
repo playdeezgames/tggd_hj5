@@ -6,9 +6,9 @@ Friend Module ItemTypeExtensions
     <Extension>
     Friend Function ShortcutKey(itemType As String) As Keys
         Select Case itemType
-            Case ItemTypes.Food
+            Case "Food"
                 Return Keys.F
-            Case ItemTypes.Medicine
+            Case "Medicine"
                 Return Keys.M
             Case Else
                 Throw New NotImplementedException

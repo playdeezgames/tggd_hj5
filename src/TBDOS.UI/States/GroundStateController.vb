@@ -25,7 +25,7 @@ Friend Class GroundStateController
     Private Sub TakeItems(amount As Integer)
         _world.PlayerCharacter.Location.RemoveItems(_itemType, amount)
         _world.PlayerCharacter.AddItems(_itemType, amount)
-        _world.PlayerCharacter.AddMessage($"You take {amount} {_itemType.ItemTypeName}.")
+        _world.PlayerCharacter.AddMessage($"You take {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -36,8 +36,8 @@ Friend Class GroundStateController
             Case Keys.Escape
                 Return UIStates.InPlay
             Case Else
-                If AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
-                    Dim itemType = AllItemTypes.Single(Function(x) x.ShortcutKey = key)
+                If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
+                    Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
                     If _world.PlayerCharacter.Location.HasItem(itemType) Then
                         _itemType = itemType
                     End If
@@ -55,7 +55,7 @@ Friend Class GroundStateController
     End Property
 
     Private Function UpdateSpecific() As UIStates
-        _screen.WriteLine($"{_itemType.ItemTypeName}(x{ItemCount})")
+        _screen.WriteLine($"{_world.ItemTypeName(_itemType)}(x{ItemCount})")
         _screen.WriteLine("[Esc] Go Back")
         _screen.WriteLine("Take [O]ne")
         If ItemCount > 1 Then
@@ -68,7 +68,7 @@ Friend Class GroundStateController
     Private Function UpdateGeneral() As UIStates
         If _world.PlayerCharacter.Location.Items.Any Then
             _screen.WriteLine("On the ground:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Location.Items.Select(Function(x) $"{x.Key.InventoryName}(x{x.Value})")))
+            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Location.Items.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
             _screen.WriteLine("[esc] Go Back")
             Return UIStates.Ground
         Else

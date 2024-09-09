@@ -177,7 +177,7 @@ Public Class Character
     End Sub
 
     Public Sub UseItem(itemType As String) Implements ICharacter.UseItem
-        If itemType.CanUse Then
+        If ItemTypes.Descriptors(itemType).CanUse Then
             RemoveItems(itemType, 1)
             Select Case itemType
                 Case ItemTypes.Food
