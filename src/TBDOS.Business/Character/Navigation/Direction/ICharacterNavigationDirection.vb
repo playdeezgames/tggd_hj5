@@ -1,0 +1,2 @@
+﻿Public Interface ICharacterNavigationDirection
+End Interface

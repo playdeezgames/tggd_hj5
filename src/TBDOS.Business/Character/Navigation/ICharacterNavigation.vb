@@ -1,4 +1,7 @@
 ﻿Public Interface ICharacterNavigation
+    ReadOnly Property Turn As ICharacterNavigationTurn
+    ReadOnly Property Move As ICharacterNavigationMove
+    ReadOnly Property Direction As ICharacterNavigationDirection
     Sub TurnAround()
     Sub TurnLeft()
     Sub TurnRight()
@@ -8,7 +11,7 @@
     Sub MoveAhead()
     Sub MoveBack()
 
-    ReadOnly Property Direction As String
+    ReadOnly Property CurrentDirection As String
     ReadOnly Property AheadDirection As String
     ReadOnly Property LeftDirection As String
     ReadOnly Property RightDirection As String

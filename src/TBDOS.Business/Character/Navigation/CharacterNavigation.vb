@@ -8,7 +8,7 @@
         Me.applyEffects = applyEffects
     End Sub
 
-    Public ReadOnly Property Direction As String Implements ICharacterNavigation.Direction
+    Public ReadOnly Property CurrentDirection As String Implements ICharacterNavigation.CurrentDirection
         Get
             Return CharacterData.Direction
         End Get
@@ -16,25 +16,43 @@
 
     Public ReadOnly Property AheadDirection As String Implements ICharacterNavigation.AheadDirection
         Get
-            Return Directions.Descriptors(Direction).AheadDirection
+            Return Directions.Descriptors(CurrentDirection).AheadDirection
         End Get
     End Property
 
     Public ReadOnly Property LeftDirection As String Implements ICharacterNavigation.LeftDirection
         Get
-            Return Directions.Descriptors(Direction).LeftDirection
+            Return Directions.Descriptors(CurrentDirection).LeftDirection
         End Get
     End Property
 
     Public ReadOnly Property RightDirection As String Implements ICharacterNavigation.RightDirection
         Get
-            Return Directions.Descriptors(Direction).RightDirection
+            Return Directions.Descriptors(CurrentDirection).RightDirection
         End Get
     End Property
 
     Public ReadOnly Property OppositeDirection As String Implements ICharacterNavigation.OppositeDirection
         Get
-            Return Directions.Descriptors(Direction).OppositeDirection
+            Return Directions.Descriptors(CurrentDirection).OppositeDirection
+        End Get
+    End Property
+
+    Public ReadOnly Property Turn As ICharacterNavigationTurn Implements ICharacterNavigation.Turn
+        Get
+            Return New CharacterNavigationTurn(WorldData, CharacterId)
+        End Get
+    End Property
+
+    Private ReadOnly Property ICharacterNavigation_Move As ICharacterNavigationMove Implements ICharacterNavigation.Move
+        Get
+            Return New CharacterNavigationMove(WorldData, CharacterId)
+        End Get
+    End Property
+
+    Public ReadOnly Property Direction As ICharacterNavigationDirection Implements ICharacterNavigation.Direction
+        Get
+            Return New CharacterNavigationDirection(WorldData, CharacterId)
         End Get
     End Property
 
@@ -51,7 +69,7 @@
     End Sub
 
     Public Sub MoveLeft() Implements ICharacterNavigation.MoveLeft
-        Move(Directions.Descriptors(Direction).LeftDirection, "to the left")
+        Move(Directions.Descriptors(CurrentDirection).LeftDirection, "to the left")
     End Sub
 
     Private Sub Move(direction As String, text As String)
@@ -66,14 +84,14 @@
     End Sub
 
     Public Sub MoveRight() Implements ICharacterNavigation.MoveRight
-        Throw New NotImplementedException()
+        Move(Directions.Descriptors(CurrentDirection).RightDirection, " to the right")
     End Sub
 
     Public Sub MoveAhead() Implements ICharacterNavigation.MoveAhead
-        Throw New NotImplementedException()
+        Move(Directions.Descriptors(CurrentDirection).AheadDirection, "")
     End Sub
 
     Public Sub MoveBack() Implements ICharacterNavigation.MoveBack
-        Throw New NotImplementedException()
+        Move(Directions.Descriptors(CurrentDirection).OppositeDirection, " back")
     End Sub
 End Class
