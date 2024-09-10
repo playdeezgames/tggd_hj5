@@ -177,4 +177,10 @@ Friend Class Character
             Return New CharacterItems(WorldData, Id)
         End Get
     End Property
+
+    Public ReadOnly Property Navigation As ICharacterNavigation Implements ICharacter.Navigation
+        Get
+            Return New CharacterNavigation(WorldData, Id, AddressOf ApplyEffects)
+        End Get
+    End Property
 End Class

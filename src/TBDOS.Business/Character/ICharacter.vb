@@ -1,6 +1,7 @@
 ﻿Public Interface ICharacter
     ReadOnly Property Messages As ICharacterMessages
     ReadOnly Property Items As ICharacterItems
+    ReadOnly Property Navigation As ICharacterNavigation
 
     Sub TurnAround()
     Sub TurnLeft()
