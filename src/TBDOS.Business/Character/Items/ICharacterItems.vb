@@ -2,9 +2,9 @@
     ReadOnly Property Inventory As IEnumerable(Of (InventoryName As String, Quantity As Integer))
     Function HasAny() As Boolean
 
-    Sub UseItem(itemType As String)
-    Sub RemoveItems(itemType As String, amount As Integer)
-    Function ItemCount(itemType As String) As Integer
-    Sub AddItems(itemType As String, amount As Integer)
-    Function HasItem(itemType As String) As Boolean
+    Sub Use(itemType As String)
+    Sub Remove(itemType As String, amount As Integer)
+    Function Count(itemType As String) As Integer
+    Sub Add(itemType As String, amount As Integer)
+    Function Has(itemType As String) As Boolean
 End Interface

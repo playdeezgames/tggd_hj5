@@ -24,7 +24,7 @@ Friend Class GroundStateController
 
     Private Sub TakeItems(amount As Integer)
         _world.PlayerCharacter.Location.RemoveItems(_itemType, amount)
-        _world.PlayerCharacter.Items.AddItems(_itemType, amount)
+        _world.PlayerCharacter.Items.Add(_itemType, amount)
         _world.PlayerCharacter.Messages.Add($"You take {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing

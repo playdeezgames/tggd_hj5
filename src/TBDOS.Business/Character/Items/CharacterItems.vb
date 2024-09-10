@@ -12,22 +12,22 @@
         End Get
     End Property
 
-    Public Sub UseItem(itemType As String) Implements ICharacterItems.UseItem
+    Public Sub Use(itemType As String) Implements ICharacterItems.Use
         Dim character = New Character(WorldData, CharacterId)
         If ItemTypes.Descriptors(itemType).CanUse Then
-            RemoveItems(itemType, 1)
+            Remove(itemType, 1)
             ItemTypes.Descriptors(itemType).OnUse(character)
         End If
     End Sub
 
-    Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacterItems.RemoveItems
+    Public Sub Remove(itemType As String, amount As Integer) Implements ICharacterItems.Remove
         CharacterData.Items(itemType) -= amount
         If CharacterData.Items(itemType) <= 0 Then
             CharacterData.Items.Remove(itemType)
         End If
     End Sub
 
-    Public Sub AddItems(itemType As String, amount As Integer) Implements ICharacterItems.AddItems
+    Public Sub Add(itemType As String, amount As Integer) Implements ICharacterItems.Add
         If CharacterData.Items.ContainsKey(itemType) Then
             CharacterData.Items(itemType) += amount
         Else
@@ -35,7 +35,7 @@
         End If
     End Sub
 
-    Public Function ItemCount(itemType As String) As Integer Implements ICharacterItems.ItemCount
+    Public Function Count(itemType As String) As Integer Implements ICharacterItems.Count
         If CharacterData.Items.ContainsKey(itemType) Then
             Return CharacterData.Items(itemType)
         End If
@@ -46,7 +46,7 @@
         Return CharacterData.Items.Any
     End Function
 
-    Public Function HasItem(itemType As String) As Boolean Implements ICharacterItems.HasItem
+    Public Function Has(itemType As String) As Boolean Implements ICharacterItems.Has
         Return CharacterData.Items.ContainsKey(itemType)
     End Function
 End Class
