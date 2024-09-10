@@ -6,33 +6,18 @@
         MyBase.New(worldData, characterId)
     End Sub
 
-    Public ReadOnly Property LegacyItems As IReadOnlyDictionary(Of String, Integer) Implements ICharacterItems.LegacyItems
+    Public ReadOnly Property Inventory As IEnumerable(Of (InventoryName As String, Quantity As Integer)) Implements ICharacterItems.Inventory
         Get
-            Return CharacterData.Items.ToDictionary(Function(x) x.Key, Function(x) x.Value)
+            Return CharacterData.Items.Select(Function(x) (ItemTypes.Descriptors(x.Key).InventoryName, x.Value))
         End Get
     End Property
 
     Public Sub UseItem(itemType As String) Implements ICharacterItems.UseItem
+        Dim character = New Character(WorldData, CharacterId)
         If ItemTypes.Descriptors(itemType).CanUse Then
             RemoveItems(itemType, 1)
-            Select Case itemType
-                Case ItemTypes.Food
-                    UseFood()
-                Case ItemTypes.Medicine
-                    UseMedicine()
-            End Select
+            ItemTypes.Descriptors(itemType).OnUse(character)
         End If
-    End Sub
-    Private Sub UseMedicine()
-        Dim character = New Character(WorldData, CharacterId)
-        character.Statistics.Health += 10
-        character.Messages.Add("You use the medicine.", $"Yer health is now {character.Statistics.Health}/{character.Statistics.MaximumHealth}")
-    End Sub
-
-    Private Sub UseFood()
-        Dim character = New Character(WorldData, CharacterId)
-        character.Statistics.Satiety += 10
-        character.Messages.Add("You eat the food.", $"Yer satiety is now {character.Statistics.Satiety}/{character.Statistics.MaximumSatiety}")
     End Sub
 
     Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacterItems.RemoveItems
@@ -57,7 +42,7 @@
         Return 0
     End Function
 
-    Public Function HasItems() As Boolean Implements ICharacterItems.HasItems
+    Public Function HasAny() As Boolean Implements ICharacterItems.HasAny
         Return CharacterData.Items.Any
     End Function
 

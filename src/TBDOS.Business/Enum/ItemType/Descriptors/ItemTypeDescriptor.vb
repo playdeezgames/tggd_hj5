@@ -1,4 +1,4 @@
-﻿Public Class ItemTypeDescriptor
+﻿Public MustInherit Class ItemTypeDescriptor
     Public ReadOnly Property ItemType As String
     Public ReadOnly Property SpawnCount As Integer
     Public ReadOnly InventoryName As String
@@ -11,4 +11,5 @@
         Me.CanUse = canUse
         Me.ItemTypeName = itemTypeName
     End Sub
+    Public MustOverride Sub OnUse(character As ICharacter)
 End Class

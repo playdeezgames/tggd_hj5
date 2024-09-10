@@ -7,14 +7,17 @@
     End Sub
 
     Public Sub TurnAround() Implements ICharacterNavigationTurn.TurnAround
-        Throw New NotImplementedException()
+        Dim character As ICharacter = New Character(WorldData, CharacterId)
+        character.Navigation.Direction.CurrentDirection = character.Navigation.Direction.OppositeDirection
     End Sub
 
     Public Sub TurnLeft() Implements ICharacterNavigationTurn.TurnLeft
-        Throw New NotImplementedException()
+        Dim character As ICharacter = New Character(WorldData, CharacterId)
+        character.Navigation.Direction.CurrentDirection = character.Navigation.Direction.LeftDirection
     End Sub
 
     Public Sub TurnRight() Implements ICharacterNavigationTurn.TurnRight
-        Throw New NotImplementedException()
+        Dim character As ICharacter = New Character(WorldData, CharacterId)
+        character.Navigation.Direction.CurrentDirection = character.Navigation.Direction.RightDirection
     End Sub
 End Class

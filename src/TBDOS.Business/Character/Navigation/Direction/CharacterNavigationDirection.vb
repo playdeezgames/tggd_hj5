@@ -6,10 +6,13 @@
         MyBase.New(worldData, characterId)
     End Sub
 
-    Public ReadOnly Property CurrentDirection As String Implements ICharacterNavigationDirection.CurrentDirection
+    Public Property CurrentDirection As String Implements ICharacterNavigationDirection.CurrentDirection
         Get
             Return CharacterData.Direction
         End Get
+        Set(value As String)
+            CharacterData.Direction = value
+        End Set
     End Property
 
     Public ReadOnly Property AheadDirection As String Implements ICharacterNavigationDirection.AheadDirection

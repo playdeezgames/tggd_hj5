@@ -74,9 +74,9 @@ Friend Class InventoryStateController
     End Function
 
     Private Function UpdateGeneral() As UIStates
-        If _world.PlayerCharacter.Items.HasItems Then
+        If _world.PlayerCharacter.Items.HasAny Then
             _screen.WriteLine("Inventory:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.LegacyItems.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
+            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.Inventory.Select(Function(x) $"{x.InventoryName}(x{x.Quantity})")))
             _screen.WriteLine("[esc] Go Back")
             Return _state
         Else
