@@ -12,32 +12,6 @@ Friend Class Character
         MyBase.New(worldData, id)
     End Sub
 
-    Public Sub TurnAround() Implements ICharacter.TurnAround
-        CharacterData.Direction = (OppositeDirection)
-    End Sub
-
-    Public Sub TurnLeft() Implements ICharacter.TurnLeft
-        CharacterData.Direction = (LeftDirection)
-    End Sub
-
-    Public Sub TurnRight() Implements ICharacter.TurnRight
-        CharacterData.Direction = (RightDirection)
-    End Sub
-
-    Public Sub MoveAhead() Implements ICharacter.MoveAhead
-        Move(Directions.Descriptors(Direction).AheadDirection, "ahead")
-    End Sub
-
-    Private Sub Move(direction As String, text As String)
-        If Not Location.HasRoute(direction) Then
-            Messages.Add("You cannot go that way!")
-            Return
-        End If
-        Messages.Add($"You move {text}.")
-        CharacterData.LocationId = Location.Neighbor(direction).Id
-        ApplyEffects()
-    End Sub
-
     Private Sub ApplyEffects()
         AddHunger(1)
         Location.AddVisit(Me)
@@ -54,18 +28,6 @@ Friend Class Character
         Else
             Wounds += amount
         End If
-    End Sub
-
-    Public Sub MoveBack() Implements ICharacter.MoveBack
-        Move(Directions.Descriptors(Direction).OppositeDirection, "back")
-    End Sub
-
-    Public Sub MoveLeft() Implements ICharacter.MoveLeft
-        Move(Directions.Descriptors(Direction).LeftDirection, "to the left")
-    End Sub
-
-    Public Sub MoveRight() Implements ICharacter.MoveRight
-        Move(Directions.Descriptors(Direction).RightDirection, "to the right")
     End Sub
 
     Public ReadOnly Property IsStarving As Boolean Implements ICharacter.IsStarving
@@ -136,36 +98,6 @@ Friend Class Character
             Return New Location(WorldData, CharacterData.LocationId)
         End Get
     End Property
-    ReadOnly Property Direction As String Implements ICharacter.Direction
-        Get
-            Return CharacterData.Direction
-        End Get
-    End Property
-
-    Public ReadOnly Property AheadDirection As String Implements ICharacter.AheadDirection
-        Get
-            Return Directions.Descriptors(Direction).AheadDirection
-        End Get
-    End Property
-
-    Public ReadOnly Property LeftDirection As String Implements ICharacter.LeftDirection
-        Get
-            Return Directions.Descriptors(Direction).LeftDirection
-        End Get
-    End Property
-
-    Public ReadOnly Property RightDirection As String Implements ICharacter.RightDirection
-        Get
-            Return Directions.Descriptors(Direction).RightDirection
-        End Get
-    End Property
-
-    Public ReadOnly Property OppositeDirection As String Implements ICharacter.OppositeDirection
-        Get
-            Return Directions.Descriptors(Direction).OppositeDirection
-        End Get
-    End Property
-
     Public ReadOnly Property Messages As ICharacterMessages Implements ICharacter.Messages
         Get
             Return New CharacterMessages(WorldData, Id)
