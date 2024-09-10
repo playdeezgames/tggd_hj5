@@ -1,7 +1,7 @@
 ﻿Public Interface ICharacterNavigationDirection
-    Property CurrentDirection As String
-    ReadOnly Property AheadDirection As String
-    ReadOnly Property LeftDirection As String
-    ReadOnly Property RightDirection As String
-    ReadOnly Property OppositeDirection As String
+    Property Current As String
+    ReadOnly Property Ahead As String
+    ReadOnly Property Left As String
+    ReadOnly Property Right As String
+    ReadOnly Property Opposite As String
 End Interface

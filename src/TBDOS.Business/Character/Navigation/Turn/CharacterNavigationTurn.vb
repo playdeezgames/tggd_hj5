@@ -8,16 +8,16 @@
 
     Public Sub TurnAround() Implements ICharacterNavigationTurn.TurnAround
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        character.Navigation.Direction.CurrentDirection = character.Navigation.Direction.OppositeDirection
+        character.Navigation.Direction.Current = character.Navigation.Direction.Opposite
     End Sub
 
     Public Sub TurnLeft() Implements ICharacterNavigationTurn.TurnLeft
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        character.Navigation.Direction.CurrentDirection = character.Navigation.Direction.LeftDirection
+        character.Navigation.Direction.Current = character.Navigation.Direction.Left
     End Sub
 
     Public Sub TurnRight() Implements ICharacterNavigationTurn.TurnRight
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        character.Navigation.Direction.CurrentDirection = character.Navigation.Direction.RightDirection
+        character.Navigation.Direction.Current = character.Navigation.Direction.Right
     End Sub
 End Class

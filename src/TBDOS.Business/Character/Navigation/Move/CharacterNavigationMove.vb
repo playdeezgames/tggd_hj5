@@ -17,23 +17,23 @@
         CharacterTypes.Descriptors(CharacterData.CharacterType).ApplyEffects(New Character(WorldData, CharacterId))
     End Sub
 
-    Public Sub MoveLeft() Implements ICharacterNavigationMove.MoveLeft
+    Public Sub Left() Implements ICharacterNavigationMove.Left
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        Move(Directions.Descriptors(character.Navigation.Direction.CurrentDirection).LeftDirection, "to the left")
+        Move(Directions.Descriptors(character.Navigation.Direction.Current).LeftDirection, "to the left")
     End Sub
 
-    Public Sub MoveRight() Implements ICharacterNavigationMove.MoveRight
+    Public Sub Right() Implements ICharacterNavigationMove.Right
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        Move(Directions.Descriptors(character.Navigation.Direction.CurrentDirection).RightDirection, "to the right")
+        Move(Directions.Descriptors(character.Navigation.Direction.Current).RightDirection, "to the right")
     End Sub
 
-    Public Sub MoveAhead() Implements ICharacterNavigationMove.MoveAhead
+    Public Sub Ahead() Implements ICharacterNavigationMove.Ahead
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        Move(Directions.Descriptors(character.Navigation.Direction.CurrentDirection).AheadDirection, Nothing)
+        Move(Directions.Descriptors(character.Navigation.Direction.Current).AheadDirection, Nothing)
     End Sub
 
-    Public Sub MoveBack() Implements ICharacterNavigationMove.MoveBack
+    Public Sub Back() Implements ICharacterNavigationMove.Back
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        Move(Directions.Descriptors(character.Navigation.Direction.CurrentDirection).OppositeDirection, "back")
+        Move(Directions.Descriptors(character.Navigation.Direction.Current).OppositeDirection, "back")
     End Sub
 End Class

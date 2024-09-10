@@ -6,7 +6,7 @@
         MyBase.New(worldData, characterId)
     End Sub
 
-    Public Property CurrentDirection As String Implements ICharacterNavigationDirection.CurrentDirection
+    Public Property Current As String Implements ICharacterNavigationDirection.Current
         Get
             Return CharacterData.Direction
         End Get
@@ -15,27 +15,27 @@
         End Set
     End Property
 
-    Public ReadOnly Property AheadDirection As String Implements ICharacterNavigationDirection.AheadDirection
+    Public ReadOnly Property Ahead As String Implements ICharacterNavigationDirection.Ahead
         Get
-            Return Directions.Descriptors(CurrentDirection).AheadDirection
+            Return Directions.Descriptors(Current).AheadDirection
         End Get
     End Property
 
-    Public ReadOnly Property LeftDirection As String Implements ICharacterNavigationDirection.LeftDirection
+    Public ReadOnly Property Left As String Implements ICharacterNavigationDirection.Left
         Get
-            Return Directions.Descriptors(CurrentDirection).LeftDirection
+            Return Directions.Descriptors(Current).LeftDirection
         End Get
     End Property
 
-    Public ReadOnly Property RightDirection As String Implements ICharacterNavigationDirection.RightDirection
+    Public ReadOnly Property Right As String Implements ICharacterNavigationDirection.Right
         Get
-            Return Directions.Descriptors(CurrentDirection).RightDirection
+            Return Directions.Descriptors(Current).RightDirection
         End Get
     End Property
 
-    Public ReadOnly Property OppositeDirection As String Implements ICharacterNavigationDirection.OppositeDirection
+    Public ReadOnly Property Opposite As String Implements ICharacterNavigationDirection.Opposite
         Get
-            Return Directions.Descriptors(CurrentDirection).OppositeDirection
+            Return Directions.Descriptors(Current).OppositeDirection
         End Get
     End Property
 End Class
