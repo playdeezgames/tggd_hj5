@@ -25,14 +25,14 @@
     End Sub
     Private Sub UseMedicine()
         Dim character = New Character(WorldData, CharacterId)
-        character.Health += 10
-        character.Messages.Add("You use the medicine.", $"Yer health is now {character.Health}/{character.MaximumHealth}")
+        character.Statistics.Health += 10
+        character.Messages.Add("You use the medicine.", $"Yer health is now {character.Statistics.Health}/{character.Statistics.MaximumHealth}")
     End Sub
 
     Private Sub UseFood()
         Dim character = New Character(WorldData, CharacterId)
-        character.Satiety += 10
-        character.Messages.Add("You eat the food.", $"Yer satiety is now {character.Satiety}/{character.MaximumSatiety}")
+        character.Statistics.Satiety += 10
+        character.Messages.Add("You eat the food.", $"Yer satiety is now {character.Statistics.Satiety}/{character.Statistics.MaximumSatiety}")
     End Sub
 
     Public Sub RemoveItems(itemType As String, amount As Integer) Implements ICharacterItems.RemoveItems

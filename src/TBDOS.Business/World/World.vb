@@ -76,6 +76,7 @@ Public Class World
     Private Function CreateCharacter(characterType As String) As ICharacter
         Dim id As Integer = _worldData.Characters.Count
         _worldData.Characters.Add(New CharacterData With {
+                                    .CharacterType = characterType,
                                   .LocationId = RandomLocationId(),
                                   .Direction = RandomDirection(),
                                   .Messages = New List(Of String()),

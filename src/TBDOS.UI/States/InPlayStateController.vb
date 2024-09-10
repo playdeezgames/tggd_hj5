@@ -33,7 +33,7 @@ Friend Class InPlayStateController
 
     Private Sub UpdateInPlay()
         _screen.WriteLine("Yer Alive!")
-        If _world.PlayerCharacter.IsStarving Then
+        If _world.PlayerCharacter.Status.IsStarving Then
             _screen.WriteLine("Yer starving!")
         End If
         ShowExits()
@@ -69,7 +69,7 @@ Friend Class InPlayStateController
     End Sub
 
     Protected Overrides Function HandleKeyDownNonMessage(key As Keys) As UIStates
-        If _world.PlayerCharacter.IsDead Then
+        If _world.PlayerCharacter.Status.IsDead Then
             Return HandleKeyDownIsDead(key)
         Else
             Return HandleKeyDownInPlay(key)
@@ -77,7 +77,7 @@ Friend Class InPlayStateController
     End Function
 
     Protected Overrides Function UpdateNonMessage(ticks As Long) As UIStates
-        If _world.PlayerCharacter.IsDead Then
+        If _world.PlayerCharacter.Status.IsDead Then
             UpdateIsDead()
         Else
             UpdateInPlay()

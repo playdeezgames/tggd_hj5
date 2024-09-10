@@ -1,11 +1,9 @@
 ﻿Friend Class CharacterNavigation
     Inherits CharacterDataClient
     Implements ICharacterNavigation
-    Private ReadOnly applyEffects As Action
 
-    Public Sub New(worldData As Data.WorldData, characterId As Integer, applyEffects As Action)
+    Public Sub New(worldData As Data.WorldData, characterId As Integer)
         MyBase.New(worldData, characterId)
-        Me.applyEffects = applyEffects
     End Sub
 
     Public ReadOnly Property Turn As ICharacterNavigationTurn Implements ICharacterNavigation.Turn
@@ -16,7 +14,7 @@
 
     Private ReadOnly Property ICharacterNavigation_Move As ICharacterNavigationMove Implements ICharacterNavigation.Move
         Get
-            Return New CharacterNavigationMove(WorldData, CharacterId, applyEffects)
+            Return New CharacterNavigationMove(WorldData, CharacterId)
         End Get
     End Property
 
