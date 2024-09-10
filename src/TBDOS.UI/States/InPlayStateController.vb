@@ -53,16 +53,16 @@ Friend Class InPlayStateController
         Dim character = _world.PlayerCharacter
         Dim routes = character.Location.Routes
         Dim directionNames As New List(Of String)
-        If routes.Any(Function(x) x.Direction = character.Navigation.AheadDirection) Then
+        If routes.Any(Function(x) x.Direction = character.Navigation.Direction.AheadDirection) Then
             directionNames.Add("ahead")
         End If
-        If routes.Any(Function(x) x.Direction = character.Navigation.RightDirection) Then
+        If routes.Any(Function(x) x.Direction = character.Navigation.Direction.RightDirection) Then
             directionNames.Add("right")
         End If
-        If routes.Any(Function(x) x.Direction = character.Navigation.LeftDirection) Then
+        If routes.Any(Function(x) x.Direction = character.Navigation.Direction.LeftDirection) Then
             directionNames.Add("left")
         End If
-        If routes.Any(Function(x) x.Direction = character.Navigation.OppositeDirection) Then
+        If routes.Any(Function(x) x.Direction = character.Navigation.Direction.OppositeDirection) Then
             directionNames.Add("behind")
         End If
         _screen.WriteLine($"Exits: {String.Join(", ", directionNames)}")
