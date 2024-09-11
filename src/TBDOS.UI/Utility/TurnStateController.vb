@@ -14,15 +14,15 @@ Friend Class TurnStateController
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
         Select Case key
             Case Keys.A
-                _world.PlayerCharacter.Navigation.Turn.TurnAround()
+                _world.Avatar.Navigation.Turn.TurnAround()
                 Return UIStates.InPlay
             Case Keys.Escape
                 Return UIStates.InPlay
             Case Keys.L
-                _world.PlayerCharacter.Navigation.Turn.TurnLeft()
+                _world.Avatar.Navigation.Turn.TurnLeft()
                 Return UIStates.InPlay
             Case Keys.R
-                _world.PlayerCharacter.Navigation.Turn.TurnRight()
+                _world.Avatar.Navigation.Turn.TurnRight()
                 Return UIStates.InPlay
         End Select
         Return UIStates.Turn

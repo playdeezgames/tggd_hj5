@@ -18,9 +18,9 @@ Friend Class StatusStateController
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Status:")
-        _screen.WriteLine($"Health: {_world.PlayerCharacter.Statistics.Health}/{_world.PlayerCharacter.Statistics.MaximumHealth}")
-        _screen.WriteLine($"Satiety: {_world.PlayerCharacter.Statistics.Satiety}/{_world.PlayerCharacter.Statistics.MaximumSatiety}")
-        _screen.WriteLine($"Exploration: {_world.PlayerCharacter.Statistics.ExplorationPercentage:F}%")
+        _screen.WriteLine($"Health: {_world.Avatar.Statistics.Health}/{_world.Avatar.Statistics.MaximumHealth}")
+        _screen.WriteLine($"Satiety: {_world.Avatar.Statistics.Satiety}/{_world.Avatar.Statistics.MaximumSatiety}")
+        _screen.WriteLine($"Exploration: {_world.Avatar.Statistics.ExplorationPercentage:F}%")
         _screen.WriteLine("[esc] Go Back")
         Return UIStates.Status
     End Function

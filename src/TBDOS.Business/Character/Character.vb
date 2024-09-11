@@ -31,9 +31,9 @@ Friend Class Character
         End Get
     End Property
 
-    Public ReadOnly Property Items As ICharacterItems Implements ICharacter.Items
+    Public ReadOnly Property Inventory As ICharacterInventory Implements ICharacter.Inventory
         Get
-            Return New CharacterItems(WorldData, Id)
+            Return New CharacterInventory(WorldData, Id)
         End Get
     End Property
 

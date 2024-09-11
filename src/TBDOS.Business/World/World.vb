@@ -103,7 +103,7 @@ Public Class World
         Return ItemTypes.Descriptors(itemType).CanUse
     End Function
 
-    ReadOnly Property PlayerCharacter As ICharacter Implements IWorld.PlayerCharacter
+    ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
             Return New Character(_worldData, _worldData.PlayerCharacterId)
         End Get

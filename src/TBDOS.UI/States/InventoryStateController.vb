@@ -25,7 +25,7 @@ Friend Class InventoryStateController
             Case Else
                 If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
                     Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
-                    If _world.PlayerCharacter.Items.Stack(itemType).Has Then
+                    If _world.Avatar.Inventory.Stack(itemType).Has Then
                         _itemType = itemType
                     End If
                 End If
@@ -50,16 +50,16 @@ Friend Class InventoryStateController
     End Function
 
     Private Sub UseItem()
-        _world.PlayerCharacter.Items.Stack(_itemType).Use()
+        _world.Avatar.Inventory.Stack(_itemType).Use()
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
     End Sub
 
     Private Sub DropItems(amount As Integer)
-        _world.PlayerCharacter.Location.AddItems(_itemType, amount)
-        _world.PlayerCharacter.Items.Stack(_itemType).Remove(amount)
-        _world.PlayerCharacter.Messages.Add($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
+        _world.Avatar.Location.AddItems(_itemType, amount)
+        _world.Avatar.Inventory.Stack(_itemType).Remove(amount)
+        _world.Avatar.Messages.Add($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -74,9 +74,9 @@ Friend Class InventoryStateController
     End Function
 
     Private Function UpdateGeneral() As UIStates
-        If _world.PlayerCharacter.Items.HasAny Then
+        If _world.Avatar.Inventory.HasAny Then
             _screen.WriteLine("Inventory:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.Stacks.Select(Function(x) $"{x.InventoryName}(x{x.Quantity})")))
+            _screen.WriteLine(String.Join(", ", _world.Avatar.Inventory.Stacks.Select(Function(x) $"{x.InventoryName}(x{x.Quantity})")))
             _screen.WriteLine("[esc] Go Back")
             Return _state
         Else
@@ -86,7 +86,7 @@ Friend Class InventoryStateController
     Private ReadOnly Property ItemCount As Integer
         Get
             If _itemType IsNot Nothing Then
-                Return _world.PlayerCharacter.Items.Stack(_itemType).Quantity()
+                Return _world.Avatar.Inventory.Stack(_itemType).Quantity()
             End If
             Return 0
         End Get

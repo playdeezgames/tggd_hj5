@@ -23,9 +23,9 @@ Friend Class GroundStateController
     End Function
 
     Private Sub TakeItems(amount As Integer)
-        _world.PlayerCharacter.Location.RemoveItems(_itemType, amount)
-        _world.PlayerCharacter.Items.Stack(_itemType).Add(amount)
-        _world.PlayerCharacter.Messages.Add($"You take {amount} {_world.ItemTypeName(_itemType)}.")
+        _world.Avatar.Location.RemoveItems(_itemType, amount)
+        _world.Avatar.Inventory.Stack(_itemType).Add(amount)
+        _world.Avatar.Messages.Add($"You take {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -38,7 +38,7 @@ Friend Class GroundStateController
             Case Else
                 If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
                     Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
-                    If _world.PlayerCharacter.Location.HasItem(itemType) Then
+                    If _world.Avatar.Location.HasItem(itemType) Then
                         _itemType = itemType
                     End If
                 End If
@@ -48,7 +48,7 @@ Friend Class GroundStateController
     Private ReadOnly Property ItemCount As Integer
         Get
             If _itemType IsNot Nothing Then
-                Return _world.PlayerCharacter.Location.ItemCount(_itemType)
+                Return _world.Avatar.Location.ItemCount(_itemType)
             End If
             Return 0
         End Get
@@ -66,9 +66,9 @@ Friend Class GroundStateController
     End Function
 
     Private Function UpdateGeneral() As UIStates
-        If _world.PlayerCharacter.Location.Items.Any Then
+        If _world.Avatar.Location.Items.Any Then
             _screen.WriteLine("On the ground:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Location.Items.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
+            _screen.WriteLine(String.Join(", ", _world.Avatar.Location.Items.Select(Function(x) $"{_world.InventoryName(x.Key)}(x{x.Value})")))
             _screen.WriteLine("[esc] Go Back")
             Return UIStates.Ground
         Else

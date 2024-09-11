@@ -13,7 +13,7 @@ Friend MustInherit Class MessageStateController
     End Sub
 
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
-        If _world.PlayerCharacter.Messages.HasAny Then
+        If _world.Avatar.Messages.HasAny Then
             Return HandleKeyDownMessage(key)
         Else
             Return HandleKeyDownNonMessage(key)
@@ -23,14 +23,14 @@ Friend MustInherit Class MessageStateController
     Protected MustOverride Function HandleKeyDownNonMessage(key As Keys) As UIStates
 
     Private Function HandleKeyDownMessage(key As Keys) As UIStates
-        _world.PlayerCharacter.Messages.Dismiss()
+        _world.Avatar.Messages.Dismiss()
         Return _state
     End Function
 
     Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
-        If _world.PlayerCharacter.Messages.HasAny Then
+        If _world.Avatar.Messages.HasAny Then
             Return UpdateMessage()
         Else
             Return UpdateNonMessage(ticks)
@@ -38,7 +38,7 @@ Friend MustInherit Class MessageStateController
     End Function
     Protected MustOverride Function UpdateNonMessage(ticks As Long) As UIStates
     Private Function UpdateMessage() As UIStates
-        Dim message = _world.PlayerCharacter.Messages.Current
+        Dim message = _world.Avatar.Messages.Current
         For Each line In message
             _screen.WriteLine(line)
         Next

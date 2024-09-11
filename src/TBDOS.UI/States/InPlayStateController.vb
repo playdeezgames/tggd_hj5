@@ -33,24 +33,24 @@ Friend Class InPlayStateController
 
     Private Sub UpdateInPlay()
         _screen.WriteLine("Yer Alive!")
-        If _world.PlayerCharacter.Status.IsStarving Then
+        If _world.Avatar.Status.IsStarving Then
             _screen.WriteLine("Yer starving!")
         End If
         ShowExits()
         _screen.WriteLine("[T]urn")
         _screen.WriteLine("[M]ove")
         _screen.WriteLine("[S]tatus")
-        If _world.PlayerCharacter.Location.HasItems Then
+        If _world.Avatar.Location.HasItems Then
             _screen.WriteLine("[G]round")
         End If
-        If _world.PlayerCharacter.Items.HasAny Then
+        If _world.Avatar.Inventory.HasAny Then
             _screen.WriteLine("[I]nventory")
         End If
         _screen.WriteLine("[esc] Main Menu")
     End Sub
 
     Private Sub ShowExits()
-        Dim character = _world.PlayerCharacter
+        Dim character = _world.Avatar
         Dim routes = character.Location.Routes
         Dim directionNames As New List(Of String)
         If routes.Any(Function(x) x.Direction = character.Navigation.Direction.Ahead) Then
@@ -69,7 +69,7 @@ Friend Class InPlayStateController
     End Sub
 
     Protected Overrides Function HandleKeyDownNonMessage(key As Keys) As UIStates
-        If _world.PlayerCharacter.Status.IsDead Then
+        If _world.Avatar.Status.IsDead Then
             Return HandleKeyDownIsDead(key)
         Else
             Return HandleKeyDownInPlay(key)
@@ -77,7 +77,7 @@ Friend Class InPlayStateController
     End Function
 
     Protected Overrides Function UpdateNonMessage(ticks As Long) As UIStates
-        If _world.PlayerCharacter.Status.IsDead Then
+        If _world.Avatar.Status.IsDead Then
             UpdateIsDead()
         Else
             UpdateInPlay()
