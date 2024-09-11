@@ -25,7 +25,7 @@ Friend Class InventoryStateController
             Case Else
                 If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
                     Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
-                    If _world.PlayerCharacter.Items.Has(itemType) Then
+                    If _world.PlayerCharacter.Items.Stack(itemType).Has Then
                         _itemType = itemType
                     End If
                 End If
@@ -50,7 +50,7 @@ Friend Class InventoryStateController
     End Function
 
     Private Sub UseItem()
-        _world.PlayerCharacter.Items.Use(_itemType)
+        _world.PlayerCharacter.Items.Stack(_itemType).Use()
         If ItemCount <= 0 Then
             _itemType = Nothing
         End If
@@ -58,7 +58,7 @@ Friend Class InventoryStateController
 
     Private Sub DropItems(amount As Integer)
         _world.PlayerCharacter.Location.AddItems(_itemType, amount)
-        _world.PlayerCharacter.Items.Remove(_itemType, amount)
+        _world.PlayerCharacter.Items.Stack(_itemType).Remove(amount)
         _world.PlayerCharacter.Messages.Add($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
             _itemType = Nothing
@@ -86,7 +86,7 @@ Friend Class InventoryStateController
     Private ReadOnly Property ItemCount As Integer
         Get
             If _itemType IsNot Nothing Then
-                Return _world.PlayerCharacter.Items.Count(_itemType)
+                Return _world.PlayerCharacter.Items.Stack(_itemType).Count()
             End If
             Return 0
         End Get
