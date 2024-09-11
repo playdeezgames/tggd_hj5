@@ -12,6 +12,18 @@
         End Get
     End Property
 
+    Public ReadOnly Property Stacks As IEnumerable(Of ICharacterItemStack) Implements ICharacterItems.Stacks
+        Get
+            Return CharacterData.Items.Select(Function(x) New CharacterItemStack(WorldData, CharacterId, x.Key))
+        End Get
+    End Property
+
+    Public ReadOnly Property Stack(itemType As String) As ICharacterItemStack Implements ICharacterItems.Stack
+        Get
+            Return New CharacterItemStack(WorldData, CharacterId, itemType)
+        End Get
+    End Property
+
     Public Sub Use(itemType As String) Implements ICharacterItems.Use
         Dim character = New Character(WorldData, CharacterId)
         If ItemTypes.Descriptors(itemType).CanUse Then
