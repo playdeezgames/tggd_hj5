@@ -40,7 +40,7 @@ Friend Class InPlayStateController
         _screen.WriteLine("[T]urn")
         _screen.WriteLine("[M]ove")
         _screen.WriteLine("[S]tatus")
-        If _world.Avatar.Location.HasItems Then
+        If _world.Avatar.Location.Inventory.HasItems Then
             _screen.WriteLine("[G]round")
         End If
         If _world.Avatar.Inventory.HasAny Then
