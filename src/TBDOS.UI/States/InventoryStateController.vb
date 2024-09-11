@@ -57,7 +57,7 @@ Friend Class InventoryStateController
     End Sub
 
     Private Sub DropItems(amount As Integer)
-        _world.Avatar.Location.Inventory.AddItems(_itemType, amount)
+        _world.Avatar.Location.Inventory.Stack(_itemType).Add(amount)
         _world.Avatar.Inventory.Stack(_itemType).Remove(amount)
         _world.Avatar.Messages.Add($"You drop {amount} {_world.ItemTypeName(_itemType)}.")
         If ItemCount <= 0 Then
