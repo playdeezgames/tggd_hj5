@@ -6,12 +6,6 @@
         MyBase.New(worldData, characterId)
     End Sub
 
-    Public ReadOnly Property Inventory As IEnumerable(Of (InventoryName As String, Quantity As Integer)) Implements ICharacterItems.Inventory
-        Get
-            Return CharacterData.Items.Select(Function(x) (ItemTypes.Descriptors(x.Key).InventoryName, x.Value))
-        End Get
-    End Property
-
     Public ReadOnly Property Stacks As IEnumerable(Of ICharacterItemStack) Implements ICharacterItems.Stacks
         Get
             Return CharacterData.Items.Select(Function(x) New CharacterItemStack(WorldData, CharacterId, x.Key))

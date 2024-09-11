@@ -76,7 +76,7 @@ Friend Class InventoryStateController
     Private Function UpdateGeneral() As UIStates
         If _world.PlayerCharacter.Items.HasAny Then
             _screen.WriteLine("Inventory:")
-            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.Inventory.Select(Function(x) $"{x.InventoryName}(x{x.Quantity})")))
+            _screen.WriteLine(String.Join(", ", _world.PlayerCharacter.Items.Stacks.Select(Function(x) $"{x.InventoryName}(x{x.Quantity})")))
             _screen.WriteLine("[esc] Go Back")
             Return _state
         Else
@@ -86,7 +86,7 @@ Friend Class InventoryStateController
     Private ReadOnly Property ItemCount As Integer
         Get
             If _itemType IsNot Nothing Then
-                Return _world.PlayerCharacter.Items.Stack(_itemType).Count()
+                Return _world.PlayerCharacter.Items.Stack(_itemType).Quantity()
             End If
             Return 0
         End Get

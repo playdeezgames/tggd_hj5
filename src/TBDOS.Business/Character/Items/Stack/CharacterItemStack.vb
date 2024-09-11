@@ -21,12 +21,14 @@
         End If
     End Sub
 
-    Public Function Count() As Integer Implements ICharacterItemStack.Count
-        If CharacterData.Items.ContainsKey(itemType) Then
-            Return CharacterData.Items(itemType)
-        End If
-        Return 0
-    End Function
+    Public ReadOnly Property Quantity As Integer Implements ICharacterItemStack.Quantity
+        Get
+            If CharacterData.Items.ContainsKey(itemType) Then
+                Return CharacterData.Items(itemType)
+            End If
+            Return 0
+        End Get
+    End Property
 
     Public Sub Add(amount As Integer) Implements ICharacterItemStack.Add
         If CharacterData.Items.ContainsKey(itemType) Then
@@ -36,9 +38,17 @@
         End If
     End Sub
 
-    Public Function Has() As Boolean Implements ICharacterItemStack.Has
-        Return CharacterData.Items.ContainsKey(itemType)
-    End Function
+    Public ReadOnly Property Has As Boolean Implements ICharacterItemStack.Has
+        Get
+            Return CharacterData.Items.ContainsKey(itemType)
+        End Get
+    End Property
+
+    Public ReadOnly Property InventoryName As String Implements IItemStack.InventoryName
+        Get
+            Return ItemTypes.Descriptors(itemType).InventoryName
+        End Get
+    End Property
 
     Private ReadOnly itemType As String
 End Class
