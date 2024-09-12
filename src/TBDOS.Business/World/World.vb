@@ -90,19 +90,6 @@ Public Class World
     Public Sub AbandonGame() Implements IWorld.AbandonGame
         _worldData = Nothing
     End Sub
-
-    Public Function ItemTypeName(itemType As String) As String Implements IWorld.ItemTypeName
-        Return ItemTypes.Descriptors(itemType).ItemTypeName
-    End Function
-
-    Public Function InventoryName(itemType As String) As String Implements IWorld.InventoryName
-        Return ItemTypes.Descriptors(itemType).InventoryName
-    End Function
-
-    Public Function CanUse(itemType As String) As Boolean Implements IWorld.CanUse
-        Return ItemTypes.Descriptors(itemType).CanUse
-    End Function
-
     ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
             Return New Character(_worldData, _worldData.PlayerCharacterId)

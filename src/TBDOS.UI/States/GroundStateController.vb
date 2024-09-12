@@ -25,7 +25,7 @@ Friend Class GroundStateController
     Private Sub TakeItems(amount As Integer)
         itemStack.Remove(amount)
         _world.Avatar.Inventory.Stack(itemStack.ItemType).Add(amount)
-        _world.Avatar.Messages.Add($"You take {amount} {_world.ItemTypeName(itemStack.ItemType)}.")
+        _world.Avatar.Messages.Add($"You take {amount} {itemStack.ItemTypeName}.")
         If ItemCount <= 0 Then
             itemStack = Nothing
         End If
@@ -55,7 +55,7 @@ Friend Class GroundStateController
     End Property
 
     Private Function UpdateSpecific() As UIStates
-        _screen.WriteLine($"{_world.ItemTypeName(itemStack.ItemType)}(x{itemStack.Quantity})")
+        _screen.WriteLine($"{itemStack.ItemTypeName}(x{itemStack.Quantity})")
         _screen.WriteLine("[Esc] Go Back")
         _screen.WriteLine("Take [O]ne")
         If ItemCount > 1 Then
