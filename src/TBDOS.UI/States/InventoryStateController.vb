@@ -55,7 +55,7 @@ Friend Class InventoryStateController
     End Sub
 
     Private Sub DropItems(amount As Integer)
-        _world.Avatar.Inventory.Drop(itemStack, amount)
+        itemStack.Drop(amount)
         If ItemCount <= 0 Then
             itemStack = Nothing
         End If

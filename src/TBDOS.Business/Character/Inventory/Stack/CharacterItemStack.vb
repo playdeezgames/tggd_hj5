@@ -38,6 +38,13 @@
         End If
     End Sub
 
+    Public Sub Drop(amount As Integer) Implements ICharacterItemStack.Drop
+        Dim character As ICharacter = New Character(WorldData, CharacterId)
+        character.Location.Inventory.Stack(ItemType).Add(amount)
+        Remove(amount)
+        character.Messages.Add($"You drop {amount} {ItemTypeName}.")
+    End Sub
+
     Public ReadOnly Property Has As Boolean Implements ICharacterItemStack.Has
         Get
             Return CharacterData.Items.ContainsKey(_itemType)

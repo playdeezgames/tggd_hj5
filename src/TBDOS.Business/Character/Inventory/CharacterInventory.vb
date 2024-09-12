@@ -25,13 +25,6 @@
         messages.Add($"You take {amount} {itemStack.ItemTypeName}.")
     End Sub
 
-    Public Sub Drop(itemStack As ICharacterItemStack, amount As Integer) Implements ICharacterInventory.Drop
-        Dim character As ICharacter = New Character(WorldData, CharacterId)
-        character.Location.Inventory.Stack(itemStack.ItemType).Add(amount)
-        itemStack.Remove(amount)
-        character.Messages.Add($"You drop {amount} {itemStack.ItemTypeName}.")
-    End Sub
-
     Public Function HasAny() As Boolean Implements ICharacterInventory.HasAny
         Return CharacterData.Items.Any
     End Function
