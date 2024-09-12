@@ -39,12 +39,6 @@ Friend Class Location
         End Get
     End Property
 
-    Public ReadOnly Property LegacyInventory As IEnumerable(Of (InventoryName As String, Quantity As Integer)) Implements ILocation.LegacyInventory
-        Get
-            Return LocationData.Items.Select(Function(x) (ItemTypes.Descriptors(x.Key).InventoryName, x.Value))
-        End Get
-    End Property
-
     Public ReadOnly Property Inventory As ILocationInventory Implements ILocation.Inventory
         Get
             Return New LocationInventory(WorldData, locationId)

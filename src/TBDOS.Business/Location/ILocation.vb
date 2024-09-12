@@ -7,6 +7,4 @@
 
     Function HasRoute(direction As String) As Boolean
     ReadOnly Property Routes As IEnumerable(Of IRoute)
-
-    ReadOnly Property LegacyInventory As IEnumerable(Of (InventoryName As String, Quantity As Integer))
 End Interface
