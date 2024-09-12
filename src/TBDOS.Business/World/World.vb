@@ -87,18 +87,12 @@ Public Class World
         Return character
     End Function
 
-    Public Sub AbandonGame() Implements IWorld.AbandonGame
+    Public Sub Abandon() Implements IWorld.Abandon
         _worldData = Nothing
     End Sub
     ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
             Return New Character(_worldData, _worldData.PlayerCharacterId)
-        End Get
-    End Property
-
-    Public ReadOnly Property AllItemTypes As IEnumerable(Of String) Implements IWorld.AllItemTypes
-        Get
-            Return ItemTypes.AllItemTypes
         End Get
     End Property
 End Class

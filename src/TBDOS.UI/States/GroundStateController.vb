@@ -23,9 +23,7 @@ Friend Class GroundStateController
     End Function
 
     Private Sub TakeItems(amount As Integer)
-        itemStack.Remove(amount)
-        _world.Avatar.Inventory.Stack(itemStack.ItemType).Add(amount)
-        _world.Avatar.Messages.Add($"You take {amount} {itemStack.ItemTypeName}.")
+        _world.Avatar.Inventory.Take(itemStack, amount)
         If ItemCount <= 0 Then
             itemStack = Nothing
         End If
@@ -36,11 +34,9 @@ Friend Class GroundStateController
             Case Keys.Escape
                 Return UIStates.InPlay
             Case Else
-                If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
-                    Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
-                    If _world.Avatar.Location.Inventory.Stack(itemType).Has Then
-                        itemStack = _world.Avatar.Location.Inventory.Stack(itemType)
-                    End If
+                Dim itemType = ShortcutKeys.ShortcutKeyToItemType(key)
+                If itemType IsNot Nothing AndAlso _world.Avatar.Location.Inventory.Stack(itemType).Has Then
+                    itemStack = _world.Avatar.Location.Inventory.Stack(itemType)
                 End If
         End Select
         Return UIStates.Ground

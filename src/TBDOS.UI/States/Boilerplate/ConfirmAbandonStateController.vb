@@ -15,7 +15,7 @@ Friend Class ConfirmAbandonStateController
     Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
         Select Case key
             Case Keys.Y
-                _world.AbandonGame()
+                _world.Abandon()
                 Return UIStates.MainMenu
             Case Keys.N
                 Return UIStates.MainMenu

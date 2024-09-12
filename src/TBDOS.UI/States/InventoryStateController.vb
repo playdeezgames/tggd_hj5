@@ -23,11 +23,9 @@ Friend Class InventoryStateController
             Case Keys.Escape
                 Return UIStates.InPlay
             Case Else
-                If _world.AllItemTypes.Any(Function(x) x.ShortcutKey = key) Then
-                    Dim itemType = _world.AllItemTypes.Single(Function(x) x.ShortcutKey = key)
-                    If _world.Avatar.Inventory.Stack(itemType).Has Then
-                        itemStack = _world.Avatar.Inventory.Stack(itemType)
-                    End If
+                Dim itemType = ShortcutKeys.ShortcutKeyToItemType(key)
+                If itemType IsNot Nothing AndAlso _world.Avatar.Inventory.Stack(itemType).Has Then
+                    itemStack = _world.Avatar.Inventory.Stack(itemType)
                 End If
                 Return _state
         End Select
@@ -57,9 +55,7 @@ Friend Class InventoryStateController
     End Sub
 
     Private Sub DropItems(amount As Integer)
-        _world.Avatar.Location.Inventory.Stack(itemStack.ItemType).Add(amount)
-        itemStack.Remove(amount)
-        _world.Avatar.Messages.Add($"You drop {amount} {itemStack.ItemTypeName}.")
+        _world.Avatar.Inventory.Drop(itemStack, amount)
         If ItemCount <= 0 Then
             itemStack = Nothing
         End If
