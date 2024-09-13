@@ -70,8 +70,7 @@ Public Class World
                                     .CharacterType = characterType,
                                   .LocationId = RandomLocationId(),
                                   .Direction = RandomDirection(),
-                                  .Messages = New List(Of String()),
-                                  .Statistics = CharacterTypes.Descriptors(characterType).InitialStatistics.ToDictionary(Function(x) x.Key, Function(x) x.Value)})
+                                  .Messages = New List(Of String())})
         Dim character As ICharacter = New Character(_worldData, id)
         Return character
     End Function

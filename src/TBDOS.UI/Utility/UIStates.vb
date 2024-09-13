@@ -9,7 +9,4 @@
     ConfirmAbandon
     Turn
     Move
-    Status
-    Ground
-    Inventory
 End Enum

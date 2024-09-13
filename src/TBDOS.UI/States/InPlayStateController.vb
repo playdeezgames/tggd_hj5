@@ -11,14 +11,8 @@ Friend Class InPlayStateController
     End Function
     Private Shared Function HandleKeyDownInPlay(key As Keys) As UIStates
         Select Case key
-            Case Keys.G
-                Return UIStates.Ground
-            Case Keys.I
-                Return UIStates.Inventory
             Case Keys.M
                 Return UIStates.Move
-            Case Keys.S
-                Return UIStates.Status
             Case Keys.T
                 Return UIStates.Turn
             Case Keys.Escape
@@ -33,9 +27,6 @@ Friend Class InPlayStateController
 
     Private Sub UpdateInPlay()
         _screen.WriteLine("Yer Alive!")
-        If _world.Avatar.Status.IsStarving Then
-            _screen.WriteLine("Yer starving!")
-        End If
         ShowExits()
         _screen.WriteLine("[T]urn")
         _screen.WriteLine("[M]ove")
@@ -63,19 +54,11 @@ Friend Class InPlayStateController
     End Sub
 
     Protected Overrides Function HandleKeyDownNonMessage(key As Keys) As UIStates
-        If _world.Avatar.Status.IsDead Then
-            Return HandleKeyDownIsDead(key)
-        Else
-            Return HandleKeyDownInPlay(key)
-        End If
+        Return HandleKeyDownInPlay(key)
     End Function
 
     Protected Overrides Function UpdateNonMessage(ticks As Long) As UIStates
-        If _world.Avatar.Status.IsDead Then
-            UpdateIsDead()
-        Else
-            UpdateInPlay()
-        End If
+        UpdateInPlay()
         Return _state
     End Function
 End Class

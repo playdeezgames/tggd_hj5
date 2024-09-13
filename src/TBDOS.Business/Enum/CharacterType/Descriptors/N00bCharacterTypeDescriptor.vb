@@ -13,6 +13,5 @@
     End Sub
 
     Public Overrides Sub ApplyEffects(character As ICharacter)
-        character.Statistics.Satiety -= 1
     End Sub
 End Class

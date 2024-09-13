@@ -3,6 +3,4 @@
     ReadOnly Property Location As ILocation
     ReadOnly Property Messages As ICharacterMessages
     ReadOnly Property Navigation As ICharacterNavigation
-    ReadOnly Property Statistics As ICharacterStatistics
-    ReadOnly Property Status As ICharacterStatus
 End Interface
