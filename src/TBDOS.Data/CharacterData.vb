@@ -4,5 +4,4 @@
     Public Property Direction As String
     Public Property Messages As List(Of String())
     Public Property Statistics As Dictionary(Of String, Integer)
-    Public Property Items As Dictionary(Of String, Integer)
 End Class

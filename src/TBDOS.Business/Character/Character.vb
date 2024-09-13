@@ -31,12 +31,6 @@ Friend Class Character
         End Get
     End Property
 
-    Public ReadOnly Property Inventory As ICharacterInventory Implements ICharacter.Inventory
-        Get
-            Return New CharacterInventory(WorldData, Id)
-        End Get
-    End Property
-
     Public ReadOnly Property Navigation As ICharacterNavigation Implements ICharacter.Navigation
         Get
             Return New CharacterNavigation(WorldData, Id)

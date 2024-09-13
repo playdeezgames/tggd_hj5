@@ -18,23 +18,9 @@ Friend Class Location
         Return New Location(WorldData, LocationData.Neighbors(direction))
     End Function
 
-    Friend Sub AddItem(itemType As String)
-        If LocationData.Items.ContainsKey(itemType) Then
-            LocationData.Items(itemType) += 1
-        Else
-            LocationData.Items(itemType) = 1
-        End If
-    End Sub
-
     Public Sub AddVisit(character As ICharacter) Implements ILocation.AddVisit
         LocationData.VisitedBy.Add(character.Id)
     End Sub
-
-    Public ReadOnly Property Inventory As ILocationInventory Implements ILocation.Inventory
-        Get
-            Return New LocationInventory(WorldData, locationId)
-        End Get
-    End Property
 
     Public ReadOnly Property Routes As ILocationRoutes Implements ILocation.Routes
         Get

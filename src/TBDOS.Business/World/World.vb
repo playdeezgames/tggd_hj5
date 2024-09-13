@@ -26,7 +26,7 @@ Public Class World
         maze.Generate()
         For row = 0 To maze.Rows - 1
             For column = 0 To maze.Columns - 1
-                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of String, Integer), .Items = New Dictionary(Of String, Integer), .VisitedBy = New HashSet(Of Integer)}
+                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of String, Integer), .VisitedBy = New HashSet(Of Integer)}
                 For Each direction In maze.GetCell(column, row).Directions
                     If maze.GetCell(column, row).GetDoor(direction).Open Then
                         Dim nextColumn = CInt(column + table(direction).DeltaX)
@@ -45,23 +45,11 @@ Public Class World
     End Sub
 
     Private Sub PopulateMaze()
-        PopulateItems()
         PopulateCreatures()
     End Sub
 
     Private Sub PopulateCreatures()
         CreatePlayerCharacter()
-    End Sub
-
-    Private Sub PopulateItems()
-        For Each itemType In AllItemTypes
-            Dim spawnCount = ItemTypes.Descriptors(itemType).SpawnCount
-            While spawnCount > 0
-                Dim location = New Location(_worldData, RandomLocationId())
-                location.AddItem(itemType)
-                spawnCount -= 1
-            End While
-        Next
     End Sub
 
     Private Sub CreatePlayerCharacter()
@@ -80,7 +68,6 @@ Public Class World
                                   .LocationId = RandomLocationId(),
                                   .Direction = RandomDirection(),
                                   .Messages = New List(Of String()),
-                                  .Items = New Dictionary(Of String, Integer),
                                   .Statistics = CharacterTypes.Descriptors(characterType).InitialStatistics.ToDictionary(Function(x) x.Key, Function(x) x.Value)})
         Dim character As ICharacter = New Character(_worldData, id)
         character.Location.AddVisit(character)
