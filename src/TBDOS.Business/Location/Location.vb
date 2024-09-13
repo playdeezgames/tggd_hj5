@@ -11,11 +11,8 @@ Friend Class Location
     Sub New(worldData As WorldData, id As Integer)
         MyBase.New(worldData, id)
     End Sub
-    Public Function HasRoute(direction As String) As Boolean Implements ILocation.HasRoute
-        Return LocationData.Neighbors.ContainsKey(direction)
-    End Function
     Public Function Neighbor(direction As String) As ILocation Implements ILocation.Neighbor
-        If Not HasRoute(direction) Then
+        If Not Routes.Has(direction) Then
             Return Nothing
         End If
         Return New Location(WorldData, LocationData.Neighbors(direction))
@@ -33,15 +30,15 @@ Friend Class Location
         LocationData.VisitedBy.Add(character.Id)
     End Sub
 
-    Public ReadOnly Property Routes As IEnumerable(Of IRoute) Implements ILocation.Routes
-        Get
-            Return LocationData.Neighbors.Select(Function(x) New Route(WorldData, Id, x.Key))
-        End Get
-    End Property
-
     Public ReadOnly Property Inventory As ILocationInventory Implements ILocation.Inventory
         Get
             Return New LocationInventory(WorldData, locationId)
+        End Get
+    End Property
+
+    Public ReadOnly Property Routes As ILocationRoutes Implements ILocation.Routes
+        Get
+            Return New LocationRoutes(WorldData, locationId)
         End Get
     End Property
 End Class

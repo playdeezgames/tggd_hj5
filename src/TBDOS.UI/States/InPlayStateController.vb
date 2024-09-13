@@ -51,7 +51,7 @@ Friend Class InPlayStateController
 
     Private Sub ShowExits()
         Dim character = _world.Avatar
-        Dim routes = character.Location.Routes
+        Dim routes = character.Location.Routes.All
         Dim directionNames As New List(Of String)
         If character.Navigation.Move.CanMoveAhead Then
             directionNames.Add("ahead")

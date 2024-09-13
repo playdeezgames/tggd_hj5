@@ -5,28 +5,28 @@
     Public ReadOnly Property CanMoveAhead As Boolean Implements ICharacterNavigationMove.CanMoveAhead
         Get
             Dim character As ICharacter = New Character(WorldData, CharacterId)
-            Return character.Location.Routes.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).AheadDirection)
+            Return character.Location.Routes.All.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).AheadDirection)
         End Get
     End Property
 
     Public ReadOnly Property CanMoveRight As Boolean Implements ICharacterNavigationMove.CanMoveRight
         Get
             Dim character As ICharacter = New Character(WorldData, CharacterId)
-            Return character.Location.Routes.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).RightDirection)
+            Return character.Location.Routes.All.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).RightDirection)
         End Get
     End Property
 
     Public ReadOnly Property CanMoveLeft As Boolean Implements ICharacterNavigationMove.CanMoveLeft
         Get
             Dim character As ICharacter = New Character(WorldData, CharacterId)
-            Return character.Location.Routes.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).LeftDirection)
+            Return character.Location.Routes.All.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).LeftDirection)
         End Get
     End Property
 
     Public ReadOnly Property CanMoveBack As Boolean Implements ICharacterNavigationMove.CanMoveBack
         Get
             Dim character As ICharacter = New Character(WorldData, CharacterId)
-            Return character.Location.Routes.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).OppositeDirection)
+            Return character.Location.Routes.All.Any(Function(x) x.Direction = Directions.Descriptors(CharacterData.Direction).OppositeDirection)
         End Get
     End Property
 
@@ -36,7 +36,7 @@
 
     Private Sub Move(direction As String, text As String)
         Dim character As ICharacter = New Character(WorldData, CharacterId)
-        If Not character.Location.HasRoute(direction) Then
+        If Not character.Location.Routes.Has(direction) Then
             character.Messages.Add("You cannot go that way!")
             Return
         End If
