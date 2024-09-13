@@ -16,6 +16,14 @@ Namespace TBDOS.Business.Tests
             sut.Avatar.ShouldNotBeNull
             sut.IsGameOver.ShouldBeFalse
         End Sub
+        <Fact>
+        Sub abandon_a_game()
+            Dim sut As IWorld = New World
+            sut.Start()
+            sut.Abandon()
+            sut.Avatar.ShouldBeNull
+            sut.IsGameOver.ShouldBeTrue
+        End Sub
     End Class
 End Namespace
 
