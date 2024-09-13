@@ -14,6 +14,5 @@
 
     Public Overrides Sub ApplyEffects(character As ICharacter)
         character.Statistics.Satiety -= 1
-        character.Location.AddVisit(character)
     End Sub
 End Class

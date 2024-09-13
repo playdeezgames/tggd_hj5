@@ -36,12 +36,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property ExplorationPercentage As Double Implements ICharacterStatistics.ExplorationPercentage
-        Get
-            Return 100.0 * WorldData.Locations.Where(Function(x) x.VisitedBy.Contains(CharacterId)).Count / WorldData.Locations.Count
-        End Get
-    End Property
-
     Private Property Wounds As Integer
         Get
             Return GetStatistic(StatisticTypes.Wounds)

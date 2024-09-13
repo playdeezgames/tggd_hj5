@@ -18,10 +18,6 @@ Friend Class Location
         Return New Location(WorldData, LocationData.Neighbors(direction))
     End Function
 
-    Public Sub AddVisit(character As ICharacter) Implements ILocation.AddVisit
-        LocationData.VisitedBy.Add(character.Id)
-    End Sub
-
     Public ReadOnly Property Routes As ILocationRoutes Implements ILocation.Routes
         Get
             Return New LocationRoutes(WorldData, locationId)

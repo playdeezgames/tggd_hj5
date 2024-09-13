@@ -26,7 +26,10 @@ Public Class World
         maze.Generate()
         For row = 0 To maze.Rows - 1
             For column = 0 To maze.Columns - 1
-                Dim locationData As New LocationData With {.Neighbors = New Dictionary(Of String, Integer), .VisitedBy = New HashSet(Of Integer)}
+                Dim locationData As New LocationData With
+                    {
+                        .Neighbors = New Dictionary(Of String, Integer)
+                    }
                 For Each direction In maze.GetCell(column, row).Directions
                     If maze.GetCell(column, row).GetDoor(direction).Open Then
                         Dim nextColumn = CInt(column + table(direction).DeltaX)
@@ -70,7 +73,6 @@ Public Class World
                                   .Messages = New List(Of String()),
                                   .Statistics = CharacterTypes.Descriptors(characterType).InitialStatistics.ToDictionary(Function(x) x.Key, Function(x) x.Value)})
         Dim character As ICharacter = New Character(_worldData, id)
-        character.Location.AddVisit(character)
         Return character
     End Function
 
