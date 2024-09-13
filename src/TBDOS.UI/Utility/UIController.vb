@@ -2,10 +2,10 @@
 Imports TBDOS.Business
 
 Friend Class UIController
-    Private _screenBuffer As New List(Of Byte)
-    Private _screen As CoCoScreen
+    Private ReadOnly _screenBuffer As New List(Of Byte)
+    Private ReadOnly _screen As CoCoScreen
     Private _uiState As UIStates
-    Private _world As IWorld = New World()
+    Private ReadOnly _world As IWorld = New World()
     Private ReadOnly _states As New Dictionary(Of UIStates, IUIStateController)
     Public ReadOnly Property UIState As UIStates
         Get
@@ -28,8 +28,8 @@ Friend Class UIController
         _states.Add(UIStates.ConfirmQuit, New ConfirmQuitStateController(_screen))
         _states.Add(UIStates.ConfirmAbandon, New ConfirmAbandonStateController(_screen, _world))
         _states.Add(UIStates.Options, New OptionsStateController(_screen))
-        _states.Add(UIStates.InPlay, New InPlayStateController(_screen, _world))
         _states.Add(UIStates.ScreenSize, New ScreenSizeStateController(_screen, uiScaler))
+        _states.Add(UIStates.InPlay, New InPlayStateController(_screen, _world))
         _states.Add(UIStates.Turn, New TurnStateController(_screen, _world))
         _states.Add(UIStates.Move, New MoveStateController(_screen, _world))
         _states.Add(UIStates.Status, New StatusStateController(_screen, _world))
