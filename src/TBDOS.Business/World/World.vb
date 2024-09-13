@@ -92,6 +92,9 @@ Public Class World
     End Sub
     ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
+            If _worldData Is Nothing Then
+                Return Nothing
+            End If
             Return New Character(_worldData, _worldData.PlayerCharacterId)
         End Get
     End Property
