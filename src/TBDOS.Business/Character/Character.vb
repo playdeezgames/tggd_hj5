@@ -11,21 +11,9 @@ Friend Class Character
     Sub New(worldData As WorldData, id As Integer)
         MyBase.New(worldData, id)
     End Sub
-
-    ReadOnly Property Location As ILocation Implements ICharacter.Location
-        Get
-            Return New Location(WorldData, CharacterData.LocationId)
-        End Get
-    End Property
     Public ReadOnly Property Messages As ICharacterMessages Implements ICharacter.Messages
         Get
             Return New CharacterMessages(WorldData, Id)
-        End Get
-    End Property
-
-    Public ReadOnly Property Navigation As ICharacterNavigation Implements ICharacter.Navigation
-        Get
-            Return New CharacterNavigation(WorldData, Id)
         End Get
     End Property
 End Class
