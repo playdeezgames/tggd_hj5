@@ -42,7 +42,6 @@
         End If
         character.Messages.Add($"You move {text}.")
         CharacterData.LocationId = character.Location.Neighbor(direction).Id
-        CharacterTypes.Descriptors(CharacterData.CharacterType).ApplyEffects(New Character(WorldData, CharacterId))
     End Sub
 
     Public Sub Left() Implements ICharacterNavigationMove.Left
