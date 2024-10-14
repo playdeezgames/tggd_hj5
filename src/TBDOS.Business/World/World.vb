@@ -15,7 +15,7 @@ Public Class World
         _worldData = New WorldData With
             {
                 .Characters = New List(Of CharacterData),
-                .PlayerCharacterId = 0
+                .PlayerCharacterId = Nothing
             }
     End Sub
     Public Sub Start() Implements IWorld.Start
@@ -40,10 +40,10 @@ Public Class World
     End Sub
     ReadOnly Property Avatar As ICharacter Implements IWorld.Avatar
         Get
-            If _worldData Is Nothing Then
+            If _worldData Is Nothing OrElse Not _worldData.PlayerCharacterId.HasValue Then
                 Return Nothing
             End If
-            Return New Character(_worldData, _worldData.PlayerCharacterId)
+            Return New Character(_worldData, _worldData.PlayerCharacterId.Value)
         End Get
     End Property
 End Class
