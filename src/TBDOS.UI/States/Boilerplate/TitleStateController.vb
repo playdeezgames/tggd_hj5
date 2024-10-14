@@ -7,10 +7,10 @@ Friend Class TitleStateController
         _screen = screen
     End Sub
 
-    Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
+    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
         Return UIStates.MainMenu
     End Function
-    Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
+    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("TBD of SPLORR!!")

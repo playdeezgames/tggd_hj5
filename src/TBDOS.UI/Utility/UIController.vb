@@ -4,10 +4,10 @@ Imports TBDOS.Business
 Friend Class UIController
     Private ReadOnly _screenBuffer As New List(Of Byte)
     Private ReadOnly _screen As CoCoScreen
-    Private _uiState As UIStates
+    Private _uiState As String
     Private ReadOnly _world As IWorld = New World()
-    Private ReadOnly _states As New Dictionary(Of UIStates, IUIStateController)
-    Public ReadOnly Property UIState As UIStates
+    Private ReadOnly _states As New Dictionary(Of String, IUIStateController)
+    Public ReadOnly Property UIState As String
         Get
             Return _uiState
         End Get

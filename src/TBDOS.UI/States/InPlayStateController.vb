@@ -7,7 +7,7 @@ Friend Class InPlayStateController
         MyBase.New(screen, world, UIStates.InPlay)
     End Sub
 
-    Protected Overrides Function OnHandleKeyDown(key As Keys) As UIStates
+    Protected Overrides Function OnHandleKeyDown(key As Keys) As String
         Select Case key
             Case Keys.Escape
                 Return UIStates.MainMenu
@@ -15,7 +15,7 @@ Friend Class InPlayStateController
         Return UIStates.InPlay
     End Function
 
-    Protected Overrides Function OnUpdate(ticks As Long) As UIStates
+    Protected Overrides Function OnUpdate(ticks As Long) As String
         _screen.WriteLine("Yer Alive!")
         _screen.WriteLine("[esc] Main Menu")
         Return _state

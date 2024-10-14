@@ -12,7 +12,7 @@ Friend Class ConfirmAbandonStateController
         _world = world
     End Sub
 
-    Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
+    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
         Select Case key
             Case Keys.Y
                 _world.Abandon()
@@ -24,7 +24,7 @@ Friend Class ConfirmAbandonStateController
         End Select
     End Function
 
-    Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
+    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Are you sure you want to abandonthe game?")

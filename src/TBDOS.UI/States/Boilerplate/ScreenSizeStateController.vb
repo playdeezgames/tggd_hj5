@@ -9,7 +9,7 @@ Friend Class ScreenSizeStateController
         _screenSizer = screenSizer
     End Sub
 
-    Public Function HandleKeyDown(key As Keys) As UIStates Implements IUIStateController.HandleKeyDown
+    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
         Select Case key
             Case Keys.D1 To Keys.D9
                 _screenSizer(CInt(key - Keys.D0))
@@ -20,7 +20,7 @@ Friend Class ScreenSizeStateController
                 Return UIStates.ScreenSize
         End Select
     End Function
-    Public Function Update(ticks As Long) As UIStates Implements IUIStateController.Update
+    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Screen Size:")
