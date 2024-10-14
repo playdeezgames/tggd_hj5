@@ -1,15 +1,14 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 
 Friend Class ScreenSizeStateController
-    Implements IUIStateController
-    Private ReadOnly _screen As CoCoScreen
+    Inherits BaseStateController
     Private ReadOnly _screenSizer As Action(Of Integer)
     Public Sub New(screen As CoCoScreen, screenSizer As Action(Of Integer))
-        _screen = screen
+        MyBase.New(screen)
         _screenSizer = screenSizer
     End Sub
 
-    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
+    Public Overrides Function HandleKeyDown(key As Keys) As String
         Select Case key
             Case Keys.D1 To Keys.D9
                 _screenSizer(CInt(key - Keys.D0))
@@ -20,7 +19,7 @@ Friend Class ScreenSizeStateController
                 Return UIStates.ScreenSize
         End Select
     End Function
-    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
+    Public Overrides Function Update(ticks As Long) As String
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Screen Size:")

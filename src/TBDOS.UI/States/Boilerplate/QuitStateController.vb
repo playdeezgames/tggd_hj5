@@ -2,7 +2,6 @@
 
 Friend Class QuitStateController
     Implements IUIStateController
-
     Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
         Return UIStates.Quit
     End Function

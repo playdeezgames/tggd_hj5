@@ -1,13 +1,11 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 
 Friend Class ConfirmQuitStateController
-    Implements IUIStateController
-    Private ReadOnly _screen As CoCoScreen
+    Inherits BaseStateController
     Sub New(screen As CoCoScreen)
-        _screen = screen
+        MyBase.New(screen)
     End Sub
-
-    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
+    Public Overrides Function HandleKeyDown(key As Keys) As String
         Select Case key
             Case Keys.Y
                 Return UIStates.Quit
@@ -17,7 +15,7 @@ Friend Class ConfirmQuitStateController
                 Return UIStates.ConfirmQuit
         End Select
     End Function
-    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
+    Public Overrides Function Update(ticks As Long) As String
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Are you sure you want to quit?")

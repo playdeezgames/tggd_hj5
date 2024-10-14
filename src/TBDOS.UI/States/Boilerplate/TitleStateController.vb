@@ -1,16 +1,15 @@
 ﻿Imports Microsoft.Xna.Framework.Input
 
 Friend Class TitleStateController
-    Implements IUIStateController
-    Private ReadOnly _screen As CoCoScreen
+    Inherits BaseStateController
     Sub New(screen As CoCoScreen)
-        _screen = screen
+        MyBase.New(screen)
     End Sub
 
-    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
+    Public Overrides Function HandleKeyDown(key As Keys) As String
         Return UIStates.MainMenu
     End Function
-    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
+    Public Overrides Function Update(ticks As Long) As String
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("TBD of SPLORR!!")

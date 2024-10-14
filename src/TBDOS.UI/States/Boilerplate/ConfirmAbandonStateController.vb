@@ -2,17 +2,13 @@
 Imports TBDOS.Business
 
 Friend Class ConfirmAbandonStateController
-    Implements IUIStateController
-
-    Private ReadOnly _screen As CoCoScreen
-    Private ReadOnly _world As IWorld
+    Inherits WorldStateController
 
     Public Sub New(screen As CoCoScreen, world As IWorld)
-        _screen = screen
-        _world = world
+        MyBase.New(screen, world)
     End Sub
 
-    Public Function HandleKeyDown(key As Keys) As String Implements IUIStateController.HandleKeyDown
+    Public Overrides Function HandleKeyDown(key As Keys) As String
         Select Case key
             Case Keys.Y
                 _world.Abandon()
@@ -24,7 +20,7 @@ Friend Class ConfirmAbandonStateController
         End Select
     End Function
 
-    Public Function Update(ticks As Long) As String Implements IUIStateController.Update
+    Public Overrides Function Update(ticks As Long) As String
         _screen.Clear(96)
         _screen.GoToXY(0, 0)
         _screen.WriteLine("Are you sure you want to abandonthe game?")
