@@ -16,11 +16,11 @@ Friend MustInherit Class MessageStateController
         If _world.Avatar.Messages.HasAny Then
             Return HandleKeyDownMessage(key)
         Else
-            Return HandleKeyDownNonMessage(key)
+            Return OnHandleKeyDown(key)
         End If
     End Function
 
-    Protected MustOverride Function HandleKeyDownNonMessage(key As Keys) As UIStates
+    Protected MustOverride Function OnHandleKeyDown(key As Keys) As UIStates
 
     Private Function HandleKeyDownMessage(key As Keys) As UIStates
         _world.Avatar.Messages.Dismiss()
@@ -33,10 +33,10 @@ Friend MustInherit Class MessageStateController
         If _world.Avatar.Messages.HasAny Then
             Return UpdateMessage()
         Else
-            Return UpdateNonMessage(ticks)
+            Return OnUpdate(ticks)
         End If
     End Function
-    Protected MustOverride Function UpdateNonMessage(ticks As Long) As UIStates
+    Protected MustOverride Function OnUpdate(ticks As Long) As UIStates
     Private Function UpdateMessage() As UIStates
         Dim message = _world.Avatar.Messages.Current
         For Each line In message
