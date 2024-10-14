@@ -4,8 +4,8 @@ Imports TBDOS.Business
 Friend Class ConfirmAbandonStateController
     Implements IUIStateController
 
-    Private _screen As CoCoScreen
-    Private _world As IWorld
+    Private ReadOnly _screen As CoCoScreen
+    Private ReadOnly _world As IWorld
 
     Public Sub New(screen As CoCoScreen, world As IWorld)
         _screen = screen

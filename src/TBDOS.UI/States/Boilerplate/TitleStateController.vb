@@ -2,7 +2,7 @@
 
 Friend Class TitleStateController
     Implements IUIStateController
-    Private _screen As CoCoScreen
+    Private ReadOnly _screen As CoCoScreen
     Sub New(screen As CoCoScreen)
         _screen = screen
     End Sub
